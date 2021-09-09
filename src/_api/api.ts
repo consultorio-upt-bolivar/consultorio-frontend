@@ -197,12 +197,6 @@ export interface CreateSpecialityDTO {
 export interface CreateUserDTO {
     /**
      * 
-     * @type {number}
-     * @memberof CreateUserDTO
-     */
-    userId: number;
-    /**
-     * 
      * @type {string}
      * @memberof CreateUserDTO
      */
@@ -296,6 +290,25 @@ export interface CreateUserResponse {
 /**
  * 
  * @export
+ * @interface LoginDTO
+ */
+export interface LoginDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginDTO
+     */
+    email: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginDTO
+     */
+    password: string;
+}
+/**
+ * 
+ * @export
  * @interface LoginUserReponseDTO
  */
 export interface LoginUserReponseDTO {
@@ -311,6 +324,37 @@ export interface LoginUserReponseDTO {
      * @memberof LoginUserReponseDTO
      */
     access_token: string;
+}
+/**
+ * 
+ * @export
+ * @interface PaginatedResponse
+ */
+export interface PaginatedResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof PaginatedResponse
+     */
+    total: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PaginatedResponse
+     */
+    limit: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PaginatedResponse
+     */
+    offset: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof PaginatedResponse
+     */
+    response: Array<string>;
 }
 /**
  * 
@@ -384,12 +428,6 @@ export enum Roles {
  * @interface SigninDTO
  */
 export interface SigninDTO {
-    /**
-     * 
-     * @type {number}
-     * @memberof SigninDTO
-     */
-    userId: number;
     /**
      * 
      * @type {string}
@@ -494,10 +532,13 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
+         * @param {LoginDTO} loginDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginAuth: async (options: any = {}): Promise<RequestArgs> => {
+        loginAuth: async (loginDTO: LoginDTO, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'loginDTO' is not null or undefined
+            assertParamExists('loginAuth', 'loginDTO', loginDTO)
             const localVarPath = `/auth/login`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -512,9 +553,12 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(loginDTO, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -577,11 +621,12 @@ export const AuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {LoginDTO} loginDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async loginAuth(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginUserReponseDTO>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.loginAuth(options);
+        async loginAuth(loginDTO: LoginDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginUserReponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.loginAuth(loginDTO, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -614,11 +659,12 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
+         * @param {LoginDTO} loginDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginAuth(options?: any): AxiosPromise<LoginUserReponseDTO> {
-            return localVarFp.loginAuth(options).then((request) => request(axios, basePath));
+        loginAuth(loginDTO: LoginDTO, options?: any): AxiosPromise<LoginUserReponseDTO> {
+            return localVarFp.loginAuth(loginDTO, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -651,12 +697,13 @@ export class AuthApi extends BaseAPI {
 
     /**
      * 
+     * @param {LoginDTO} loginDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public loginAuth(options?: any) {
-        return AuthApiFp(this.configuration).loginAuth(options).then((request) => request(this.axios, this.basePath));
+    public loginAuth(loginDTO: LoginDTO, options?: any) {
+        return AuthApiFp(this.configuration).loginAuth(loginDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1021,7 +1068,7 @@ export const MedicalAppointmentsApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllMedicalAppointments(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateMedicalAppointmentDTO>>> {
+        async getAllMedicalAppointments(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllMedicalAppointments(limit, offset, where, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1031,7 +1078,7 @@ export const MedicalAppointmentsApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOneMedicalAppointments(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateMedicalAppointmentDTO>>> {
+        async getOneMedicalAppointments(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateMedicalAppointmentDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOneMedicalAppointments(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1083,7 +1130,7 @@ export const MedicalAppointmentsApiFactory = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllMedicalAppointments(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<Array<CreateMedicalAppointmentDTO>> {
+        getAllMedicalAppointments(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<PaginatedResponse> {
             return localVarFp.getAllMedicalAppointments(limit, offset, where, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1092,7 +1139,7 @@ export const MedicalAppointmentsApiFactory = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOneMedicalAppointments(id: number, options?: any): AxiosPromise<Array<CreateMedicalAppointmentDTO>> {
+        getOneMedicalAppointments(id: number, options?: any): AxiosPromise<CreateMedicalAppointmentDTO> {
             return localVarFp.getOneMedicalAppointments(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1420,7 +1467,7 @@ export const ModalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllModals(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateModalDTO>>> {
+        async getAllModals(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllModals(limit, offset, where, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1430,7 +1477,7 @@ export const ModalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOneModals(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateModalDTO>>> {
+        async getOneModals(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateModalDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOneModals(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1481,7 +1528,7 @@ export const ModalsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllModals(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<Array<CreateModalDTO>> {
+        getAllModals(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<PaginatedResponse> {
             return localVarFp.getAllModals(limit, offset, where, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1490,7 +1537,7 @@ export const ModalsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOneModals(id: number, options?: any): AxiosPromise<Array<CreateModalDTO>> {
+        getOneModals(id: number, options?: any): AxiosPromise<CreateModalDTO> {
             return localVarFp.getOneModals(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1807,7 +1854,7 @@ export const OfficesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllOffices(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateOfficeDTO>>> {
+        async getAllOffices(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllOffices(limit, offset, where, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1817,7 +1864,7 @@ export const OfficesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOneOffices(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateOfficeDTO>>> {
+        async getOneOffices(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateOfficeDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOneOffices(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1869,7 +1916,7 @@ export const OfficesApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllOffices(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<Array<CreateOfficeDTO>> {
+        getAllOffices(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<PaginatedResponse> {
             return localVarFp.getAllOffices(limit, offset, where, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1878,7 +1925,7 @@ export const OfficesApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOneOffices(id: number, options?: any): AxiosPromise<Array<CreateOfficeDTO>> {
+        getOneOffices(id: number, options?: any): AxiosPromise<CreateOfficeDTO> {
             return localVarFp.getOneOffices(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2254,7 +2301,7 @@ export const SchedulesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllSchedules(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateScheduleDTO>>> {
+        async getAllSchedules(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllSchedules(limit, offset, where, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2276,7 +2323,7 @@ export const SchedulesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOneSchedules(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateScheduleDTO>>> {
+        async getOneSchedules(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateScheduleDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOneSchedules(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2328,7 +2375,7 @@ export const SchedulesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllSchedules(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<Array<CreateScheduleDTO>> {
+        getAllSchedules(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<PaginatedResponse> {
             return localVarFp.getAllSchedules(limit, offset, where, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2348,7 +2395,7 @@ export const SchedulesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOneSchedules(id: number, options?: any): AxiosPromise<Array<CreateScheduleDTO>> {
+        getOneSchedules(id: number, options?: any): AxiosPromise<CreateScheduleDTO> {
             return localVarFp.getOneSchedules(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2683,7 +2730,7 @@ export const SpecialitiesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllSpecialities(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateSpecialityDTO>>> {
+        async getAllSpecialities(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllSpecialities(limit, offset, where, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2693,7 +2740,7 @@ export const SpecialitiesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOneSpecialities(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateSpecialityDTO>>> {
+        async getOneSpecialities(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateSpecialityDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOneSpecialities(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2745,7 +2792,7 @@ export const SpecialitiesApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllSpecialities(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<Array<CreateSpecialityDTO>> {
+        getAllSpecialities(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<PaginatedResponse> {
             return localVarFp.getAllSpecialities(limit, offset, where, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2754,7 +2801,7 @@ export const SpecialitiesApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOneSpecialities(id: number, options?: any): AxiosPromise<Array<CreateSpecialityDTO>> {
+        getOneSpecialities(id: number, options?: any): AxiosPromise<CreateSpecialityDTO> {
             return localVarFp.getOneSpecialities(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3211,7 +3258,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllUsers(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CreateUserDTO>>> {
+        async getAllUsers(limit?: number, offset?: number, where?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUsers(limit, offset, where, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3303,7 +3350,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllUsers(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<Array<CreateUserDTO>> {
+        getAllUsers(limit?: number, offset?: number, where?: string, options?: any): AxiosPromise<PaginatedResponse> {
             return localVarFp.getAllUsers(limit, offset, where, options).then((request) => request(axios, basePath));
         },
         /**

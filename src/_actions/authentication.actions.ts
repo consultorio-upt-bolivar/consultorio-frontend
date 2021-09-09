@@ -1,13 +1,18 @@
-import { authConstants, axiosConstants } from '../_constants'
-import { alertActions } from '.'
+import { authConstants } from '../_constants'
+import { alertActions, toastActions } from '.'
 
-import { history } from '../helpers'
+import { AppHistory } from '../helpers'
 
 import { Dispatch } from 'redux'
 
-import { AuthApi, PayloadDto, SigninDTO } from '../_services/api'
+import { AuthApi, PayloadDto, Roles, SigninDTO } from '../_api'
 import { handleError } from '../common/utils/handleApiError'
 import { getConfiguration } from '../config/api.config'
+import {
+  getUserData,
+  setAuthToken,
+  setUserDataToken,
+} from '../common/utils/userStorage'
 
 export const authActions = {
   login,
@@ -16,30 +21,42 @@ export const authActions = {
   logout,
 }
 
-const auth = new AuthApi(getConfiguration())
+function login(email: string, password: string): unknown {
+  const auth = new AuthApi(getConfiguration())
 
-function login(user: string, password: string): unknown {
   return (dispatch: Dispatch) => {
-    dispatch(request(user))
+    dispatch(request(email))
 
     auth
       .loginAuth({
-        email: user,
+        email,
         password,
       })
       .then((res) => {
-        localStorage.setItem(axiosConstants.AUTH_KEY, JSON.stringify(res.data))
+        setAuthToken(res.data)
 
-        setAuthData().then((res) => {
-          history.push('/')
-          success(res)
+        return setAuthData().then(() => {
+          const data = getUserData()
+
+          dispatch(success(data))
+
+          if (
+            data.profile.profileId == Roles.Admin ||
+            data.profile.profileId == Roles.Admin2
+          ) {
+            AppHistory.push('/admin', {
+              activeMenu: 'Dashboard',
+            })
+          } else {
+            AppHistory.push('/')
+          }
         })
       })
       .catch((error) => {
         const errMessage = handleError(error)
 
         dispatch(failure(errMessage))
-        dispatch(alertActions.error(errMessage))
+        dispatch(toastActions.error(errMessage))
       })
   }
 
@@ -55,23 +72,37 @@ function login(user: string, password: string): unknown {
 }
 
 function signin(options: SigninDTO): unknown {
+  const auth = new AuthApi(getConfiguration())
+
   return (dispatch: Dispatch) => {
     dispatch(request(options))
 
     auth
       .signinAuth(options)
       .then((res) => {
-        localStorage.setItem(axiosConstants.AUTH_KEY, JSON.stringify(res.data))
+        setAuthToken(res.data)
 
-        setAuthData().then((res) => {
-          history.push('/')
-          success(res)
+        return setAuthData().then(() => {
+          const data = getUserData()
+
+          dispatch(success(data))
+
+          if (
+            data.profile.profileId == Roles.Admin ||
+            data.profile.profileId == Roles.Admin2
+          ) {
+            AppHistory.push('/admin', {
+              activeMenu: 'Dashboard',
+            })
+          } else {
+            AppHistory.push('/')
+          }
         })
       })
       .catch((error) => {
         const errMessage = handleError(error)
         dispatch(failure(errMessage))
-        dispatch(alertActions.error(errMessage))
+        dispatch(toastActions.error(errMessage))
       })
   }
 
@@ -87,28 +118,31 @@ function signin(options: SigninDTO): unknown {
 }
 
 async function setAuthData() {
+  const auth = new AuthApi(getConfiguration())
+
   const res = await auth.getProfileAuth()
-  localStorage.setItem(axiosConstants.USER_DATA_KEY, JSON.stringify(res.data))
+
+  setUserDataToken(res.data)
+
   return res.data
 }
 
 function getAuthData(): unknown {
+  const auth = new AuthApi(getConfiguration())
+
   return (dispatch: Dispatch) => {
     dispatch(request())
 
     auth
       .getProfileAuth()
       .then((res) => {
-        localStorage.setItem(
-          axiosConstants.USER_DATA_KEY,
-          JSON.stringify(res.data)
-        )
+        setUserDataToken(res.data)
         dispatch(success(res.data))
       })
       .catch((error) => {
         const errMessage = handleError(error)
         dispatch(failure(errMessage))
-        dispatch(alertActions.error(errMessage))
+        dispatch(toastActions.error(errMessage))
       })
   }
 

@@ -1,5 +1,6 @@
 export interface GetALL {
-    limit: number
-    offset: number 
-    where: string
+  total?: number
+  limit: number
+  offset: number
+  where: string
 }

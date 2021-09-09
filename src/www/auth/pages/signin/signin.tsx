@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 
 // Logic
-import { AppHistory } from '../../../../helpers'
 import { authActions } from '../../../../_actions'
 
 // Material
@@ -16,7 +15,8 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
-import { initialValues, validationSchema } from './loginForm'
+import { PublicRoles, PublicRolesApi } from '../../../../common/constants/roles'
+import { initialValues, validationSchema } from './signinForm'
 
 import {
   formStyles,
@@ -24,26 +24,33 @@ import {
 } from '../../../../common/components/formik'
 import { Link } from 'react-router-dom'
 
-export function LoginPage(): React.ReactElement {
+export function SigninPage(): React.ReactElement {
   const formOptions = {
-    title: 'Iniciar sesion',
-    loadingText: 'Iniciando sesion',
+    title: 'Registro',
+    loadingText: 'Registrando',
   }
   const dispatch = useDispatch()
   const classes = formStyles()
-
   const { loading } = useSelector((store: any) => store.authentication)
 
   // Logout user
   useEffect(() => {
-    dispatch(authActions.logout())
+    //dispatch(authActions.logout())
   }, [])
 
+  // Form
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      dispatch(authActions.login(values.email, values.password))
+    onSubmit: ({ profile, ...rest }) => {
+      // TODO: GET familyUserId
+
+      const options: any = {
+        profile: PublicRolesApi[profile.toLowerCase()],
+        ...rest,
+      }
+
+      dispatch(authActions.signin(options))
     },
   })
 
@@ -54,7 +61,18 @@ export function LoginPage(): React.ReactElement {
       formik.submitForm()
     }
   }
+
   const formFields = {
+    name: 'Nombre',
+    phone: 'Telefono',
+    legalId: 'Identificación',
+    profile: {
+      label: 'Tipo de usuario',
+      id: 'name',
+      values: PublicRoles,
+      default: 'Estudiante',
+      type: 'select',
+    },
     email: 'Correo',
     password: 'Contrasena',
   }
@@ -70,6 +88,7 @@ export function LoginPage(): React.ReactElement {
         <Typography component="h1" variant="h5">
           {loading ? formOptions.loadingText : formOptions.title}
         </Typography>
+
         <form className={classes.form} noValidate>
           {formikFields}
 
@@ -79,7 +98,7 @@ export function LoginPage(): React.ReactElement {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={loading}
+            //disabled={loading}
             onClick={(e) => handleSubmit(e)}
           >
             Ingresar
@@ -89,7 +108,7 @@ export function LoginPage(): React.ReactElement {
               <Link to="/forgot-password">Olvidaste tu contraseña?</Link>
             </Grid>
             <Grid item>
-              <Link to="/signin">No tienes cuenta? Crear una</Link>
+              <Link to="/login">tienes cuenta? Ingresa</Link>
             </Grid>
           </Grid>
         </form>

@@ -1,14 +1,17 @@
+import { combineReducers } from 'redux'
 
-import { combineReducers } from 'redux';
-
-import { authentication } from './authentication.reducer';
-import { users } from './users.reducer';
-import { alert } from './alert.reducer';
+import { authentication } from './authentication.reducer'
+import { users } from './users.reducer'
+import { alert } from './alert.reducer'
+import { toast } from './toast.reducer'
+import { modals } from './modals.reducer'
 
 const rootReducer = combineReducers({
   authentication,
   users,
-  alert
-});
+  alert,
+  toast,
+  modals,
+})
 
-export default rootReducer;
+export default rootReducer

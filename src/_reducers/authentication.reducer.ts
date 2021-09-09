@@ -1,20 +1,23 @@
-import { authConstants, axiosConstants } from '../_constants'
-
-const getUserData = (): string | boolean => {
-  const s = localStorage.getItem(axiosConstants.USER_DATA_KEY)
-  if (!s) return false
-
-  return JSON.parse(s)
-}
+import { clearUserStorage, getUserData } from '../common/utils/userStorage'
+import { authConstants } from '../_constants'
 
 const user = getUserData()
 
 const initialState = user ? { loggedIn: true, user } : {}
 
+interface AuthAction {
+  loading?: boolean
+  loggedIn?: boolean
+  user?: unknown
+}
+
 export function authentication(
   state = initialState,
-  action: any
-): any {
+  action: {
+    type: string
+    user: unknown
+  }
+): AuthAction {
   switch (action.type) {
     case authConstants.LOGIN_REQUEST:
       return {
@@ -29,8 +32,6 @@ export function authentication(
       return {}
 
     case authConstants.SIGNIN_REQUEST:
-      console.log(user)
-
       return {
         loading: true,
       }
@@ -42,9 +43,7 @@ export function authentication(
     case authConstants.SIGNIN_FAILURE:
       return {}
     case authConstants.LOGOUT:
-      localStorage.removeItem(axiosConstants.AUTH_KEY)
-      localStorage.removeItem(axiosConstants.USER_DATA_KEY)
-
+      clearUserStorage()
       return {}
     default:
       return state

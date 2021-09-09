@@ -1,11 +1,37 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { axiosConstants } from '../../_constants';
+import React from 'react'
+import { Route, Redirect } from 'react-router-dom'
+import { Roles } from '../../_api'
+import { getToken, getUserData } from '../utils/userStorage'
 
-export const PrivateRoute = ({ component: Component, ...rest } : any) : React.ReactElement => (
-    <Route {...rest} render={props => (
-        localStorage.getItem(axiosConstants.USER_DATA_KEY)
-            ? <Component {...props} />
-            : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-    )} />
-)
+export const PrivateRoute = ({
+  path,
+  exact,
+  roles,
+  component: Component,
+  routes = [],
+}: any) => {
+  console.log({
+    path,
+    exact,
+    routes,
+  })
+
+  const auth = getToken()
+  const userData = getUserData()
+  const isOkStorage = auth && userData
+  const hasPremissions = roles.find(
+    (el: Roles) => el == userData.profile.profileId
+  )
+
+  const redirect = !(isOkStorage && hasPremissions)
+
+  return redirect ? (
+    <Redirect to={{ pathname: '/login' }} />
+  ) : (
+    <Route
+      path={path}
+      exact={exact}
+      render={(props) => <Component {...props} routes={routes} />}
+    />
+  )
+}
