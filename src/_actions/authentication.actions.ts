@@ -41,8 +41,8 @@ function login(email: string, password: string): unknown {
           dispatch(success(data))
 
           if (
-            data.profile.profileId == Roles.Admin ||
-            data.profile.profileId == Roles.Admin2
+            data.profile.id == Roles.Admin ||
+            data.profile.id == Roles.Admin2
           ) {
             AppHistory.push('/admin', {
               activeMenu: 'Dashboard',
@@ -88,8 +88,8 @@ function signin(options: SigninDTO): unknown {
           dispatch(success(data))
 
           if (
-            data.profile.profileId == Roles.Admin ||
-            data.profile.profileId == Roles.Admin2
+            data.profile.id == Roles.Admin ||
+            data.profile.id == Roles.Admin2
           ) {
             AppHistory.push('/admin', {
               activeMenu: 'Dashboard',

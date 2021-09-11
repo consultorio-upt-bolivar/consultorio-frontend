@@ -25,7 +25,11 @@ export const initialValues = {
 export const formFields = {
   name: 'Nombre',
   title: 'Titulo',
-  description: 'Descripcion',
+  description: {
+    label: 'Descripcion',
+    type: 'multiline',
+    maxRows: 4,
+  },
   isMain: {
     type: 'checkbox',
     label: 'Es un modal principal?',

@@ -1,6 +1,6 @@
 // React
 import { useFormik } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AdminLayout } from '../../components/adminLayout'
 import { formFields, initialValues, validationSchema } from './modalForm'
@@ -12,22 +12,38 @@ import {
 
 import { Button, Container, Typography } from '@material-ui/core'
 import { modalsActions } from '../../../../_actions'
+import { useParams } from 'react-router'
 
 export function CreateModalPage(): React.ReactElement {
-  const formOptions = {
-    title: 'Crear modal',
-  }
-
   const classes = formStyles()
-
-  const { loading } = useSelector((store: any) => store.modals)
+  const { loading, data } = useSelector((store: any) => store.modals)
   const dispatch = useDispatch()
+
+  const params = useParams<{ id?: string | undefined }>()
+
+  // Edit listener
+  useEffect(() => {
+    if (params.id) {
+      dispatch(modalsActions.getOne(+params.id))
+    }
+  }, [params.id])
+
+  // Edit form listener
+  useEffect(() => {
+    if (data) {
+      formik.setValues(data)
+    }
+  }, [data])
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      dispatch(modalsActions.createOne(values))
+      if (params.id) {
+        dispatch(modalsActions.updateOne(+params.id, values))
+      } else {
+        dispatch(modalsActions.createOne(values))
+      }
     },
   })
 
@@ -51,7 +67,7 @@ export function CreateModalPage(): React.ReactElement {
             textAlign: 'center',
           }}
         >
-          {formOptions.title}
+          {data ? 'Actualizar modal' : 'Crear modal'}
         </Typography>
         <form className={classes.form} noValidate>
           {formikFields}
@@ -65,7 +81,7 @@ export function CreateModalPage(): React.ReactElement {
             disabled={loading}
             onClick={(e) => handleSubmit(e)}
           >
-            Crear
+            {data ? 'Actualizar' : 'Crear'}
           </Button>
         </form>
       </Container>

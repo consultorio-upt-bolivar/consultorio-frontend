@@ -56,7 +56,10 @@ export function LoginPage(): React.ReactElement {
   }
   const formFields = {
     email: 'Correo',
-    password: 'Contrasena',
+    password: {
+      type: 'password',
+      label: 'Contrasena',
+    },
   }
 
   const formikFields = GetFormikFields(formik, formFields)

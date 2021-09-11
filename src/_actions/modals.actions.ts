@@ -157,12 +157,12 @@ function deleteOne(id: number): ActionFn {
   }
 
   function request(id: number) {
-    return { type: constants.UPDATE_REQUEST, id }
+    return { type: constants.DELETE_ONE_REQUEST, id }
   }
   function success(id: number) {
-    return { type: constants.UPDATE_SUCCESS, id }
+    return { type: constants.DELETE_ONE_SUCCESS, id }
   }
   function failure(error: string) {
-    return { type: constants.UPDATE_FAILURE, error }
+    return { type: constants.DELETE_ONE_FAILURE, error }
   }
 }

@@ -102,6 +102,51 @@ export const GetFormikFields = (formik: any, fields: any) => {
           </FormControl>
         )
         break
+      case 'multiline':
+        input = (
+          <span key={name}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              multiline
+              id={name}
+              label={options.label}
+              rows={options.maxRows}
+              autoComplete={name}
+              {...formik.getFieldProps(name)}
+            />
+            <FormHelperText error id="my-helper-text">
+              {formik.touched[name] && formik.errors[name]
+                ? formik.errors[name]
+                : null}
+            </FormHelperText>
+          </span>
+        )
+        break
+      case 'password':
+        input = (
+          <span key={name}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id={name}
+              label={options.label}
+              autoComplete={name}
+              type="password"
+              {...formik.getFieldProps(name)}
+            />
+            <FormHelperText error id="my-helper-text">
+              {formik.touched[name] && formik.errors[name]
+                ? formik.errors[name]
+                : null}
+            </FormHelperText>
+          </span>
+        )
+        break
       case 'checkbox':
         input = (
           <span key={name}>
@@ -111,9 +156,8 @@ export const GetFormikFields = (formik: any, fields: any) => {
                 <Checkbox
                   color="primary"
                   aria-describedby="checkbox-error-text"
-                  name={name}
+                  checked={formik.values[name]}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    console.log(event.target.checked ? 1 : 0)
                     formik.setFieldValue(name, event.target.checked ? 1 : 0)
                   }}
                 />

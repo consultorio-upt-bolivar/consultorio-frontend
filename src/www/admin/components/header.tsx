@@ -21,19 +21,21 @@ import { useSelector } from 'react-redux'
 import { deepPurple } from '@material-ui/core/colors'
 import UserAvatarMenu from './userAvatarMenu'
 
-export default function AdminHeader({ children }: any): React.ReactElement {
+export default function AdminHeader({
+  children,
+  open,
+  setOpen,
+}: any): React.ReactElement {
   const { state } = useLocation<any>()
 
   const userData = useSelector((state: any) => state.authentication.user)
 
   const classes = useStyles()
   const theme = useTheme()
-  const [open, setOpen] = useState(true)
 
   return (
     <>
       <AppBar
-        position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -86,7 +88,7 @@ export default function AdminHeader({ children }: any): React.ReactElement {
   )
 }
 
-const drawerWidth = 240
+export const drawerWidth = 240
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

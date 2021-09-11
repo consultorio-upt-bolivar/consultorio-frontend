@@ -1,47 +1,79 @@
-import React from 'react'
-import { Button, Container, Link } from '@material-ui/core'
+import React, { useState } from 'react'
+import clsx from 'clsx'
+import {
+  Box,
+  Button,
+  Container,
+  createStyles,
+  makeStyles,
+  Theme,
+} from '@material-ui/core'
 
-import Sidemenu from './sidemenu'
 import { AppHistory } from '../../../helpers'
-import { formStyles } from '../../../common/components/formik'
+import AdminHeader, { drawerWidth } from './header'
+import SidemenuList from './sidemenu'
 
 export const AdminLayout = ({
   children,
 }: {
   children: React.ReactElement
 }): React.ReactElement => {
-  const classes = formStyles()
+  const [openSidebar, setOpenSidebar] = useState(true)
+  const classes = useLayoutStyles()
 
   return (
-    <Container
-      style={{
-        display: 'flex',
-      }}
-    >
-      <Sidemenu />
+    <Container className={classes.rootLayout}>
+      <AdminHeader open={openSidebar} setOpen={setOpenSidebar}>
+        <SidemenuList />
+      </AdminHeader>
       <Container
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          marginTop: '80px',
-        }}
+        className={clsx(classes.container, {
+          [classes.containerOpen]: openSidebar,
+          [classes.containerClosed]: !openSidebar,
+        })}
       >
-        <div
-          style={{
-            flex: '1',
-          }}
-        >
+        <Box width="100%" display="flex" alignItems="flex-start">
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             onClick={() => AppHistory.goBack()}
           >
             Volver
           </Button>
-        </div>
+        </Box>
         {children}
       </Container>
     </Container>
   )
 }
+
+const useLayoutStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    rootLayout: {
+      padding: '0px',
+      height: `calc(100vh - 100px)`,
+      maxWidth: '100vw !important',
+    },
+    container: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      maxWidth: '100vw !important',
+      marginLeft: `${drawerWidth}px`,
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+      marginTop: '80px',
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    containerOpen: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: `${drawerWidth}px`,
+    },
+    containerClosed: {
+      width: `calc(100% - ${theme.spacing(7) + 1})`,
+      marginLeft: ` ${theme.spacing(7) + 1}px`,
+    },
+  })
+)

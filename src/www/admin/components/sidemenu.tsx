@@ -9,9 +9,8 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { AdminSidebar, SidebarConfig } from '../routes'
 import { AppHistory } from '../../../helpers'
 import { useLocation } from 'react-router-dom'
-import AdminHeader from './header'
 
-export default function Sidemenu(): React.ReactElement {
+export default function SidemenuList(): React.ReactElement {
   const location = useLocation<any>()
 
   const [openMenu, setOpenMenu] = useState(location?.state?.activeMenu ?? '')
@@ -77,5 +76,5 @@ export default function Sidemenu(): React.ReactElement {
     }
   )
 
-  return <AdminHeader>{SidebarMenuList}</AdminHeader>
+  return <>{SidebarMenuList}</>
 }

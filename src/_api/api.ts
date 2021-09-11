@@ -255,7 +255,7 @@ export interface CreateUserResponse {
      * @type {number}
      * @memberof CreateUserResponse
      */
-    userId: number;
+    id: number;
     /**
      * 
      * @type {string}
@@ -367,7 +367,7 @@ export interface PayloadDto {
      * @type {number}
      * @memberof PayloadDto
      */
-    userId: number;
+    id: number;
     /**
      * 
      * @type {string}
@@ -379,7 +379,7 @@ export interface PayloadDto {
      * @type {string}
      * @memberof PayloadDto
      */
-    role: string;
+    profile: string;
     /**
      * 
      * @type {number}

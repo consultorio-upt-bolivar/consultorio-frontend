@@ -19,9 +19,7 @@ export const PrivateRoute = ({
   const auth = getToken()
   const userData = getUserData()
   const isOkStorage = auth && userData
-  const hasPremissions = roles.find(
-    (el: Roles) => el == userData.profile.profileId
-  )
+  const hasPremissions = roles.find((el: Roles) => el == userData.profile.id)
 
   const redirect = !(isOkStorage && hasPremissions)
 

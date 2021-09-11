@@ -24,7 +24,8 @@ export function modals(
         params: action.params,
       }
     case constants.GET_ALL_SUCCESS: {
-      const { response: items, ...params } = action.data
+      const { results: items, ...params } = action.data
+
       return {
         loading: false,
         params,
@@ -48,7 +49,6 @@ export function modals(
         loading: false,
         data: action.data,
       }
-
     case constants.GET_ONE_FAILURE:
       return {
         loading: false,
@@ -74,11 +74,14 @@ export function modals(
         error: action.error,
       }
 
-    case constants.UPDATE_REQUEST:
+    case constants.UPDATE_REQUEST: {
+      const { data } = state
       return {
         loading: true,
         id: action.id,
+        data,
       }
+    }
     case constants.UPDATE_SUCCESS: {
       return {
         loading: false,
@@ -86,31 +89,44 @@ export function modals(
         data: action.data,
       }
     }
-    case constants.UPDATE_FAILURE:
+    case constants.UPDATE_FAILURE: {
+      const { data } = state
       return {
         loading: false,
-        updated: false,
         error: action.error,
+        data,
       }
+    }
 
-    case constants.DELETE_ONE_REQUEST:
+    case constants.DELETE_ONE_REQUEST: {
+      const { params, items } = state
+
       return {
         loading: true,
         id: action.id,
-      }
-    case constants.DELETE_ONE_SUCCESS: {
-      const filteredList = state.items?.filter((el: any) => el.id != action.id)
-      return {
-        loading: false,
-        items: filteredList,
+        params,
+        items,
       }
     }
-    case constants.DELETE_ONE_FAILURE:
+    case constants.DELETE_ONE_SUCCESS: {
+      const { params } = state
+      const items = state.items?.filter((el: any) => el.id != action.id)
       return {
         loading: false,
-        updated: false,
-        error: action.error,
+        params,
+        items,
       }
+    }
+    case constants.DELETE_ONE_FAILURE: {
+      const { params, items } = state
+
+      return {
+        loading: false,
+        error: action.error,
+        params,
+        items,
+      }
+    }
     default:
       return state
   }
