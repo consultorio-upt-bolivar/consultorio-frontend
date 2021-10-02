@@ -18,7 +18,7 @@ export const AdminLayout = ({
 }: {
   children: React.ReactElement
 }): React.ReactElement => {
-  const [openSidebar, setOpenSidebar] = useState(true)
+  const [openSidebar, setOpenSidebar] = useState(false)
   const classes = useLayoutStyles()
 
   return (
@@ -55,9 +55,9 @@ const useLayoutStyles = makeStyles((theme: Theme) =>
       maxWidth: '100vw !important',
     },
     container: {
-      width: `calc(100% - ${drawerWidth}px)`,
       maxWidth: '100vw !important',
-      marginLeft: `${drawerWidth}px`,
+      width: `100%`,
+      marginLeft: 85,
       display: 'flex',
       justifyContent: 'center',
       flexWrap: 'wrap',
@@ -68,12 +68,12 @@ const useLayoutStyles = makeStyles((theme: Theme) =>
       }),
     },
     containerOpen: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
+      width: `calc(100% - ${drawerWidth + 40}px)`,
+      marginLeft: `${drawerWidth + 20}px`,
     },
     containerClosed: {
-      width: `calc(100% - ${theme.spacing(7) + 1})`,
-      marginLeft: ` ${theme.spacing(7) + 1}px`,
+      width: `calc(100% - ${110}px)`,
+      marginLeft: `${90}px`,
     },
   })
 )

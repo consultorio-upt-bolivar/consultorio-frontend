@@ -3,4 +3,5 @@ export interface GetALL {
   where?: string
   limit: number
   offset: number
+  filter?: (el: any) => boolean
 }

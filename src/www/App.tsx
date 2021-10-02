@@ -14,6 +14,8 @@ import { RoutesConfig } from '../common/interfaces/routesConfig.interface'
 import { PrivateRoute } from '../common/components/privateRoute'
 import { NotFound } from '../common/components/notFound'
 import ToastMessage from '../common/components/toast'
+import { AirplanemodeInactive } from '@material-ui/icons'
+import { Roles } from '../_api'
 
 export function App(): React.ReactElement {
   const dispatch = useDispatch()
@@ -65,10 +67,12 @@ export function App(): React.ReactElement {
 
             const key = id + '-route'
 
+            const roles = [Roles.Admin, Roles.Admin2, ...requiredRoles]
+
             return (
               <PrivateRoute
                 routes={routes}
-                roles={requiredRoles}
+                roles={roles}
                 key={key}
                 path={path}
                 exact={exact}

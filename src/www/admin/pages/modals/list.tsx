@@ -4,25 +4,28 @@ import { Box, Typography } from '@material-ui/core'
 import { DataTablaParams, DataTable } from '../../../../common/components/table'
 import { AdminLayout } from '../../components/adminLayout'
 import { useDispatch, useSelector } from 'react-redux'
-import { modalsActions } from '../../../../_actions'
 import theme from '../../../../common/theme/main'
 import { AppHistory } from '../../../../helpers'
 
+// Variable
+import { modalsActions as actions } from '../../../../_actions'
+
 export function ListModalPage(): React.ReactElement {
+  const listName = 'modales';
   const { items } = useSelector((state: any) => state.modals)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(
-      modalsActions.getAll({
-        limit: 100,
+      actions.getAll({
+        limit: 1000,
         offset: 0,
       })
     )
   }, [])
 
   const deleteAction = (id: number) => {
-    dispatch(modalsActions.deleteOne(id))
+    dispatch(actions.deleteOne(id))
   }
 
   const editAction = (id: number) => {
@@ -95,7 +98,7 @@ export function ListModalPage(): React.ReactElement {
             textAlign: 'center',
           }}
         >
-          Listado de modales
+          Listado de {listName}
         </Typography>
 
         <Box

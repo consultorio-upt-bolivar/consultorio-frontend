@@ -20,6 +20,8 @@ import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { deepPurple } from '@material-ui/core/colors'
 import UserAvatarMenu from './userAvatarMenu'
+import { Breadcrumbs } from '@material-ui/core'
+import { AppHistory } from '../../../helpers'
 
 export default function AdminHeader({
   children,
@@ -52,9 +54,10 @@ export default function AdminHeader({
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap className={classes.appBarTitle}>
-            {state?.activeMenu ?? ''} {state?.title ? ' > ' + state?.title : ''}
-          </Typography>
+          <Breadcrumbs aria-label="breadcrumb" className={classes.appBarTitle} >
+            <Typography noWrap className={classes.appBarTitleText} onClick={() => AppHistory.replace('/admin')}>Dashboard</Typography>
+            {state?.title ? <Typography noWrap className={classes.appBarTitleText}>{state?.title}</Typography> : null}
+          </Breadcrumbs>
           <UserAvatarMenu name={userData?.name ?? ''}></UserAvatarMenu>
         </Toolbar>
       </AppBar>
@@ -112,6 +115,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     appBarTitle: {
       flexGrow: 1,
+      color: 'white',
+    },
+    appBarTitleText: {
+      color: 'white',
+      cursor: 'pointer'
     },
     menuButton: {
       marginRight: 36,

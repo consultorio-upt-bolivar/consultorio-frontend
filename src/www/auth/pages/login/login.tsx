@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 
 // Logic
-import { AppHistory } from '../../../../helpers'
 import { authActions } from '../../../../_actions'
 
 // Material

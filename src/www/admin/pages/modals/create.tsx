@@ -2,21 +2,25 @@
 import { useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AdminLayout } from '../../components/adminLayout'
-import { formFields, initialValues, validationSchema } from './modalForm'
+import { Button, Container, Typography } from '@material-ui/core'
+import { useParams } from 'react-router'
 
 import {
   formStyles,
   GetFormikFields,
 } from '../../../../common/components/formik'
 
-import { Button, Container, Typography } from '@material-ui/core'
-import { modalsActions } from '../../../../_actions'
-import { useParams } from 'react-router'
+import { AdminLayout } from '../../components/adminLayout'
+import { formFields, initialValues, validationSchema } from './form'
+
+import { modalsActions as actions } from '../../../../_actions'
 
 export function CreateModalPage(): React.ReactElement {
-  const classes = formStyles()
+  // Variable
+  const formName = 'Modal';
   const { loading, data } = useSelector((store: any) => store.modals)
+
+  const classes = formStyles()
   const dispatch = useDispatch()
 
   const params = useParams<{ id?: string | undefined }>()
@@ -24,7 +28,7 @@ export function CreateModalPage(): React.ReactElement {
   // Edit listener
   useEffect(() => {
     if (params.id) {
-      dispatch(modalsActions.getOne(+params.id))
+      dispatch(actions.getOne(+params.id))
     }
   }, [params.id])
 
@@ -40,9 +44,9 @@ export function CreateModalPage(): React.ReactElement {
     validationSchema,
     onSubmit: (values) => {
       if (params.id) {
-        dispatch(modalsActions.updateOne(+params.id, values))
+        dispatch(actions.updateOne(+params.id, values))
       } else {
-        dispatch(modalsActions.createOne(values))
+        dispatch(actions.createOne(values))
       }
     },
   })
@@ -67,7 +71,7 @@ export function CreateModalPage(): React.ReactElement {
             textAlign: 'center',
           }}
         >
-          {data ? 'Actualizar modal' : 'Crear modal'}
+          {data ? `Actualizar ${formName}` : `Crear ${formName}`}
         </Typography>
         <form className={classes.form} noValidate>
           {formikFields}

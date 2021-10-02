@@ -5,12 +5,15 @@ export enum Roles {
   Family = 'family',
 }
 
-export const PublicRolesApi: {
-  [name: string]: string
-} = {
-  estudiante: 'student',
-  administrativo: 'employee',
-  familiar: 'family',
-}
+export const PublicRolesArr = ['student', 'employee', 'family']
 
-export const PublicRoles = ['Estudiante', 'Administrativo', 'Familiar']
+export const PublicRoles = [{
+  label: 'Estudiante',
+  value: 'student'
+}, {
+  label: 'Administrativo',
+  value: 'employee'
+}, {
+  label: 'Familiar',
+  value: 'family'
+}]

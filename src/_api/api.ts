@@ -24,6 +24,25 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
+ * @interface AvaliableDatesResponse
+ */
+export interface AvaliableDatesResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof AvaliableDatesResponse
+     */
+    total: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof AvaliableDatesResponse
+     */
+    results: Array<string>;
+}
+/**
+ * 
+ * @export
  * @interface CancelMedicalAppointmentDTO
  */
 export interface CancelMedicalAppointmentDTO {
@@ -52,6 +71,12 @@ export interface CreateMedicalAppointmentDTO {
      * @memberof CreateMedicalAppointmentDTO
      */
     specialityId: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateMedicalAppointmentDTO
+     */
+    specialistId: number;
     /**
      * 
      * @type {number}
@@ -169,6 +194,12 @@ export interface CreateScheduleDTO {
      * @memberof CreateScheduleDTO
      */
     specialityId: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateScheduleDTO
+     */
+    specialistId: number;
 }
 /**
  * 
@@ -188,6 +219,12 @@ export interface CreateSpecialityDTO {
      * @memberof CreateSpecialityDTO
      */
     isActive: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateSpecialityDTO
+     */
+    officeId: number;
 }
 /**
  * 
@@ -474,6 +511,25 @@ export interface SigninDTO {
 /**
  * 
  * @export
+ * @interface UpdateMedicalAppointmentDTO
+ */
+export interface UpdateMedicalAppointmentDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMedicalAppointmentDTO
+     */
+    report: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateMedicalAppointmentDTO
+     */
+    refferedSpecialityId: number;
+}
+/**
+ * 
+ * @export
  * @interface UpdatePasswordDTO
  */
 export interface UpdatePasswordDTO {
@@ -489,6 +545,49 @@ export interface UpdatePasswordDTO {
      * @memberof UpdatePasswordDTO
      */
     password: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateUserDTO
+ */
+export interface UpdateUserDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateUserDTO
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateUserDTO
+     */
+    email: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateUserDTO
+     */
+    phone: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateUserDTO
+     */
+    legalId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateUserDTO
+     */
+    password: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateUserDTO
+     */
+    familyUserId: number;
 }
 
 /**
@@ -989,15 +1088,15 @@ export const MedicalAppointmentsApiAxiosParamCreator = function (configuration?:
         /**
          * 
          * @param {number} id 
-         * @param {CreateMedicalAppointmentDTO} createMedicalAppointmentDTO 
+         * @param {UpdateMedicalAppointmentDTO} updateMedicalAppointmentDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateMedicalAppointments: async (id: number, createMedicalAppointmentDTO: CreateMedicalAppointmentDTO, options: any = {}): Promise<RequestArgs> => {
+        updateMedicalAppointments: async (id: number, updateMedicalAppointmentDTO: UpdateMedicalAppointmentDTO, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateMedicalAppointments', 'id', id)
-            // verify required parameter 'createMedicalAppointmentDTO' is not null or undefined
-            assertParamExists('updateMedicalAppointments', 'createMedicalAppointmentDTO', createMedicalAppointmentDTO)
+            // verify required parameter 'updateMedicalAppointmentDTO' is not null or undefined
+            assertParamExists('updateMedicalAppointments', 'updateMedicalAppointmentDTO', updateMedicalAppointmentDTO)
             const localVarPath = `/appointments/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1022,7 +1121,7 @@ export const MedicalAppointmentsApiAxiosParamCreator = function (configuration?:
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createMedicalAppointmentDTO, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(updateMedicalAppointmentDTO, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1085,12 +1184,12 @@ export const MedicalAppointmentsApiFp = function(configuration?: Configuration) 
         /**
          * 
          * @param {number} id 
-         * @param {CreateMedicalAppointmentDTO} createMedicalAppointmentDTO 
+         * @param {UpdateMedicalAppointmentDTO} updateMedicalAppointmentDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateMedicalAppointments(id: number, createMedicalAppointmentDTO: CreateMedicalAppointmentDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateMedicalAppointmentDTO>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateMedicalAppointments(id, createMedicalAppointmentDTO, options);
+        async updateMedicalAppointments(id: number, updateMedicalAppointmentDTO: UpdateMedicalAppointmentDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateMedicalAppointmentDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateMedicalAppointments(id, updateMedicalAppointmentDTO, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1145,12 +1244,12 @@ export const MedicalAppointmentsApiFactory = function (configuration?: Configura
         /**
          * 
          * @param {number} id 
-         * @param {CreateMedicalAppointmentDTO} createMedicalAppointmentDTO 
+         * @param {UpdateMedicalAppointmentDTO} updateMedicalAppointmentDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateMedicalAppointments(id: number, createMedicalAppointmentDTO: CreateMedicalAppointmentDTO, options?: any): AxiosPromise<CreateMedicalAppointmentDTO> {
-            return localVarFp.updateMedicalAppointments(id, createMedicalAppointmentDTO, options).then((request) => request(axios, basePath));
+        updateMedicalAppointments(id: number, updateMedicalAppointmentDTO: UpdateMedicalAppointmentDTO, options?: any): AxiosPromise<UpdateMedicalAppointmentDTO> {
+            return localVarFp.updateMedicalAppointments(id, updateMedicalAppointmentDTO, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1212,13 +1311,13 @@ export class MedicalAppointmentsApi extends BaseAPI {
     /**
      * 
      * @param {number} id 
-     * @param {CreateMedicalAppointmentDTO} createMedicalAppointmentDTO 
+     * @param {UpdateMedicalAppointmentDTO} updateMedicalAppointmentDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MedicalAppointmentsApi
      */
-    public updateMedicalAppointments(id: number, createMedicalAppointmentDTO: CreateMedicalAppointmentDTO, options?: any) {
-        return MedicalAppointmentsApiFp(this.configuration).updateMedicalAppointments(id, createMedicalAppointmentDTO, options).then((request) => request(this.axios, this.basePath));
+    public updateMedicalAppointments(id: number, updateMedicalAppointmentDTO: UpdateMedicalAppointmentDTO, options?: any) {
+        return MedicalAppointmentsApiFp(this.configuration).updateMedicalAppointments(id, updateMedicalAppointmentDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2313,7 +2412,7 @@ export const SchedulesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAvaliableDatesSchedules(dateFrom: string, dateEnd: string, specialityId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async getAvaliableDatesSchedules(dateFrom: string, dateEnd: string, specialityId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AvaliableDatesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAvaliableDatesSchedules(dateFrom, dateEnd, specialityId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2386,7 +2485,7 @@ export const SchedulesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAvaliableDatesSchedules(dateFrom: string, dateEnd: string, specialityId: string, options?: any): AxiosPromise<object> {
+        getAvaliableDatesSchedules(dateFrom: string, dateEnd: string, specialityId: string, options?: any): AxiosPromise<AvaliableDatesResponse> {
             return localVarFp.getAvaliableDatesSchedules(dateFrom, dateEnd, specialityId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3066,9 +3165,9 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        logicalDisableUsers: async (id: number, options: any = {}): Promise<RequestArgs> => {
+        logicDisableUsers: async (id: number, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('logicalDisableUsers', 'id', id)
+            assertParamExists('logicDisableUsers', 'id', id)
             const localVarPath = `/users/{id}/disable`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3180,15 +3279,15 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * 
          * @param {number} id 
-         * @param {CreateUserDTO} createUserDTO 
+         * @param {UpdateUserDTO} updateUserDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUsers: async (id: number, createUserDTO: CreateUserDTO, options: any = {}): Promise<RequestArgs> => {
+        updateUsers: async (id: number, updateUserDTO: UpdateUserDTO, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateUsers', 'id', id)
-            // verify required parameter 'createUserDTO' is not null or undefined
-            assertParamExists('updateUsers', 'createUserDTO', createUserDTO)
+            // verify required parameter 'updateUserDTO' is not null or undefined
+            assertParamExists('updateUsers', 'updateUserDTO', updateUserDTO)
             const localVarPath = `/users/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -3213,7 +3312,7 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createUserDTO, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(updateUserDTO, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3278,8 +3377,8 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async logicalDisableUsers(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.logicalDisableUsers(id, options);
+        async logicDisableUsers(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.logicDisableUsers(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3306,12 +3405,12 @@ export const UsersApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {number} id 
-         * @param {CreateUserDTO} createUserDTO 
+         * @param {UpdateUserDTO} updateUserDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateUsers(id: number, createUserDTO: CreateUserDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateUserResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUsers(id, createUserDTO, options);
+        async updateUsers(id: number, updateUserDTO: UpdateUserDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateUserResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUsers(id, updateUserDTO, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -3368,8 +3467,8 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        logicalDisableUsers(id: number, options?: any): AxiosPromise<void> {
-            return localVarFp.logicalDisableUsers(id, options).then((request) => request(axios, basePath));
+        logicDisableUsers(id: number, options?: any): AxiosPromise<void> {
+            return localVarFp.logicDisableUsers(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3393,12 +3492,12 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         /**
          * 
          * @param {number} id 
-         * @param {CreateUserDTO} createUserDTO 
+         * @param {UpdateUserDTO} updateUserDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUsers(id: number, createUserDTO: CreateUserDTO, options?: any): AxiosPromise<CreateUserResponse> {
-            return localVarFp.updateUsers(id, createUserDTO, options).then((request) => request(axios, basePath));
+        updateUsers(id: number, updateUserDTO: UpdateUserDTO, options?: any): AxiosPromise<CreateUserResponse> {
+            return localVarFp.updateUsers(id, updateUserDTO, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -3463,8 +3562,8 @@ export class UsersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public logicalDisableUsers(id: number, options?: any) {
-        return UsersApiFp(this.configuration).logicalDisableUsers(id, options).then((request) => request(this.axios, this.basePath));
+    public logicDisableUsers(id: number, options?: any) {
+        return UsersApiFp(this.configuration).logicDisableUsers(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3493,13 +3592,13 @@ export class UsersApi extends BaseAPI {
     /**
      * 
      * @param {number} id 
-     * @param {CreateUserDTO} createUserDTO 
+     * @param {UpdateUserDTO} updateUserDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public updateUsers(id: number, createUserDTO: CreateUserDTO, options?: any) {
-        return UsersApiFp(this.configuration).updateUsers(id, createUserDTO, options).then((request) => request(this.axios, this.basePath));
+    public updateUsers(id: number, updateUserDTO: UpdateUserDTO, options?: any) {
+        return UsersApiFp(this.configuration).updateUsers(id, updateUserDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

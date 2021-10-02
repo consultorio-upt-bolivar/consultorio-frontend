@@ -15,8 +15,7 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
-import { PublicRoles, PublicRolesApi } from '../../../../common/constants/roles'
-import { initialValues, validationSchema } from './signinForm'
+import { formFields, initialValues, validationSchema } from './signinForm'
 
 import {
   formStyles,
@@ -42,15 +41,9 @@ export function SigninPage(): React.ReactElement {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: ({ profile, ...rest }) => {
+    onSubmit: (data: any) => {
       // TODO: GET familyUserId
-
-      const options: any = {
-        profile: PublicRolesApi[profile.toLowerCase()],
-        ...rest,
-      }
-
-      dispatch(authActions.signin(options))
+      dispatch(authActions.signin(data))
     },
   })
 
@@ -60,21 +53,6 @@ export function SigninPage(): React.ReactElement {
     if (formik.isValid) {
       formik.submitForm()
     }
-  }
-
-  const formFields = {
-    name: 'Nombre',
-    phone: 'Telefono',
-    legalId: 'Identificación',
-    profile: {
-      label: 'Tipo de usuario',
-      id: 'name',
-      values: PublicRoles,
-      default: 'Estudiante',
-      type: 'select',
-    },
-    email: 'Correo',
-    password: 'Contrasena',
   }
 
   const formikFields = GetFormikFields(formik, formFields)

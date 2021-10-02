@@ -29,14 +29,17 @@ export const formFields = {
     label: 'Descripcion',
     type: 'multiline',
     maxRows: 4,
+    required: true
   },
   isMain: {
     type: 'checkbox',
     label: 'Es un modal principal?',
+    required: true
   },
   isActive: {
     type: 'checkbox',
     label: 'Activo por defecto?',
+    required: true
   },
   order: 0,
 }

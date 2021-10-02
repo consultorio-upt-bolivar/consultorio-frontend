@@ -1,6 +1,8 @@
 import React from 'react'
 import {
+  Box,
   Checkbox,
+  Divider,
   FormControl,
   FormControlLabel,
   FormHelperText,
@@ -10,6 +12,14 @@ import {
   Select,
   TextField,
 } from '@material-ui/core'
+
+// TODO: PUT LOCALE ES
+import esLocale from 'date-fns/locale/es';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import TimePicker from '@mui/lab/TimePicker';
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import { TextField as MuiTextField } from '@mui/material';
 
 // Styles
 export const formStyles = makeStyles((theme) => ({
@@ -38,13 +48,31 @@ export const formStyles = makeStyles((theme) => ({
   selectLabel: {
     background: 'white',
   },
+  divContainer: {
+    display: 'inline-flex',
+    width: '100%',
+    margin: 0,
+    padding: 0
+  },
+  errorText: {
+    width: '100%'
+  }
 }))
+
+const DivContainer = ({ width, children, ...props }: any) => {
+  const classes = formStyles()
+
+  return <div className={classes.divContainer} style={{
+    width: `${width ?? '99%'}`,
+    display: 'block'
+  }} {...props}>{children}</div>
+}
 
 export const GetFormikFields = (formik: any, fields: any) => {
   const classes = formStyles()
   const names = Object.keys(fields)
 
-  return names.map((name: string) => {
+  const inputs = names.map((name: string) => {
     const options: any = fields[name]
     const isSimple = typeof options === 'string'
 
@@ -52,111 +80,177 @@ export const GetFormikFields = (formik: any, fields: any) => {
 
     if (isSimple) {
       input = (
-        <span key={name}>
+        <DivContainer key={name}>
           <TextField
+            required
             variant="outlined"
             margin="normal"
-            required
             fullWidth
             id={name}
             label={options}
             autoComplete={name}
             {...formik.getFieldProps(name)}
           />
-          <FormHelperText error id="my-helper-text">
+          <FormHelperText className={classes.errorText} error>
             {formik.touched[name] && formik.errors[name]
               ? formik.errors[name]
               : null}
           </FormHelperText>
-        </span>
+        </DivContainer>
       )
     }
 
     switch (options.type) {
-      case 'select':
+      case 'divider':
         input = (
-          <FormControl
-            key={name}
-            variant="outlined"
-            className={classes.formControl}
-          >
-            <InputLabel className={classes.selectLabel} id={'select-' + name}>
-              {options.label}
-            </InputLabel>
-            <Select
-              labelId={'select-' + name}
-              label={name}
-              {...formik.getFieldProps(name)}
-            >
-              {options.values.map((el: string) => {
-                return (
-                  <MenuItem key={el} value={el}>
-                    {el}
-                  </MenuItem>
-                )
-              })}
-            </Select>
-            <FormHelperText error id="my-helper-text">
-              {formik.errors[name] ? formik.errors[name] : null}
-            </FormHelperText>
-          </FormControl>
+          <div style={{
+            width: "100%"
+          }}>
+            <br /><Divider /><br />
+          </div>
         )
         break
-      case 'multiline':
+
+      case 'text':
         input = (
-          <span key={name}>
+          <DivContainer width={options.width} key={name}>
             <TextField
               variant="outlined"
               margin="normal"
-              required
+              disabled={options.readonly}
+              required={options.required}
               fullWidth
-              multiline
               id={name}
               label={options.label}
-              rows={options.maxRows}
               autoComplete={name}
               {...formik.getFieldProps(name)}
             />
-            <FormHelperText error id="my-helper-text">
+            <FormHelperText className={classes.errorText} error>
               {formik.touched[name] && formik.errors[name]
                 ? formik.errors[name]
                 : null}
             </FormHelperText>
-          </span>
+          </DivContainer>
+        )
+        break
+      case 'number':
+        input = (
+          <DivContainer width={options.width} key={name}>
+            <TextField
+              InputLabelProps={{ shrink: true }}
+              variant="outlined"
+              margin="normal"
+              disabled={options.readonly}
+              required={options.required}
+              fullWidth
+              id={name}
+              label={options.label}
+              autoComplete={name}
+              type="number"
+              {...formik.getFieldProps(name)}
+            />
+            <FormHelperText className={classes.errorText} error>
+              {formik.touched[name] && formik.errors[name]
+                ? formik.errors[name]
+                : null}
+            </FormHelperText>
+          </DivContainer>
+        )
+        break
+      case 'select':
+        input = (
+          <DivContainer width={options.width} key={name}>
+            <FormControl
+              variant="outlined"
+              className={classes.formControl}
+            >
+              <InputLabel className={classes.selectLabel} id={'select-' + name}>
+                {options.label}
+              </InputLabel>
+              <Select
+                fullWidth
+                margin="normal"
+                required={options.required}
+                labelId={'select-' + name}
+                label={name}
+                disabled={options.readonly}
+                {...formik.getFieldProps(name)}
+              >
+                <MenuItem value="">
+                  Seleccionar
+                </MenuItem>
+                {options.values.map((el: any) => {
+                  return (
+                    <MenuItem key={el.label} value={el.value}>
+                      {el.label}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+              <FormHelperText className={classes.errorText} error>
+                {formik.errors[name] ? formik.errors[name] : null}
+              </FormHelperText>
+            </FormControl>
+          </ DivContainer>
+        )
+        break
+
+      case 'multiline':
+        input = (
+          <DivContainer width={options.width} key={name}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              multiline
+              fullWidth
+              id={name}
+              label={options.label}
+              rows={options.maxRows}
+              required={options.required}
+              disabled={options.readonly}
+              {...formik.getFieldProps(name)}
+            />
+            <FormHelperText className={classes.errorText} error>
+              {formik.touched[name] && formik.errors[name]
+                ? formik.errors[name]
+                : null}
+            </FormHelperText>
+          </DivContainer>
         )
         break
       case 'password':
         input = (
-          <span key={name}>
+          <DivContainer width={options.width} key={name}>
             <TextField
               variant="outlined"
               margin="normal"
-              required
+              type="password"
               fullWidth
               id={name}
               label={options.label}
-              autoComplete={name}
-              type="password"
+              required={options.required}
+              disabled={options.readonly}
               {...formik.getFieldProps(name)}
             />
-            <FormHelperText error id="my-helper-text">
+            <FormHelperText className={classes.errorText} error>
               {formik.touched[name] && formik.errors[name]
                 ? formik.errors[name]
                 : null}
             </FormHelperText>
-          </span>
+          </DivContainer>
         )
         break
       case 'checkbox':
         input = (
-          <span key={name}>
+          <DivContainer width={options.width} key={name}>
             <FormControlLabel
               className={classes.formControl}
               control={
                 <Checkbox
+                  disabled={options.readonly}
                   color="primary"
                   aria-describedby="checkbox-error-text"
-                  checked={formik.values[name]}
+                  checked={!!formik.values[name]}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     formik.setFieldValue(name, event.target.checked ? 1 : 0)
                   }}
@@ -164,14 +258,66 @@ export const GetFormikFields = (formik: any, fields: any) => {
               }
               label={options.label}
             />
-            <FormHelperText error id="checkbox-error-text">
+            <FormHelperText className={classes.errorText} error>
               {formik.errors[name] ? formik.errors[name] : null}
             </FormHelperText>
-          </span>
+          </DivContainer>
+        )
+        break
+      case 'date':
+        input = (
+          <DivContainer width={options.width} key={name}>
+            <LocalizationProvider dateAdapter={AdapterDateFns} locale={esLocale} >
+              <DesktopDatePicker
+                label={options.label}
+                disableOpenPicker={options.readonly}
+                disabled={options.readonly}
+                value={formik.values[name]}
+                disablePast={options.disablePast}
+                maxDate={options.maxDate}
+                onChange={(date: Date | null) => {
+                  formik.setFieldValue(name, date)
+                }}
+                renderInput={(params) => <MuiTextField
+                  margin="normal"
+                  fullWidth
+                  required={options.required}
+                  disabled={options.readonly}
+                  {...params}
+                />}
+              />
+            </LocalizationProvider>
+          </DivContainer>
+        )
+        break
+      case 'hour':
+        input = (
+          <DivContainer width={options.width} key={name}>
+            <LocalizationProvider dateAdapter={AdapterDateFns} locale={esLocale}>
+              <TimePicker
+                disableOpenPicker={options.readonly}
+                disabled={options.readonly}
+                label={options.label}
+                value={formik.values[name]}
+                onChange={(date: Date | null) => {
+                  formik.setFieldValue(name, date)
+                }}
+                renderInput={(params: any) => <MuiTextField
+                  margin="normal"
+                  fullWidth
+                  required={options.required}
+                  disabled={options.readonly}
+                  {...params}
+                />}
+              />
+            </LocalizationProvider>
+          </DivContainer>
         )
         break
     }
 
     return input
   })
+
+  return <Box mt={4} display="flex" justifyContent="space-between" flexWrap="wrap">{inputs}</Box>
 }

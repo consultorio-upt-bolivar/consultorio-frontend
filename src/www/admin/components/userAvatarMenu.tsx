@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
-import { deepOrange, lightBlue } from '@material-ui/core/colors'
+import { cyan, deepOrange, lightBlue } from '@material-ui/core/colors'
 import { useDispatch, useSelector } from 'react-redux'
 import { Menu, MenuItem } from '@material-ui/core'
 import { AppHistory } from '../../../helpers'
@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     lightBlue: {
       color: 'white',
-      backgroundColor: lightBlue[500],
+      backgroundColor: "#00a0b2",
+      border: '0.1px solid white'
     },
     menu: {
       width: '150px',
@@ -43,7 +44,7 @@ export default function UserAvatarMenu({ name }: any) {
 
   const profile = () => {
     setAnchorEl(null)
-    AppHistory.push('/admin/perfil')
+    AppHistory.push('/admin/profile')
   }
 
   const logout = () => {
@@ -57,7 +58,7 @@ export default function UserAvatarMenu({ name }: any) {
       {userData && (
         <div>
           <Avatar onClick={handleMenu} className={classes.lightBlue}>
-            {name.slice(0, 2).toUpperCase()}
+            {name.slice(0, 1).toUpperCase()}
           </Avatar>
           <Menu
             id="menu-appbar"

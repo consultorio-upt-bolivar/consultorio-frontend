@@ -34,7 +34,7 @@ export const DataTable = ({
     width: 100,
     headerAlign: 'center',
     filterable: false,
-    align: 'center',
+    align: 'right',
     disableColumnMenu: true,
     disableReorder: true,
   })

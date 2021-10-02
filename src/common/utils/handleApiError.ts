@@ -3,12 +3,20 @@ import { AppHistory } from '../../helpers'
 const ApiMessages = [
   {
     error: 'Request failed with status code 401',
-    message: 'La sesion ha expirado!',
+    message: 'La sesion ha expirado',
     redirect: '/login',
   },
   {
     error: 'Request failed with status code 400',
-    message: 'Los datos enviados son invalidos!',
+    message: 'Los datos enviados son invalidos',
+  },
+  {
+    error: 'Request failed with status code 500',
+    message: 'Error en el servidor',
+  },
+  {
+    error: 'Network Error',
+    message: 'Error al conectarse con el servidor',
   },
 ]
 
