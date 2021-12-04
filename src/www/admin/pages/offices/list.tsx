@@ -24,8 +24,10 @@ export function ListOfficesPage(): React.ReactElement {
     )
   }, [])
 
-  const deleteAction = (id: number) => {
-    dispatch(actions.toggleActive(id))
+  const toggleAction = (id: number) => {
+    dispatch(actions.toggleActive(id, {
+      toast: "Oficina actualizado!"
+    }))
   }
 
   const editAction = (id: number) => {
@@ -47,6 +49,12 @@ export function ListOfficesPage(): React.ReactElement {
         flex: 1,
       },
       {
+        field: 'phone',
+        headerName: 'Telefono',
+        description: 'Telefono de la oficina',
+        flex: 1,
+      },
+      {
         field: 'place',
         headerName: 'Lugar',
         description: 'Ubucacion de la oficina',
@@ -61,7 +69,7 @@ export function ListOfficesPage(): React.ReactElement {
       },
     ],
     rows: items ?? [],
-    deleteAction,
+    toggleAction,
     editAction,
   }
 

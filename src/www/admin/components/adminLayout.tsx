@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import {
   Box,
@@ -7,23 +7,29 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  useMediaQuery,
 } from '@material-ui/core'
 
-import { AppHistory } from '../../../helpers'
 import AdminHeader, { drawerWidth } from './header'
 import SidemenuList from './sidemenu'
+import theme from '../../../common/theme/main'
 
 export const AdminLayout = ({
   children,
 }: {
   children: React.ReactElement
 }): React.ReactElement => {
+  const isBigWindow = useMediaQuery(theme.breakpoints.up('md'));
   const [openSidebar, setOpenSidebar] = useState(false)
   const classes = useLayoutStyles()
 
+  useEffect(() => {
+    setOpenSidebar(isBigWindow)
+  }, [isBigWindow])
+
   return (
     <Container className={classes.rootLayout}>
-      <AdminHeader open={openSidebar} setOpen={setOpenSidebar}>
+      <AdminHeader open={isBigWindow} setOpen={setOpenSidebar}>
         <SidemenuList />
       </AdminHeader>
       <Container
@@ -32,15 +38,6 @@ export const AdminLayout = ({
           [classes.containerClosed]: !openSidebar,
         })}
       >
-        <Box width="100%" display="flex" alignItems="flex-start">
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => AppHistory.goBack()}
-          >
-            Volver
-          </Button>
-        </Box>
         {children}
       </Container>
     </Container>

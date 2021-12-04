@@ -6,10 +6,10 @@ export const getConfiguration = (): Configuration => {
     basePath: 'http://localhost:8080',
     baseOptions: getToken()
       ? {
-          headers: {
-            Authorization: getToken(),
-          },
-        }
+        headers: {
+          Authorization: getToken(),
+        },
+      }
       : {},
   })
 

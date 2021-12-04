@@ -26,8 +26,10 @@ export function ListSpecialistsPage(): React.ReactElement {
     )
   }, [])
 
-  const deleteAction = (id: number) => {
-    dispatch(actions.toggleActive(id))
+  const toggleAction = (id: number) => {
+    dispatch(actions.toggleActive(id, {
+      toast: "Especialista actualizado!"
+    }))
   }
 
   const editAction = (id: number) => {
@@ -84,7 +86,7 @@ export function ListSpecialistsPage(): React.ReactElement {
       el.type = el.profile.name
       return el
     }) ?? [],
-    deleteAction,
+    toggleAction,
     editAction,
   }
 

@@ -18,6 +18,10 @@ const ApiMessages = [
     error: 'Network Error',
     message: 'Error al conectarse con el servidor',
   },
+  {
+    error: 'Request failed with status code 409',
+    message: 'El recurso ya fue creado',
+  }
 ]
 
 export const handleError = (error: any): string => {

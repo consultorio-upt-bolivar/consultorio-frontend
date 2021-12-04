@@ -19,7 +19,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { deepPurple } from '@material-ui/core/colors'
-import UserAvatarMenu from './userAvatarMenu'
+import UserAvatarMenu from '../../../common/components/userAvatarMenu'
 import { Breadcrumbs } from '@material-ui/core'
 import { AppHistory } from '../../../helpers'
 
@@ -27,7 +27,11 @@ export default function AdminHeader({
   children,
   open,
   setOpen,
-}: any): React.ReactElement {
+}: {
+  children: any,
+  open: boolean,
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}): React.ReactElement {
   const { state } = useLocation<any>()
 
   const userData = useSelector((state: any) => state.authentication.user)
@@ -58,7 +62,7 @@ export default function AdminHeader({
             <Typography noWrap className={classes.appBarTitleText} onClick={() => AppHistory.replace('/admin')}>Dashboard</Typography>
             {state?.title ? <Typography noWrap className={classes.appBarTitleText}>{state?.title}</Typography> : null}
           </Breadcrumbs>
-          <UserAvatarMenu name={userData?.name ?? ''}></UserAvatarMenu>
+          <UserAvatarMenu profileUrl="/admin/profile" name={userData?.name ?? ''}></UserAvatarMenu>
         </Toolbar>
       </AppBar>
       <Drawer

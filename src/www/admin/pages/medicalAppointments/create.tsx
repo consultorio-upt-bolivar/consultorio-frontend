@@ -15,7 +15,7 @@ import { AdminLayout } from '../../components/adminLayout'
 
 // Variable
 import { specialitiesActions } from '../../../../_actions'
-import { AvaliableDates } from '../../components/avaliableDates'
+import { AvaliableDates } from '../../../../common/components/avaliableDates'
 import { validationMessages } from '../../../../common/constants/formik'
 
 export function CreateMedicalAppointmentPage(): React.ReactElement {
@@ -31,13 +31,17 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
         dispatch(specialitiesActions.getAll({
             limit: 1000,
             offset: 0,
-        }, false))
+        }, {
+            toast: false
+        }))
     }, [])
 
     const formik = useFormik({
         initialValues: {
             dateFrom: new Date(),
-            dateEnd: new Date(),
+            dateEnd: add(today, {
+                days: 5
+            }),
             specialityId: ''
         },
         validationSchema: Yup.object({

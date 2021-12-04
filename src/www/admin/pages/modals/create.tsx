@@ -14,6 +14,11 @@ import { AdminLayout } from '../../components/adminLayout'
 import { formFields, initialValues, validationSchema } from './form'
 
 import { modalsActions as actions } from '../../../../_actions'
+import { ActionOptions } from '../../../../_actions/generic.actions'
+
+const dispatchOptions: ActionOptions = {
+  redirect: '/admin/modales'
+}
 
 export function CreateModalPage(): React.ReactElement {
   // Variable
@@ -44,9 +49,9 @@ export function CreateModalPage(): React.ReactElement {
     validationSchema,
     onSubmit: (values) => {
       if (params.id) {
-        dispatch(actions.updateOne(+params.id, values))
+        dispatch(actions.updateOne(+params.id, values, dispatchOptions))
       } else {
-        dispatch(actions.createOne(values))
+        dispatch(actions.createOne(values, dispatchOptions))
       }
     },
   })
@@ -71,7 +76,7 @@ export function CreateModalPage(): React.ReactElement {
             textAlign: 'center',
           }}
         >
-          {data ? `Actualizar ${formName}` : `Crear ${formName}`}
+          {data && params.id ? `Actualizar ${formName}` : `Crear ${formName}`}
         </Typography>
         <form className={classes.form} noValidate>
           {formikFields}
@@ -85,7 +90,7 @@ export function CreateModalPage(): React.ReactElement {
             disabled={loading}
             onClick={(e) => handleSubmit(e)}
           >
-            {data ? 'Actualizar' : 'Crear'}
+            {data && params.id ? 'Actualizar' : 'Crear'}
           </Button>
         </form>
       </Container>

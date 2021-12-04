@@ -4,12 +4,13 @@ import Avatar from '@material-ui/core/Avatar'
 import { cyan, deepOrange, lightBlue } from '@material-ui/core/colors'
 import { useDispatch, useSelector } from 'react-redux'
 import { Menu, MenuItem } from '@material-ui/core'
-import { AppHistory } from '../../../helpers'
-import { authActions } from '../../../_actions'
+import { AppHistory } from '../../helpers'
+import { authActions } from '../../_actions'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      cursor: 'pointer',
       display: 'flex',
       '& > *': {
         margin: theme.spacing(1),
@@ -30,7 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export default function UserAvatarMenu({ name }: any) {
+export default function UserAvatarMenu({ name, profileUrl }: {
+  name: string
+  profileUrl: string
+}) {
   const classes = useStyles()
   const userData = useSelector((state: any) => state.authentication.user)
   const dispatch = useDispatch()
@@ -44,7 +48,7 @@ export default function UserAvatarMenu({ name }: any) {
 
   const profile = () => {
     setAnchorEl(null)
-    AppHistory.push('/admin/profile')
+    AppHistory.push(profileUrl)
   }
 
   const logout = () => {

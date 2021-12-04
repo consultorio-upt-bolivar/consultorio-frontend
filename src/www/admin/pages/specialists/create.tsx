@@ -15,6 +15,11 @@ import { formFields, initialValues, validationSchema } from './form'
 
 // Variable
 import { specialistActions as actions } from '../../../../_actions'
+import { ActionOptions } from '../../../../_actions/generic.actions'
+
+const dispatchOptions: ActionOptions = {
+  redirect: '/admin/especialistas'
+}
 
 export function CreateSpecialistPage(): React.ReactElement {
   // Variable
@@ -66,9 +71,9 @@ export function CreateSpecialistPage(): React.ReactElement {
       }
 
       if (params.id) {
-        dispatch(actions.updateOne(+params.id, options))
+        dispatch(actions.updateOne(+params.id, options, dispatchOptions))
       } else {
-        dispatch(actions.createOne(data, '/admin/especialistas'))
+        dispatch(actions.createOne(options, dispatchOptions))
       }
     },
   })
@@ -93,7 +98,7 @@ export function CreateSpecialistPage(): React.ReactElement {
             textAlign: 'center',
           }}
         >
-          {data ? `Actualizar ${formName}` : `Crear ${formName}`}
+          {data && params.id ? `Actualizar ${formName}` : `Crear ${formName}`}
         </Typography>
         <form className={classes.form} noValidate>
           {formikFields}
@@ -107,7 +112,7 @@ export function CreateSpecialistPage(): React.ReactElement {
             disabled={loading}
             onClick={(e) => handleSubmit(e)}
           >
-            {data ? 'Actualizar' : 'Crear'}
+            {data && params.id ? 'Actualizar' : 'Crear'}
           </Button>
         </form>
       </Container>

@@ -15,6 +15,11 @@ import { formFields, initialValues, validationSchema } from './form'
 
 // Variable
 import { usersActions as actions } from '../../../../_actions'
+import { ActionOptions } from '../../../../_actions/generic.actions'
+
+const dispatchOptions: ActionOptions = {
+  redirect: '/admin/usuarios'
+}
 
 // TODO: UPDATE STATUS
 export function CreateUsersPage(): React.ReactElement {
@@ -67,9 +72,9 @@ export function CreateUsersPage(): React.ReactElement {
       }
 
       if (params.id) {
-        dispatch(actions.updateOne(+params.id, options))
+        dispatch(actions.updateOne(+params.id, options, dispatchOptions))
       } else {
-        dispatch(actions.createOne(data, '/admin/usuarios'))
+        dispatch(actions.createOne(options, dispatchOptions))
       }
     },
   })
@@ -94,7 +99,7 @@ export function CreateUsersPage(): React.ReactElement {
             textAlign: 'center',
           }}
         >
-          {data ? `Actualizar ${formName}` : `Crear ${formName}`}
+          {data && params.id ? `Actualizar ${formName}` : `Crear ${formName}`}
         </Typography>
         <form className={classes.form} noValidate>
           {formikFields}
@@ -108,7 +113,7 @@ export function CreateUsersPage(): React.ReactElement {
             disabled={loading}
             onClick={(e) => handleSubmit(e)}
           >
-            {data ? 'Actualizar' : 'Crear'}
+            {data && params.id ? 'Actualizar' : 'Crear'}
           </Button>
         </form>
       </Container>

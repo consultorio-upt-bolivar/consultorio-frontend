@@ -29,6 +29,7 @@ export function GenericReducer(model: ActionModel, actionModel?: string) {
                 return {
                     loading: true,
                     params: action.params,
+                    items: state.items
                 }
             case constants.GET_ALL_SUCCESS: {
                 const { results: items, ...params } = action.data
@@ -44,34 +45,40 @@ export function GenericReducer(model: ActionModel, actionModel?: string) {
                     loading: false,
                     updated: false,
                     error: action.error,
+                    items: state.items
                 }
 
             case constants.GET_REQUEST:
                 return {
                     loading: true,
                     id: action.id,
+                    items: state.items
                 }
             case constants.GET_SUCCESS:
                 return {
                     loading: false,
                     data: action.data,
+                    items: state.items
                 }
             case constants.GET_FAILURE:
                 return {
                     loading: false,
                     updated: false,
                     error: action.error,
+                    items: state.items
                 }
 
             case constants.CREATE_REQUEST:
                 return {
                     loading: true,
+                    items: state.items
                 }
             case constants.CREATE_SUCCESS: {
                 return {
                     loading: false,
                     created: true,
                     data: action.data,
+                    items: state.items
                 }
             }
             case constants.CREATE_FAILURE:
@@ -79,6 +86,7 @@ export function GenericReducer(model: ActionModel, actionModel?: string) {
                     loading: false,
                     updated: false,
                     error: action.error,
+                    items: state.items
                 }
 
             case constants.UPDATE_REQUEST: {
@@ -87,6 +95,7 @@ export function GenericReducer(model: ActionModel, actionModel?: string) {
                     loading: true,
                     id: action.id,
                     data,
+                    items: state.items
                 }
             }
             case constants.UPDATE_SUCCESS: {
@@ -94,6 +103,7 @@ export function GenericReducer(model: ActionModel, actionModel?: string) {
                     loading: false,
                     updated: true,
                     data: action.data,
+                    items: state.items
                 }
             }
             case constants.UPDATE_FAILURE: {
@@ -102,6 +112,7 @@ export function GenericReducer(model: ActionModel, actionModel?: string) {
                     loading: false,
                     error: action.error,
                     data,
+                    items: state.items
                 }
             }
 
@@ -112,7 +123,7 @@ export function GenericReducer(model: ActionModel, actionModel?: string) {
                     loading: true,
                     id: action.id,
                     params,
-                    items,
+                    items
                 }
             }
             case constants.DELETE_SUCCESS: {

@@ -24,7 +24,7 @@ function getAvaliableDates(params: {
   dateFrom: string
   dateEnd: string
   specialityId: string
-}): ActionFn {
+}, showToast = true): ActionFn {
   const api = new SchedulesApi(getConfiguration())
 
   return (dispatch: Dispatch) => {
@@ -33,7 +33,10 @@ function getAvaliableDates(params: {
     api.getAvaliableDatesSchedules(params.dateFrom, params.dateEnd, params.specialityId).then(
       (res: any) => {
         dispatch(success(res.data))
-        dispatch(toastActions.success(successMessages.getAvaliableDates))
+
+        if (showToast) {
+          dispatch(toastActions.success(successMessages.getAvaliableDates))
+        }
       },
       (error: Error) => {
         const errMessage = handleError(error)
@@ -54,7 +57,7 @@ function getAvaliableDates(params: {
   }
 }
 
-function cancelAppointment(id: number, reason: string): ActionFn {
+function cancelAppointment(id: number, reason: string, callback?: () => void): ActionFn {
   const api = new MedicalAppointmentsApi(getConfiguration())
 
   return (dispatch: Dispatch) => {
@@ -70,6 +73,10 @@ function cancelAppointment(id: number, reason: string): ActionFn {
         }))
 
         dispatch(toastActions.success(successMessages.cancelAppointment))
+
+        if (callback) {
+          callback()
+        }
       },
       (error: Error) => {
         const errMessage = handleError(error)

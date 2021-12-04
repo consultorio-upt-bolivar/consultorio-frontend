@@ -9,6 +9,7 @@ import { getConfiguration } from '../config/api.config'
 import { ActionFn } from '../common/interfaces/action.interface'
 import { handleError } from '../common/utils/handleApiError'
 import { AppHistory } from '../helpers'
+import { loadingActions } from './loading.actions'
 
 interface GenericActionParams {
   model: ActionModel,
@@ -23,6 +24,36 @@ interface GenericActionParams {
   }
 }
 
+export interface ActionOptions {
+  toast?: string | false
+  redirect?: string
+  callback?: () => void
+}
+
+const handleOptions = (dispatch: Dispatch, defaultToastMessage: string, options?: ActionOptions) => {
+  if (!options) return dispatch(toastActions.success(defaultToastMessage));
+
+  const {
+    toast,
+    redirect,
+    callback
+  } = options;
+
+  if (toast) {
+    dispatch(toastActions.success(toast))
+  } if (toast !== false) {
+    dispatch(toastActions.success(defaultToastMessage))
+  }
+
+  if (redirect) {
+    AppHistory.replace(redirect)
+  }
+
+  if (callback) {
+    callback()
+  }
+}
+
 export const GenericActions = ({
   model,
   Api,
@@ -30,11 +61,12 @@ export const GenericActions = ({
 }: GenericActionParams) => {
   const constants = genericActionConstants(model);
 
-  function getAll(params: GetALL, showToast = true): ActionFn {
+  function getAll(params: GetALL, options?: ActionOptions): ActionFn {
     const api = new Api(getConfiguration())
 
     return (dispatch: Dispatch) => {
       dispatch(request(params))
+      dispatch(loadingActions.show())
 
       api[`getAll${model}`](params.limit, params.offset, params.where).then(
         (res: any) => {
@@ -43,17 +75,14 @@ export const GenericActions = ({
           }
 
           dispatch(success(res.data))
-
-          if (showToast) {
-            dispatch(toastActions.success(successMessages.getAll))
-          }
+          handleOptions(dispatch, successMessages.getAll, options)
         },
         (error: Error) => {
           const errMessage = handleError(error)
           dispatch(failure(errMessage))
           dispatch(toastActions.error(errMessage))
         }
-      )
+      ).finally(() => setTimeout(() => dispatch(loadingActions.hide()), 1000))
     }
 
     function request(params: GetALL) {
@@ -67,7 +96,7 @@ export const GenericActions = ({
     }
   }
 
-  function getOne(id: number, showToast = true): ActionFn {
+  function getOne(id: number, options?: ActionOptions): ActionFn {
     const api = new Api(getConfiguration())
 
     return (dispatch: Dispatch) => {
@@ -76,17 +105,14 @@ export const GenericActions = ({
       api[`getOne${model}`](id).then(
         (res: any) => {
           dispatch(success(res.data))
-
-          if (showToast) {
-            dispatch(toastActions.success(successMessages.getOne))
-          }
+          handleOptions(dispatch, successMessages.getOne, options)
         },
         (error: Error) => {
           const errMessage = handleError(error)
           dispatch(failure(errMessage))
           dispatch(toastActions.error(errMessage))
         }
-      )
+      ).finally(() => setTimeout(() => dispatch(loadingActions.hide()), 1000))
     }
 
     function request(id: number) {
@@ -100,7 +126,7 @@ export const GenericActions = ({
     }
   }
 
-  function createOne(body: any, redirect?: string, showToast = true): ActionFn {
+  function createOne(body: any, options?: ActionOptions): ActionFn {
     const api = new Api(getConfiguration())
 
     return (dispatch: Dispatch) => {
@@ -109,21 +135,14 @@ export const GenericActions = ({
       api[`create${model}`](body).then(
         (res: any) => {
           dispatch(success(res.data))
-
-          if (showToast) {
-            dispatch(toastActions.success(successMessages.createOne))
-          }
-
-          if (redirect) {
-            AppHistory.replace(redirect)
-          }
+          handleOptions(dispatch, successMessages.createOne, options)
         },
         (error: Error) => {
           const errMessage = handleError(error)
           dispatch(failure(errMessage))
           dispatch(toastActions.error(errMessage))
         }
-      )
+      ).finally(() => setTimeout(() => dispatch(loadingActions.hide()), 1000))
     }
 
     function request() {
@@ -137,7 +156,7 @@ export const GenericActions = ({
     }
   }
 
-  function updateOne(id: number, body: any, redirect?: string, showToast = true): ActionFn {
+  function updateOne(id: number, body: any, options?: ActionOptions): ActionFn {
     const api = new Api(getConfiguration())
 
     return (dispatch: Dispatch) => {
@@ -147,20 +166,15 @@ export const GenericActions = ({
         (res: any) => {
           dispatch(success(res.data))
 
-          if (showToast) {
-            dispatch(toastActions.success(successMessages.updateOne))
-          }
-
-          if (redirect) {
-            AppHistory.replace(redirect)
-          }
+          dispatch(toastActions.success(JSON.stringify(options)))
+          handleOptions(dispatch, successMessages.updateOne, options)
         },
         (error: Error) => {
           const errMessage = handleError(error)
           dispatch(failure(errMessage))
           dispatch(toastActions.error(errMessage))
         }
-      )
+      ).finally(() => setTimeout(() => dispatch(loadingActions.hide()), 1000))
     }
 
     function request(id: number) {
@@ -174,7 +188,7 @@ export const GenericActions = ({
     }
   }
 
-  function deleteOne(id: number, showToast = true): ActionFn {
+  function deleteOne(id: number, options?: ActionOptions): ActionFn {
     const api = new Api(getConfiguration())
 
     if (!api[`delete${model}`]) {
@@ -187,17 +201,14 @@ export const GenericActions = ({
       api[`delete${model}`](id).then(
         () => {
           dispatch(success(id))
-
-          if (showToast) {
-            dispatch(toastActions.success(successMessages.deleteOne))
-          }
+          handleOptions(dispatch, successMessages.deleteOne, options)
         },
         (error: Error) => {
           const errMessage = handleError(error)
           dispatch(failure(errMessage))
           dispatch(toastActions.error(errMessage))
         }
-      )
+      ).finally(() => setTimeout(() => dispatch(loadingActions.hide()), 1000))
     }
 
     function request(id: number) {
@@ -211,7 +222,7 @@ export const GenericActions = ({
     }
   }
 
-  function toggleActive(id: number, showToast = true): ActionFn {
+  function toggleActive(id: number, options?: ActionOptions): ActionFn {
     const api = new Api(getConfiguration())
 
     if (!api[`logicDisable${model}`]) {
@@ -224,17 +235,14 @@ export const GenericActions = ({
       api[`logicDisable${model}`](id).then(
         () => {
           dispatch(success(id))
-
-          if (showToast) {
-            dispatch(toastActions.success(successMessages.toggleActive))
-          }
+          handleOptions(dispatch, successMessages.toggleActive, options)
         },
         (error: Error) => {
           const errMessage = handleError(error)
           dispatch(failure(errMessage))
           dispatch(toastActions.error(errMessage))
         }
-      )
+      ).finally(() => setTimeout(() => dispatch(loadingActions.hide()), 1000))
     }
 
     function request(id: number) {

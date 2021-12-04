@@ -24,8 +24,10 @@ export function ListSchedulesPage(): React.ReactElement {
     )
   }, [])
 
-  const deleteAction = (id: number) => {
-    dispatch(actions.toggleActive(id))
+  const toggleAction = (id: number) => {
+    dispatch(actions.toggleActive(id, {
+      toast: "Jornada actualizada!"
+    }))
   }
 
   const editAction = (id: number) => {
@@ -90,7 +92,7 @@ export function ListSchedulesPage(): React.ReactElement {
 
       return el
     }) ?? [],
-    deleteAction,
+    toggleAction,
     editAction,
   }
 

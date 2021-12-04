@@ -1,5 +1,5 @@
 import { OverridableComponent } from '@material-ui/core/OverridableComponent'
-import { AddBoxOutlined, ClassOutlined, DashboardOutlined, DesktopWindowsOutlined, FavoriteBorderOutlined, GroupAddOutlined, HomeWorkOutlined, LocalHospital, ReorderOutlined, Schedule } from '@material-ui/icons'
+import { AddBoxOutlined, ClassOutlined, DashboardOutlined, DesktopWindowsOutlined, FavoriteBorderOutlined, GroupAddOutlined, HomeWorkOutlined, LocalHospital, ReorderOutlined, Schedule, Security } from '@material-ui/icons'
 import { RoutesConfig } from '../../common/interfaces/routesConfig.interface'
 import { Roles } from '../../_api'
 import { DashboardPage } from './pages/dashboard/dashboard'
@@ -19,6 +19,7 @@ import { CreateUsersPage } from './pages/users/create'
 import { ListUsersPage } from './pages/users/list'
 import { ProfileAdminPage } from './pages/profile-admin'
 import { CreateMedicalAppointmentPage } from './pages/medicalAppointments/create'
+import { DatabasesPage } from './pages/databases'
 
 export interface SidebarConfig {
   path: string
@@ -111,7 +112,7 @@ export const AdminSidebar: SidebarConfig[] = [
       },
       {
         path: '/admin/oficinas/crear',
-        text: 'Nueva oficina',
+        text: 'Nuevo consultorio medico',
         id: 'crear-oficina',
         icon: AddBoxOutlined,
       },
@@ -151,7 +152,7 @@ export const AdminSidebar: SidebarConfig[] = [
       },
       {
         path: '/admin/jornadas/crear',
-        text: 'Nueva jornada',
+        text: 'Nueva jornada médica',
         id: 'crear-jornada',
         icon: AddBoxOutlined,
       },
@@ -179,6 +180,12 @@ export const AdminSidebar: SidebarConfig[] = [
         requiredRoles: [Roles.MedicalSpecialist, Roles.MedicalSpecialist, Roles.Student, Roles.Employee, Roles.Family],
       },
     ],
+  },
+  {
+    path: '/admin/base-de-datos',
+    icon: Security,
+    text: 'Base de datos',
+    id: 'base-de-datos'
   },
 ]
 
@@ -325,5 +332,11 @@ export const AdminRoutes: RoutesConfig[] = [
     path: '/admin/jornadas/:id',
     component: CreateSchedulesPage,
     id: 'actualizar-jornadas'
+  },
+  // Databases
+  {
+    path: '/admin/base-de-datos',
+    component: DatabasesPage,
+    id: 'base-de-datos'
   },
 ]

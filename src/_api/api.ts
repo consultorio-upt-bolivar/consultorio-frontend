@@ -70,13 +70,7 @@ export interface CreateMedicalAppointmentDTO {
      * @type {number}
      * @memberof CreateMedicalAppointmentDTO
      */
-    specialityId: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CreateMedicalAppointmentDTO
-     */
-    specialistId: number;
+    scheduleId: number;
     /**
      * 
      * @type {number}
@@ -145,6 +139,12 @@ export interface CreateOfficeDTO {
      * @memberof CreateOfficeDTO
      */
     place: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateOfficeDTO
+     */
+    phone: string;
     /**
      * 
      * @type {number}
@@ -451,6 +451,7 @@ export enum PublicRoles {
 
 export enum Roles {
     Myseft = 'myseft',
+    BackendValidation = 'backend_validation',
     Admin = 'admin',
     Admin2 = 'admin_2',
     Student = 'student',
@@ -814,6 +815,160 @@ export class AuthApi extends BaseAPI {
      */
     public signinAuth(signinDTO: SigninDTO, options?: any) {
         return AuthApiFp(this.configuration).signinAuth(signinDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * DatabasesApi - axios parameter creator
+ * @export
+ */
+export const DatabasesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        backupDatabaseApi: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/databases/backup`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        restoreDatabaseApi: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/databases/restore`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * DatabasesApi - functional programming interface
+ * @export
+ */
+export const DatabasesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DatabasesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async backupDatabaseApi(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.backupDatabaseApi(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async restoreDatabaseApi(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.restoreDatabaseApi(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * DatabasesApi - factory interface
+ * @export
+ */
+export const DatabasesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DatabasesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        backupDatabaseApi(options?: any): AxiosPromise<void> {
+            return localVarFp.backupDatabaseApi(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        restoreDatabaseApi(options?: any): AxiosPromise<void> {
+            return localVarFp.restoreDatabaseApi(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * DatabasesApi - object-oriented interface
+ * @export
+ * @class DatabasesApi
+ * @extends {BaseAPI}
+ */
+export class DatabasesApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabasesApi
+     */
+    public backupDatabaseApi(options?: any) {
+        return DatabasesApiFp(this.configuration).backupDatabaseApi(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabasesApi
+     */
+    public restoreDatabaseApi(options?: any) {
+        return DatabasesApiFp(this.configuration).restoreDatabaseApi(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2709,6 +2864,10 @@ export const SpecialitiesApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     

@@ -17,6 +17,11 @@ import { formFields, initialValues, validationSchema } from './form'
 // Variable
 import { schedulesActions as actions, specialitiesActions, usersActions } from '../../../../_actions'
 import { PublicRoles } from '../../../../_api'
+import { ActionOptions } from '../../../../_actions/generic.actions'
+
+const dispatchOptions: ActionOptions = {
+  redirect: '/admin/jornadas'
+}
 
 export function CreateSchedulesPage(): React.ReactElement {
   // Variable
@@ -83,9 +88,9 @@ export function CreateSchedulesPage(): React.ReactElement {
       }
 
       if (params.id) {
-        dispatch(actions.updateOne(+params.id, options))
+        dispatch(actions.updateOne(+params.id, options, dispatchOptions))
       } else {
-        dispatch(actions.createOne(options))
+        dispatch(actions.createOne(options, dispatchOptions))
       }
     },
   })
@@ -110,7 +115,7 @@ export function CreateSchedulesPage(): React.ReactElement {
             textAlign: 'center',
           }}
         >
-          {data ? `Actualizar ${formName}` : `Crear ${formName}`}
+          {data && params.id ? `Actualizar ${formName}` : `Crear ${formName}`}
         </Typography>
         <form className={classes.form} noValidate>
           <FormControl
@@ -180,7 +185,7 @@ export function CreateSchedulesPage(): React.ReactElement {
             disabled={loading}
             onClick={(e) => handleSubmit(e)}
           >
-            {data ? 'Actualizar' : 'Crear'}
+            {data && params.id ? 'Actualizar' : 'Crear'}
           </Button>
         </form>
       </Container>

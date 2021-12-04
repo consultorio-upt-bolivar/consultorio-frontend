@@ -28,10 +28,6 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
     )
   }, [])
 
-  const deleteAction = (id: number) => {
-    dispatch(actions.toggleActive(id))
-  }
-
   const editAction = (id: number) => {
     AppHistory.push('/admin/citas-medicas/' + id)
   }
@@ -70,14 +66,13 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
       },
     ],
     rows: items?.map((el: any) => {
-      el.specialityName = el.speciality.name
+      el.specialityName = el.schedule.speciality.name
       el.userName = el.user.name + " | " + el.user.email
       el.userType = el.user.profile.name
       el.cancelled = el.cancellationDate && el.cancellationReason ? el.cancellationReason : 'No'
 
       return el
     }) ?? [],
-    deleteAction,
     editAction,
   }
 

@@ -14,6 +14,11 @@ import { initialValues, validationSchema } from './form'
 
 // Variable
 import { specialitiesActions as actions, officesActions } from '../../../../_actions'
+import { ActionOptions } from '../../../../_actions/generic.actions'
+
+const dispatchOptions: ActionOptions = {
+  redirect: '/admin/especialidades'
+}
 
 export function CreateSpecialitiesPage(): React.ReactElement {
   // Variable
@@ -53,10 +58,9 @@ export function CreateSpecialitiesPage(): React.ReactElement {
     validationSchema,
     onSubmit: (values) => {
       if (params.id) {
-        dispatch(actions.updateOne(+params.id, values))
+        dispatch(actions.updateOne(+params.id, values, dispatchOptions))
       } else {
-        console.log(values)
-        dispatch(actions.createOne(values))
+        dispatch(actions.createOne(values, dispatchOptions))
       }
     },
   })
@@ -80,7 +84,7 @@ export function CreateSpecialitiesPage(): React.ReactElement {
             textAlign: 'center',
           }}
         >
-          {data ? `Actualizar ${formName}` : `Crear ${formName}`}
+          {data && params.id ? `Actualizar ${formName}` : `Crear ${formName}`}
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -153,7 +157,7 @@ export function CreateSpecialitiesPage(): React.ReactElement {
             disabled={loading}
             onClick={(e) => handleSubmit(e)}
           >
-            {data ? 'Actualizar' : 'Crear'}
+            {data && params.id ? 'Actualizar' : 'Crear'}
           </Button>
         </form>
       </Container>

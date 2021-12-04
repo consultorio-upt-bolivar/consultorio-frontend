@@ -42,8 +42,13 @@ export function SigninPage(): React.ReactElement {
     initialValues,
     validationSchema,
     onSubmit: (data: any) => {
-      // TODO: GET familyUserId
-      dispatch(authActions.signin(data))
+      const { phone, legalId, ...rest } = data;
+
+      dispatch(authActions.signin({
+        phone: phone + "",
+        legalId: legalId + "",
+        ...rest
+      }))
     },
   })
 
@@ -76,10 +81,10 @@ export function SigninPage(): React.ReactElement {
             variant="contained"
             color="primary"
             className={classes.submit}
-            //disabled={loading}
+            disabled={loading}
             onClick={(e) => handleSubmit(e)}
           >
-            Ingresar
+            Registrarme
           </Button>
           <Grid container>
             <Grid item xs>

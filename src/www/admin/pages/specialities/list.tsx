@@ -24,8 +24,10 @@ export function ListSpecialitiesPage(): React.ReactElement {
     )
   }, [])
 
-  const deleteAction = (id: number) => {
-    dispatch(actions.toggleActive(id))
+  const toggleAction = (id: number) => {
+    dispatch(actions.toggleActive(id, {
+      toast: "Especialidad actualizada!"
+    }))
   }
 
   const editAction = (id: number) => {
@@ -64,7 +66,7 @@ export function ListSpecialitiesPage(): React.ReactElement {
       el.officeName = el.office.name
       return el
     }) ?? [],
-    deleteAction,
+    toggleAction,
     editAction,
   }
 

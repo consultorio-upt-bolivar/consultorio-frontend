@@ -4,27 +4,22 @@ import { AppHistory } from '../helpers'
 import { Router, Route, Switch } from 'react-router-dom'
 
 import { alertActions } from '../_actions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import AlertModal from '../common/components/modal'
 import { AuthRoutes } from './auth/routes'
-import { PublicRoutes } from './public/routes'
+import { PublicRoutes, UserRoutes } from './public/routes'
 import { AdminRoutes } from './admin/routes'
 import { RoutesConfig } from '../common/interfaces/routesConfig.interface'
 import { PrivateRoute } from '../common/components/privateRoute'
 import { NotFound } from '../common/components/notFound'
 import ToastMessage from '../common/components/toast'
-import { AirplanemodeInactive } from '@material-ui/icons'
 import { Roles } from '../_api'
+import { Backdrop } from '@mui/material'
+import { CircularProgress } from '@material-ui/core'
 
 export function App(): React.ReactElement {
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    AppHistory.listen(() => {
-      dispatch(alertActions.clear())
-    })
-  }, [])
+  const { show } = useSelector((state: any) => state.loading)
 
   return (
     <div className="App">
@@ -51,6 +46,30 @@ export function App(): React.ReactElement {
                 render={(props: any) => (
                   <Component {...props} routes={routes} />
                 )}
+              />
+            )
+          })}
+
+          {UserRoutes.map((route: RoutesConfig) => {
+            const {
+              id,
+              path,
+              exact = false,
+              component: Component,
+              routes,
+              requiredRoles = []
+            } = route
+
+            const key = id + '-route'
+
+            return (
+              <PrivateRoute
+                routes={routes}
+                roles={requiredRoles}
+                key={key}
+                path={path}
+                exact={exact}
+                component={Component}
               />
             )
           })}
@@ -84,6 +103,13 @@ export function App(): React.ReactElement {
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>
+
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={show}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   )
 }

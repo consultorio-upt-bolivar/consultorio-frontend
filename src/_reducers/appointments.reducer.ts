@@ -39,20 +39,8 @@ export function appointments(
             }
         }
         case constants.CANCEL_SUCCESS: {
-            const { params, data } = state
-
-            const items = state.items?.map((el: any) => {
-                if (el.id == data.id) {
-                    el.isCancelled = data.reason;
-                }
-
-                return el
-            })
-
             return {
-                loading: false,
-                params,
-                items,
+                loading: false
             }
         }
         case constants.CANCEL_FAILURE: {

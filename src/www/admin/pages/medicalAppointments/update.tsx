@@ -32,13 +32,17 @@ export function UpdateMedicalAppointmentPage(): React.ReactElement {
     dispatch(specialitiesActions.getAll({
       limit: 1000,
       offset: 0,
-    }, false))
+    }, {
+      toast: false
+    }))
   }, [])
 
   // Edit listener
   useEffect(() => {
     if (params.id) {
-      dispatch(actions.getOne(+params.id, false))
+      dispatch(actions.getOne(+params.id, {
+        toast: false
+      }))
     }
   }, [params.id])
 
@@ -47,7 +51,7 @@ export function UpdateMedicalAppointmentPage(): React.ReactElement {
     if (data) {
       const options = {
         date: new Date(data.date),
-        specialityId: data.speciality.name,
+        specialityId: data.schedule.speciality.name,
         userId: data.user.name,
         cancellationReason: data.cancellationReason,
         report: data.report,

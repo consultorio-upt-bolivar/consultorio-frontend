@@ -86,8 +86,6 @@ export function ListModalPage(): React.ReactElement {
     editAction,
   }
 
-  console.log({ params })
-
   return (
     <AdminLayout>
       <Box width="100%" maxWidth="2000px" justifyContent="center">

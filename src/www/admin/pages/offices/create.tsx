@@ -15,10 +15,15 @@ import { formFields, initialValues, validationSchema } from './form'
 
 // Variable
 import { officesActions as actions } from '../../../../_actions'
+import { ActionOptions } from '../../../../_actions/generic.actions'
+
+const dispatchOptions: ActionOptions = {
+  redirect: '/admin/oficinas'
+}
 
 export function CreateOfficePage(): React.ReactElement {
   // Variable
-  const formName = 'Oficina';
+  const formName = 'Consultorio';
   const { loading, data } = useSelector((store: any) => store.offices)
 
   const classes = formStyles()
@@ -36,8 +41,6 @@ export function CreateOfficePage(): React.ReactElement {
   // Edit form listener
   useEffect(() => {
     if (data) {
-      console.log(data)
-
       formik.setValues(data)
     }
   }, [data])
@@ -47,9 +50,9 @@ export function CreateOfficePage(): React.ReactElement {
     validationSchema,
     onSubmit: (values) => {
       if (params.id) {
-        dispatch(actions.updateOne(+params.id, values))
+        dispatch(actions.updateOne(+params.id, values, dispatchOptions))
       } else {
-        dispatch(actions.createOne(values))
+        dispatch(actions.createOne(values, dispatchOptions))
       }
     },
   })
@@ -74,7 +77,7 @@ export function CreateOfficePage(): React.ReactElement {
             textAlign: 'center',
           }}
         >
-          {data ? `Actualizar ${formName}` : `Crear ${formName}`}
+          {data && params.id ? `Actualizar ${formName}` : `Crear ${formName}`}
         </Typography>
         <form className={classes.form} noValidate>
           {formikFields}
@@ -88,7 +91,7 @@ export function CreateOfficePage(): React.ReactElement {
             disabled={loading}
             onClick={(e) => handleSubmit(e)}
           >
-            {data ? 'Actualizar' : 'Crear'}
+            {data && params.id ? 'Actualizar' : 'Crear'}
           </Button>
         </form>
       </Container>
