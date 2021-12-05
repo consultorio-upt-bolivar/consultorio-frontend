@@ -9,7 +9,8 @@ import { DataTablaParams, DataTable } from '../../../../common/components/table'
 
 import { AppHistory } from '../../../../helpers'
 import { usersActions as actions } from '../../../../_actions'
-import { PublicRoles } from '../../../../_api'
+import { PublicRoles, Roles } from '../../../../_api'
+import { getUserData } from '../../../../common/utils/userStorage'
 
 export function ListUsersPage(): React.ReactElement {
   const listName = 'usuarios';
@@ -17,11 +18,18 @@ export function ListUsersPage(): React.ReactElement {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    let conditions = `profile.id==${PublicRoles.Student},${PublicRoles.Employee},${PublicRoles.Family}`;
+    const userData = getUserData()
+
+    if (userData.profile.id == Roles.Admin) {
+      conditions += `,admin_2`
+    }
+
     dispatch(
       actions.getAll({
         limit: 1000,
         offset: 0,
-        where: `profile.id==${PublicRoles.Student},${PublicRoles.Employee},${PublicRoles.Family}`
+        where: conditions
       })
     )
   }, [])

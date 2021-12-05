@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
+import { format } from 'date-fns'
 
 import theme from '../../../../common/theme/main'
 import { AdminLayout } from '../../components/adminLayout'
@@ -9,7 +10,6 @@ import { DataTablaParams, DataTable } from '../../../../common/components/table'
 
 import { AppHistory } from '../../../../helpers'
 import { medicalAppointmentsActions as actions } from '../../../../_actions'
-import { PublicRolesArr } from '../../../../common/constants/roles'
 
 export function ListMedicalAppointmentsPage(): React.ReactElement {
   const listName = 'Citas medicas';
@@ -20,10 +20,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
     dispatch(
       actions.getAll({
         limit: 1000,
-        offset: 0,
-        filter: (el: any) => {
-          return PublicRolesArr.includes(el.user.profileId)
-        }
+        offset: 0
       })
     )
   }, [])
@@ -53,6 +50,12 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
         width: 200,
       },
       {
+        field: 'date',
+        headerName: 'Fecha',
+        description: 'Fecha',
+        width: 200
+      },
+      {
         field: 'userName',
         headerName: 'Normbre del usuario',
         description: 'Normbre del usuario',
@@ -70,6 +73,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
       el.userName = el.user.name + " | " + el.user.email
       el.userType = el.user.profile.name
       el.cancelled = el.cancellationDate && el.cancellationReason ? el.cancellationReason : 'No'
+      el.date = format(new Date(el.date), 'yyyy-MM-dd HH:mm')
 
       return el
     }) ?? [],

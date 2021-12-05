@@ -2,7 +2,7 @@
 export enum Roles {
   Student = 'student',
   Employee = 'employee',
-  Family = 'family',
+  Family = 'family'
 }
 
 export const PublicRolesArr = ['student', 'employee', 'family']
@@ -16,4 +16,7 @@ export const PublicRoles = [{
 }, {
   label: 'Familiar',
   value: 'family'
+}, {
+  label: 'Sub Administrador',
+  value: 'admin_2'
 }]

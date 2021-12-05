@@ -66,6 +66,7 @@ export function CreateSchedulesPage(): React.ReactElement {
         dateEnd: parse(data.dateEnd, 'yyyy-MM-dd', new Date()),
         startHour: parse(data.startHour, 'HH:mm:ss', new Date()),
         endHour: parse(data.endHour, 'HH:mm:ss', new Date()),
+        appointmentInterval: data.appointmentInterval,
         isActive: data.isActive
       }
 
@@ -84,6 +85,7 @@ export function CreateSchedulesPage(): React.ReactElement {
         dateEnd: format(values.dateEnd, 'yyyy-MM-dd'),
         startHour: format(values.startHour, 'HH:mm:ss'),
         endHour: format(values.endHour, 'HH:mm:ss'),
+        appointmentInterval: values.appointmentInterval,
         isActive: values.isActive
       }
 

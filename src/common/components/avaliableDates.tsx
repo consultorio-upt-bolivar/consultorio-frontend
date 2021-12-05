@@ -2,13 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { appointmentsActions, medicalAppointmentsActions } from '../../_actions'
-import { format } from 'date-fns'
+import { format, parse, isFuture } from 'date-fns'
 import { Box, Button, Grid, Paper, styled } from '@material-ui/core'
 import { formStyles } from './formik'
 import Typography from '@mui/material/Typography'
 import { Alert, Card, CardContent } from '@mui/material'
 import { ActionOptions } from '../../_actions/generic.actions'
-import { boolean } from 'yup/lib/locale'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -137,6 +136,17 @@ export const AvaliableDates = (params: {
 
     // Render avaliable hours
     const renderHours = () => {
+        const today = format(new Date(), "yyyy-MM-dd")
+        const selectedDay = selectedDate.date
+
+        // Filter past hours
+        if (selectedDay === today) {
+            selectedDate.hours = selectedDate.hours.filter((hour: string) => {
+                const h = parse(`${selectedDay} ${hour.split(' ')[0]}`, 'yyyy-MM-dd HH:mm', new Date())
+                return isFuture(h);
+            })
+        }
+
         const hours = selectedDate.hours.map((hour: string, i: number) => {
             return (
                 <Grid item xs={4} key={'h-' + selectedDate.date + '-' + hour + '-' + i} onClick={(e) => handleSelectHour(e, hour)}>

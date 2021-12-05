@@ -12,6 +12,7 @@ import { schedules } from './schedules.reducer'
 import { appointments } from './appointments.reducer'
 import { medicalAppointments } from './medicalAppointments.reducer'
 import { databases } from './databases.reducer'
+import { stadistics } from './stadistics.reducer'
 import { loading } from './loading.reducer'
 
 const rootReducer = combineReducers({
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   schedules,
   appointments,
   medicalAppointments,
+  stadistics,
   databases,
   loading
 })

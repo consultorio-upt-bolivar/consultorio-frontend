@@ -63,7 +63,7 @@ const DivContainer = ({ width, children, ...props }: any) => {
   const classes = formStyles()
 
   return <div className={classes.divContainer} style={{
-    width: `${width ?? '99%'}`,
+    width: `${width ?? '100%'}`,
     display: 'block'
   }} {...props}>{children}</div>
 }
@@ -319,5 +319,5 @@ export const GetFormikFields = (formik: any, fields: any) => {
     return input
   })
 
-  return <Box mt={4} display="flex" justifyContent="space-between" flexWrap="wrap">{inputs}</Box>
+  return <Box mt={4} display="flex" justifyContent="space-between" flexWrap="wrap" padding="0">{inputs}</Box>
 }

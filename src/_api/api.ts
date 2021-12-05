@@ -187,6 +187,12 @@ export interface CreateScheduleDTO {
      * @type {number}
      * @memberof CreateScheduleDTO
      */
+    appointmentInterval: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateScheduleDTO
+     */
     isActive: number;
     /**
      * 
@@ -3147,6 +3153,204 @@ export class SpecialitiesApi extends BaseAPI {
      */
     public updateSpecialities(id: number, createSpecialityDTO: CreateSpecialityDTO, options?: any) {
         return SpecialitiesApiFp(this.configuration).updateSpecialities(id, createSpecialityDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * StadisticsApi - axios parameter creator
+ * @export
+ */
+export const StadisticsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} dateFrom 
+         * @param {string} dateEnd 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMostUsedSpecialitiesStadistics: async (dateFrom: string, dateEnd: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dateFrom' is not null or undefined
+            assertParamExists('getMostUsedSpecialitiesStadistics', 'dateFrom', dateFrom)
+            // verify required parameter 'dateEnd' is not null or undefined
+            assertParamExists('getMostUsedSpecialitiesStadistics', 'dateEnd', dateEnd)
+            const localVarPath = `/stadistics/used-specialities`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (dateFrom !== undefined) {
+                localVarQueryParameter['dateFrom'] = dateFrom;
+            }
+
+            if (dateEnd !== undefined) {
+                localVarQueryParameter['dateEnd'] = dateEnd;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} dateFrom 
+         * @param {string} dateEnd 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRefferedUsersStadistics: async (dateFrom: string, dateEnd: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dateFrom' is not null or undefined
+            assertParamExists('getRefferedUsersStadistics', 'dateFrom', dateFrom)
+            // verify required parameter 'dateEnd' is not null or undefined
+            assertParamExists('getRefferedUsersStadistics', 'dateEnd', dateEnd)
+            const localVarPath = `/stadistics/reffered-users`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (dateFrom !== undefined) {
+                localVarQueryParameter['dateFrom'] = dateFrom;
+            }
+
+            if (dateEnd !== undefined) {
+                localVarQueryParameter['dateEnd'] = dateEnd;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * StadisticsApi - functional programming interface
+ * @export
+ */
+export const StadisticsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = StadisticsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} dateFrom 
+         * @param {string} dateEnd 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMostUsedSpecialitiesStadistics(dateFrom: string, dateEnd: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMostUsedSpecialitiesStadistics(dateFrom, dateEnd, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} dateFrom 
+         * @param {string} dateEnd 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRefferedUsersStadistics(dateFrom: string, dateEnd: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRefferedUsersStadistics(dateFrom, dateEnd, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * StadisticsApi - factory interface
+ * @export
+ */
+export const StadisticsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = StadisticsApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} dateFrom 
+         * @param {string} dateEnd 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMostUsedSpecialitiesStadistics(dateFrom: string, dateEnd: string, options?: any): AxiosPromise<object> {
+            return localVarFp.getMostUsedSpecialitiesStadistics(dateFrom, dateEnd, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} dateFrom 
+         * @param {string} dateEnd 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRefferedUsersStadistics(dateFrom: string, dateEnd: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getRefferedUsersStadistics(dateFrom, dateEnd, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * StadisticsApi - object-oriented interface
+ * @export
+ * @class StadisticsApi
+ * @extends {BaseAPI}
+ */
+export class StadisticsApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} dateFrom 
+     * @param {string} dateEnd 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StadisticsApi
+     */
+    public getMostUsedSpecialitiesStadistics(dateFrom: string, dateEnd: string, options?: any) {
+        return StadisticsApiFp(this.configuration).getMostUsedSpecialitiesStadistics(dateFrom, dateEnd, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} dateFrom 
+     * @param {string} dateEnd 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StadisticsApi
+     */
+    public getRefferedUsersStadistics(dateFrom: string, dateEnd: string, options?: any) {
+        return StadisticsApiFp(this.configuration).getRefferedUsersStadistics(dateFrom, dateEnd, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

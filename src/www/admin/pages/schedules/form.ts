@@ -10,6 +10,7 @@ export const validationSchema = Yup.object({
   dateEnd: Yup.string().required(validationMessages.required),
   startHour: Yup.string().required(validationMessages.required),
   endHour: Yup.string().required(validationMessages.required),
+  appointmentInterval: Yup.number().min(15).max(60).required(validationMessages.required),
   specialityId: Yup.string().required(validationMessages.required),
   specialistId: Yup.string().required(validationMessages.required)
 })
@@ -19,6 +20,7 @@ export const initialValues = ({
   dateEnd: today,
   startHour: today,
   endHour: today,
+  appointmentInterval: 15,
   specialityId: '',
   specialistId: '',
   isActive: 0
@@ -47,6 +49,11 @@ export const formFields = ({
   endHour: {
     type: 'hour',
     label: 'Hora final',
+    required: true
+  },
+  appointmentInterval: {
+    type: 'number',
+    label: 'Duración cita',
     required: true
   },
   isActive: {
