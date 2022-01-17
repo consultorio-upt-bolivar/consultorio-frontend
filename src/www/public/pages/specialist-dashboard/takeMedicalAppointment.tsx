@@ -5,8 +5,8 @@ import { format } from 'date-fns'
 import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
-import { formStyles, GetFormikFields } from '../../../../common/components/formik';
+import { Box, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { formStyles, GetFormikFields } from '../../../components/formik';
 import { appointmentsActions, medicalAppointmentsActions, specialitiesActions } from '../../../../_actions';
 
 export function TakeMedicalAppointmentDialog({

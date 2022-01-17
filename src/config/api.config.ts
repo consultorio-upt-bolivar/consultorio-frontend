@@ -1,9 +1,9 @@
-import { getToken } from '../common/utils/userStorage'
+import { getToken } from '../helpers/userStorage'
 import { Configuration } from '../_api'
 
 export const getConfiguration = (): Configuration => {
   const configuration = new Configuration({
-    basePath: 'http://localhost:8080',
+    basePath: process.env.REACT_APP_API_URL,
     baseOptions: getToken()
       ? {
         headers: {

@@ -1,4 +1,4 @@
-import { AppHistory } from '../../helpers'
+import { AppHistory } from '.'
 
 const ApiMessages = [
   {

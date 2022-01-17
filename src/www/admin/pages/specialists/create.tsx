@@ -2,13 +2,13 @@
 import { useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Container, Typography } from '@material-ui/core'
+import { Button, Container, Typography } from '@mui/material';
 import { useParams } from 'react-router'
 
 import {
   formStyles,
   GetFormikFields,
-} from '../../../../common/components/formik'
+} from '../../../components/formik'
 
 import { AdminLayout } from '../../components/adminLayout'
 import { formFields, initialValues, validationSchema } from './form'
@@ -104,6 +104,7 @@ export function CreateSpecialistPage(): React.ReactElement {
           {formikFields}
 
           <Button
+            sx={{ mt: 2 }}
             type="submit"
             fullWidth
             variant="contained"

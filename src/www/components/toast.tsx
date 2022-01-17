@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
-import { makeStyles, Theme } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { toastActions } from '../../_actions'
+import { makeStyles } from '@mui/styles';
+import theme from '../../theme/main'
+import { Snackbar } from '@mui/material';
 
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles({
   root: {
     width: '100%',
     '& > * + *': {
       marginTop: theme.spacing(2),
     },
   },
-}))
+})
 
 export default function ToastMessage() {
   const toast = useSelector((state: any) => state.toast)
@@ -30,7 +31,7 @@ export default function ToastMessage() {
     }
   }, [toast.message])
 
-  const handleClose = (_?: React.SyntheticEvent, reason?: string) => {
+  const handleClose = (_?: any, reason?: string) => {
     if (reason === 'clickaway') {
       return
     }

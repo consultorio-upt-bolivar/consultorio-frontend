@@ -1,4 +1,4 @@
-import { clearUserStorage, getUserData } from '../common/utils/userStorage'
+import { clearUserStorage, getUserData } from '../helpers/userStorage'
 import { authConstants } from '../_constants'
 
 const user = getUserData()
@@ -12,7 +12,10 @@ interface AuthAction {
 }
 
 export function authentication(
-  state = initialState,
+  state = {
+    loading: false,
+    ...initialState
+  },
   action: {
     type: string
     user: unknown
@@ -42,6 +45,30 @@ export function authentication(
       }
     case authConstants.SIGNIN_FAILURE:
       return {}
+    case authConstants.SEND_MAIL_REQUEST:
+      return {
+        loading: true,
+      }
+    case authConstants.SEND_MAIL_SUCCESS:
+      return {
+        loading: false,
+      }
+    case authConstants.SEND_MAIL_FAILURE:
+      return {
+        loading: false,
+      }
+    case authConstants.CHANGE_PASSWORD_REQUEST:
+      return {
+        loading: true,
+      }
+    case authConstants.CHANGE_PASSWORD_SUCCESS:
+      return {
+        loading: false,
+      }
+    case authConstants.CHANGE_PASSWORD_FAILURE:
+      return {
+        loading: false,
+      }
     case authConstants.LOGOUT:
       clearUserStorage()
       return {}

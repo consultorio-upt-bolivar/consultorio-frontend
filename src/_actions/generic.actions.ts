@@ -4,10 +4,10 @@ import { toastActions } from '.'
 import { Dispatch } from 'redux'
 
 import { PaginatedResponse } from '../_api'
-import { GetALL } from '../common/interfaces/getAll.interface'
+import { GetALL } from '../interfaces/getAll.interface'
 import { getConfiguration } from '../config/api.config'
-import { ActionFn } from '../common/interfaces/action.interface'
-import { handleError } from '../common/utils/handleApiError'
+import { ActionFn } from '../interfaces/action.interface'
+import { handleError } from '../helpers/handleApiError'
 import { AppHistory } from '../helpers'
 import { loadingActions } from './loading.actions'
 

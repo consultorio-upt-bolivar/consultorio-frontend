@@ -1,10 +1,10 @@
 import { toastActions } from '.'
 
 import { Dispatch } from 'redux'
-import { handleError } from '../common/utils/handleApiError'
+import { handleError } from '../helpers/handleApiError'
 import { getConfiguration } from '../config/api.config'
 
-import { ActionFn } from '../common/interfaces/action.interface'
+import { ActionFn } from '../interfaces/action.interface'
 import { StadisticsApi } from '../_api'
 import { stadisticsConstants } from '../_constants/stadistics.constants'
 

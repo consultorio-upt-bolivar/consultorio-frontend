@@ -1,35 +1,33 @@
 import React from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import Avatar from '@material-ui/core/Avatar'
-import { cyan, deepOrange, lightBlue } from '@material-ui/core/colors'
 import { useDispatch, useSelector } from 'react-redux'
-import { Menu, MenuItem } from '@material-ui/core'
 import { AppHistory } from '../../helpers'
 import { authActions } from '../../_actions'
+import { makeStyles } from '@mui/styles';
+import { Avatar, Menu, MenuItem } from '@mui/material'
+import { deepOrange } from '@mui/material/colors'
+import theme from '../../theme/main';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      cursor: 'pointer',
-      display: 'flex',
-      '& > *': {
-        margin: theme.spacing(1),
-      },
+const useStyles = makeStyles({
+  root: {
+    cursor: 'pointer',
+    display: 'flex',
+    '& > *': {
+      margin: theme.spacing(1),
     },
-    orange: {
-      color: theme.palette.getContrastText(deepOrange[500]),
-      backgroundColor: deepOrange[500],
-    },
-    lightBlue: {
-      color: 'white',
-      backgroundColor: "#00a0b2",
-      border: '0.1px solid white'
-    },
-    menu: {
-      width: '150px',
-    },
-  })
-)
+  },
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
+  lightBlue: {
+    color: 'white',
+    backgroundColor: "#00a0b2",
+    border: '0.1px solid white'
+  },
+  menu: {
+    width: '150px',
+  },
+})
 
 export default function UserAvatarMenu({ name, profileUrl }: {
   name: string

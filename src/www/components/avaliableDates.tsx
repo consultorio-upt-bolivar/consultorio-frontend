@@ -3,14 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { appointmentsActions, medicalAppointmentsActions } from '../../_actions'
 import { format, parse, isFuture } from 'date-fns'
-import { Box, Button, Grid, Paper, styled } from '@material-ui/core'
 import { formStyles } from './formik'
 import Typography from '@mui/material/Typography'
-import { Alert, Card, CardContent } from '@mui/material'
+import { Alert, Box, Button, Card, CardContent, Grid, Paper, styled } from '@mui/material'
 import { ActionOptions } from '../../_actions/generic.actions'
 
 const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
     textAlign: 'center',
     color: theme.palette.text.primary,
     height: 60,

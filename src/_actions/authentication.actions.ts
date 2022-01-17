@@ -1,24 +1,26 @@
 import { authConstants } from '../_constants'
-import { alertActions, toastActions } from '.'
+import { toastActions } from '.'
 
 import { AppHistory } from '../helpers'
 
 import { Dispatch } from 'redux'
 
-import { AuthApi, PayloadDto, Roles, SigninDTO } from '../_api'
-import { handleError } from '../common/utils/handleApiError'
+import { AuthApi, PayloadDto, Roles, SigninDTO, UsersApi } from '../_api'
+import { handleError } from '../helpers/handleApiError'
 import { getConfiguration } from '../config/api.config'
 import {
   getUserData,
   setAuthToken,
   setUserDataToken,
-} from '../common/utils/userStorage'
+} from '../helpers/userStorage'
 
 export const authActions = {
   login,
   signin,
   getAuthData,
   logout,
+  forgotPasswordMail,
+  changePassword
 }
 
 function login(email: string, password: string): unknown {
@@ -171,4 +173,66 @@ function getAuthData(): unknown {
 
 function logout(): unknown {
   return { type: authConstants.LOGOUT }
+}
+
+
+function forgotPasswordMail(email: string): unknown {
+  const auth = new UsersApi(getConfiguration())
+
+  return async (dispatch: Dispatch) => {
+    dispatch(request())
+
+    try {
+      await auth.changePasswordMailUsers(email)
+      dispatch(toastActions.success("Correo enviado!"))
+      dispatch(success())
+    } catch (error) {
+      const errMessage = handleError(error)
+
+      dispatch(failure(errMessage))
+      dispatch(toastActions.error(errMessage))
+    }
+  }
+
+  function request() {
+    return { type: authConstants.SEND_MAIL_REQUEST }
+  }
+  function success() {
+    return { type: authConstants.SEND_MAIL_SUCCESS }
+  }
+  function failure(error: string) {
+    return { type: authConstants.SEND_MAIL_FAILURE, error }
+  }
+}
+
+
+function changePassword(options: { email: string, token: string, password: string }): unknown {
+  const auth = new UsersApi(getConfiguration())
+
+  return async (dispatch: Dispatch) => {
+    dispatch(request())
+
+    try {
+      await auth.updateForgottedPasswordUsers(options)
+      dispatch(toastActions.success("Contraseña actualizada!"))
+      dispatch(success())
+
+      AppHistory.push('/login')
+    } catch (error) {
+      const errMessage = handleError(error)
+
+      dispatch(failure(errMessage))
+      dispatch(toastActions.error(errMessage))
+    }
+  }
+
+  function request() {
+    return { type: authConstants.CHANGE_PASSWORD_REQUEST }
+  }
+  function success() {
+    return { type: authConstants.CHANGE_PASSWORD_SUCCESS }
+  }
+  function failure(error: string) {
+    return { type: authConstants.CHANGE_PASSWORD_FAILURE, error }
+  }
 }

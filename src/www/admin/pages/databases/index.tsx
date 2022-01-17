@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Box, Button, Container } from '@material-ui/core'
+import { Box, Button, Container } from '@mui/material';
 import { AdminLayout } from '../../components/adminLayout'
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -10,7 +10,6 @@ import { databasesActions } from '../../../../_actions';
 import { format } from 'date-fns'
 
 const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
   textAlign: 'center',
   color: theme.palette.text.primary,
   display: "flex",

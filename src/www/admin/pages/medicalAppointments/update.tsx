@@ -2,13 +2,13 @@
 import { useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Container, FormControl, InputLabel, MenuItem, Select, FormHelperText, Typography, Box } from '@material-ui/core'
+import { Typography, Button, Container, FormControl, InputLabel, MenuItem, Select, FormHelperText, Box } from '@mui/material';
 import { useParams } from 'react-router'
 
 import {
   formStyles,
   GetFormikFields,
-} from '../../../../common/components/formik'
+} from '../../../components/formik'
 
 import { AdminLayout } from '../../components/adminLayout'
 import { formFields, initialValues, validationSchema } from './form'

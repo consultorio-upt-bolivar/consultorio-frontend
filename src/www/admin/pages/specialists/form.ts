@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { validationMessages } from '../../../../common/constants/formik'
+import { validationMessages } from '../../../../constants/formik'
 import { PublicRoles } from '../../../../_api'
 export const validationSchema = Yup.object({
   name: Yup.string().required(validationMessages.required),

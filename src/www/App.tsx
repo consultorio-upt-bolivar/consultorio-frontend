@@ -1,30 +1,26 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AppHistory } from '../helpers'
 
 import { Router, Route, Switch } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-import { alertActions } from '../_actions'
-import { useDispatch, useSelector } from 'react-redux'
-
-import AlertModal from '../common/components/modal'
+import AlertModal from './components/modal'
 import { AuthRoutes } from './auth/routes'
 import { PublicRoutes, UserRoutes } from './public/routes'
 import { AdminRoutes } from './admin/routes'
-import { RoutesConfig } from '../common/interfaces/routesConfig.interface'
-import { PrivateRoute } from '../common/components/privateRoute'
-import { NotFound } from '../common/components/notFound'
-import ToastMessage from '../common/components/toast'
+import { RoutesConfig } from '../interfaces/routesConfig.interface'
+import { PrivateRoute } from './components/privateRoute'
+import ToastMessage from './components/toast'
 import { Roles } from '../_api'
-import { Backdrop } from '@mui/material'
-import { CircularProgress } from '@material-ui/core'
+import { Backdrop, CircularProgress, Theme } from '@mui/material'
 
 export function App(): React.ReactElement {
-  const { show } = useSelector((state: any) => state.loading)
+  const { show = false } = useSelector((state: any) => state.loading)
 
   return (
     <div className="App">
-      <AlertModal />
-      <ToastMessage />
+      {/* <AlertModal />
+      <ToastMessage /> */}
       <Router history={AppHistory}>
         <Switch>
           {[...PublicRoutes, ...AuthRoutes].map((route: RoutesConfig) => {
@@ -43,9 +39,7 @@ export function App(): React.ReactElement {
                 key={key}
                 path={path}
                 exact={exact}
-                render={(props: any) => (
-                  <Component {...props} routes={routes} />
-                )}
+                render={(props: any) => <Component {...props} routes={routes} />}
               />
             )
           })}
@@ -99,17 +93,15 @@ export function App(): React.ReactElement {
               />
             )
           })}
-
-          <Route path="*" component={NotFound} />
         </Switch>
       </Router>
 
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={show}
+      {/* <Backdrop
+        sx={{ color: '#fff', zIndex: (theme: Theme) => theme.zIndex.drawer + 1 }}
+        open={!!show}
       >
         <CircularProgress color="inherit" />
-      </Backdrop>
+      </Backdrop> */}
     </div>
   )
 }

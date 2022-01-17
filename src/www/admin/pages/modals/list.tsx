@@ -1,10 +1,10 @@
 // React
 import React, { useEffect } from 'react'
-import { Box, Typography } from '@material-ui/core'
-import { DataTablaParams, DataTable } from '../../../../common/components/table'
+import { Box, Typography } from '@mui/material';
+import { DataTablaParams, DataTable } from '../../../components/table'
 import { AdminLayout } from '../../components/adminLayout'
 import { useDispatch, useSelector } from 'react-redux'
-import theme from '../../../../common/theme/main'
+import theme from '../../../../theme/main'
 import { AppHistory } from '../../../../helpers'
 
 // Variable

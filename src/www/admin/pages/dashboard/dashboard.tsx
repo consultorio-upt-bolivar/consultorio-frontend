@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Grid } from '@material-ui/core'
+import { Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 import { AdminLayout } from '../../components/adminLayout'
 import { Paper, Typography } from '@mui/material';
 import { stadisticsActions } from '../../../../_actions/stadistics.actions';
 import { format, subDays, addDays } from 'date-fns'
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export const DashboardPage = (): React.ReactElement => {
   const [params, setParams] = useState({

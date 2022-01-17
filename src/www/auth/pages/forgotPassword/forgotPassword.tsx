@@ -1,0 +1,136 @@
+// React
+import React from 'react'
+import { Container, Typography, Avatar, Button, Grid, TextField, FormHelperText, Box } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux'
+
+// Forms
+import { useFormik } from 'formik'
+
+// Logic
+import { authActions } from '../../../../_actions'
+
+// Material
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import { formFields, initialValues, validationSchema } from './forgotPasswordForm'
+
+import {
+  formStyles,
+  GetFormikFields,
+} from '../../../components/formik'
+import { PublicLayout } from '../../../components/publicLayout';
+
+export function ForgotPasswordPage() {
+  const dispatch = useDispatch()
+  const classes = formStyles()
+  const { loading } = useSelector((store: any) => store.authentication)
+
+  // Form
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: (data) => {
+      dispatch(authActions.changePassword(data))
+    },
+  })
+
+  const handleSubmit = (e: React.MouseEvent) => {
+    e.preventDefault()
+
+    if (formik.isValid) {
+      formik.submitForm()
+    }
+  }
+
+  const handleSendCode = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (formik.values.email && formik.errors.email != "") {
+      dispatch(authActions.forgotPasswordMail(formik.values.email))
+    }
+  }
+
+  const formikFields = GetFormikFields(formik, formFields)
+
+  return (
+    <PublicLayout>
+      <Box
+        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 10, width: "100%", height: "100%" }}
+      >
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Olvido de contraseña
+          </Typography>
+
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="Correo"
+              label="Correo"
+              {...formik.getFieldProps("email")}
+            />
+            <FormHelperText error id="my-helper-text">
+              {formik.touched.email && formik.errors.email
+                ? formik.errors.email
+                : null}
+            </FormHelperText>
+
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={!!loading}
+              onClick={(e) => handleSendCode(e)}
+            >
+              Enviar código de seguridad
+            </Button>
+
+            {formikFields}
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={!!loading}
+              onClick={(e) => handleSubmit(e)}
+            >
+              Cambiar contraseña
+            </Button>
+
+            <Grid container sx={{ mt: 2 }}>
+              <Grid item xs>
+                <Button
+                  sx={{
+                    color: "secondary",
+                    fontSize: "12",
+                    textTransform: "none"
+                  }}
+                  component="a"
+                  href="/signin"
+                >¿No tienes cuenta? Registrate</Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  sx={{
+                    color: "secondary",
+                    fontSize: "12",
+                    textTransform: "none"
+                  }}
+                  component="a"
+                  href="/login"
+                >¿Ya tienes cuenta? Ingresar</Button>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+      </Box>
+    </PublicLayout>
+  )
+}

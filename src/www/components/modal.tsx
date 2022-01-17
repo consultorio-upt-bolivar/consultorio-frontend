@@ -1,18 +1,7 @@
 import React from 'react'
-import Modal from '@material-ui/core/Modal'
+import { Button, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { alertActions } from '../../_actions'
-import {
-  Button,
-  createStyles,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  makeStyles,
-  Theme,
-} from '@material-ui/core'
 
 export default function AlertModal() {
   const alert = useSelector((state: any) => state.alert)

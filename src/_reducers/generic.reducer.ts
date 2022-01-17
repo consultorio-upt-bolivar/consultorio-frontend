@@ -1,4 +1,4 @@
-import { GetALL } from '../common/interfaces/getAll.interface'
+import { GetALL } from '../interfaces/getAll.interface'
 import { ActionModel, genericActionConstants } from '../_constants'
 
 export interface GenericStateAction {

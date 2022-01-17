@@ -104,6 +104,12 @@ export interface CreateModalDTO {
     description: string;
     /**
      * 
+     * @type {string}
+     * @memberof CreateModalDTO
+     */
+    image: string;
+    /**
+     * 
      * @type {number}
      * @memberof CreateModalDTO
      */
@@ -540,6 +546,12 @@ export interface UpdateMedicalAppointmentDTO {
  * @interface UpdatePasswordDTO
  */
 export interface UpdatePasswordDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdatePasswordDTO
+     */
+    email: string;
     /**
      * 
      * @type {string}
@@ -3363,15 +3375,14 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * 
-         * @param {number} id 
+         * @param {string} email 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        changePasswordMailUsers: async (id: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('changePasswordMailUsers', 'id', id)
-            const localVarPath = `/users/{id}/password/mail`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+        changePasswordMailUsers: async (email: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'email' is not null or undefined
+            assertParamExists('changePasswordMailUsers', 'email', email)
+            const localVarPath = `/users/send-password-mail`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3383,9 +3394,9 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearer required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            if (email !== undefined) {
+                localVarQueryParameter['email'] = email;
+            }
 
 
     
@@ -3561,6 +3572,41 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {UpdatePasswordDTO} updatePasswordDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateForgottedPasswordUsers: async (updatePasswordDTO: UpdatePasswordDTO, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updatePasswordDTO' is not null or undefined
+            assertParamExists('updateForgottedPasswordUsers', 'updatePasswordDTO', updatePasswordDTO)
+            const localVarPath = `/users/change-password`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updatePasswordDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {UpdatePasswordDTO} updatePasswordDTO 
          * @param {*} [options] Override http request option.
@@ -3694,12 +3740,12 @@ export const UsersApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {number} id 
+         * @param {string} email 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async changePasswordMailUsers(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.changePasswordMailUsers(id, options);
+        async changePasswordMailUsers(email: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.changePasswordMailUsers(email, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3746,6 +3792,16 @@ export const UsersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {UpdatePasswordDTO} updatePasswordDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateForgottedPasswordUsers(updatePasswordDTO: UpdatePasswordDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateForgottedPasswordUsers(updatePasswordDTO, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {UpdatePasswordDTO} updatePasswordDTO 
          * @param {*} [options] Override http request option.
@@ -3788,12 +3844,12 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          * 
-         * @param {number} id 
+         * @param {string} email 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        changePasswordMailUsers(id: number, options?: any): AxiosPromise<void> {
-            return localVarFp.changePasswordMailUsers(id, options).then((request) => request(axios, basePath));
+        changePasswordMailUsers(email: string, options?: any): AxiosPromise<void> {
+            return localVarFp.changePasswordMailUsers(email, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3832,6 +3888,15 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          */
         logicDisableUsers(id: number, options?: any): AxiosPromise<void> {
             return localVarFp.logicDisableUsers(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UpdatePasswordDTO} updatePasswordDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateForgottedPasswordUsers(updatePasswordDTO: UpdatePasswordDTO, options?: any): AxiosPromise<void> {
+            return localVarFp.updateForgottedPasswordUsers(updatePasswordDTO, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3874,13 +3939,13 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
 export class UsersApi extends BaseAPI {
     /**
      * 
-     * @param {number} id 
+     * @param {string} email 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public changePasswordMailUsers(id: number, options?: any) {
-        return UsersApiFp(this.configuration).changePasswordMailUsers(id, options).then((request) => request(this.axios, this.basePath));
+    public changePasswordMailUsers(email: string, options?: any) {
+        return UsersApiFp(this.configuration).changePasswordMailUsers(email, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3927,6 +3992,17 @@ export class UsersApi extends BaseAPI {
      */
     public logicDisableUsers(id: number, options?: any) {
         return UsersApiFp(this.configuration).logicDisableUsers(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UpdatePasswordDTO} updatePasswordDTO 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public updateForgottedPasswordUsers(updatePasswordDTO: UpdatePasswordDTO, options?: any) {
+        return UsersApiFp(this.configuration).updateForgottedPasswordUsers(updatePasswordDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

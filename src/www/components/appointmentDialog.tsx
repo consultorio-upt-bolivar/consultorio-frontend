@@ -1,4 +1,4 @@
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, useTheme } from '@mui/material';
+import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormHelperText, InputLabel, MenuItem, Select, useTheme } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import * as Yup from 'yup'
 import { add } from 'date-fns'
@@ -6,10 +6,9 @@ import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { formStyles, GetFormikFields } from './formik';
-import { validationMessages } from '../constants/formik';
+import { validationMessages } from '../../constants/formik';
 import { medicalAppointmentsActions, specialitiesActions } from '../../_actions';
 import { AvaliableDates } from './avaliableDates';
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
 
 export function AppointmentDialog({
     open,

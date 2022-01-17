@@ -1,4 +1,4 @@
-import { RoutesConfig } from '../../common/interfaces/routesConfig.interface'
+import { RoutesConfig } from '../../interfaces/routesConfig.interface'
 import { Roles } from '../../_api'
 import { HomePage } from './pages/home'
 import { SpecialistDashboardPage } from './pages/specialist-dashboard'

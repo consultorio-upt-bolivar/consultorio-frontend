@@ -1,12 +1,11 @@
-import { Button, Divider, styled } from '@material-ui/core'
+import { Box, Button, Container, styled } from '@mui/material'
 import { Alert, Grid, Paper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppHistory } from '../../../../helpers'
 import { officesActions } from '../../../../_actions'
-import { AppointmentDialog } from '../../../../common/components/appointmentDialog'
-import MedicalAppointmentsListItem from '../../components/appointmentsListItem'
-import { PublicLayout } from '../../components/publicLayout'
+import { AppointmentDialog } from '../../../components/appointmentDialog'
+import MedicalAppointmentsListItem from '../../../components/appointmentsListItem'
+import { PublicLayout } from '../../../components/publicLayout'
 
 const Item = styled(Paper)(_ => {
     return ({
@@ -37,7 +36,10 @@ export const UserDashboardPage = (): React.ReactElement => {
 
     return (
         <PublicLayout>
-            <>
+            <Container
+                maxWidth="xl"
+                sx={{ overflow: 'hidden', my: 10, width: "100%", height: "100%" }}
+            >
                 <Alert severity="info">Has click en solicitar cita medica, elije fecha Y especialidad. Y te mostraremos los dias disponibles. </Alert>
 
                 <Grid container spacing={2} justifyContent="center" style={{ marginTop: '10px', marginBottom: '50px' }}>
@@ -84,7 +86,7 @@ export const UserDashboardPage = (): React.ReactElement => {
                 </Grid>
 
                 <AppointmentDialog open={open} setOpen={setOpen} />
-            </>
+            </Container>
         </PublicLayout>
     )
 }

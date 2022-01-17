@@ -1,6 +1,5 @@
 import * as Yup from 'yup'
-import { validationMessages } from '../../../../common/constants/formik'
-import { PublicRoles } from '../../../../common/constants/roles'
+import { validationMessages } from '../../../../constants/formik'
 
 export const validationSchema = Yup.object({
   name: Yup.string().required(validationMessages.required),
@@ -28,21 +27,21 @@ export const initialValues = {
 
 export const formFields = {
   name: 'Nombre',
-  phone: {
-    type: 'number',
-    label: 'Telefono',
-    required: true
-  },
-  legalId: {
-    type: 'number',
-    label: 'Identificación',
-    required: true
-  },
+  legalId: "Identificación",
+  phone: "Telefono",
   profile: {
     label: 'Tipo de usuario',
-    id: 'name',
-    values: PublicRoles,
-    default: 'Estudiante',
+    values: [{
+      label: 'Estudiante',
+      value: 'student'
+    }, {
+      label: 'Administrativo',
+      value: 'employee'
+    }, {
+      label: 'Familiar',
+      value: 'family'
+    }],
+    default: 'student',
     type: 'select',
   },
   email: 'Correo',

@@ -1,16 +1,16 @@
 // React
 import React, { useEffect } from 'react'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 
-import theme from '../../../../common/theme/main'
+import theme from '../../../../theme/main'
 import { AdminLayout } from '../../components/adminLayout'
-import { DataTablaParams, DataTable } from '../../../../common/components/table'
+import { DataTablaParams, DataTable } from '../../../components/table'
 
 import { AppHistory } from '../../../../helpers'
 import { usersActions as actions } from '../../../../_actions'
 import { PublicRoles, Roles } from '../../../../_api'
-import { getUserData } from '../../../../common/utils/userStorage'
+import { getUserData } from '../../../../helpers/userStorage'
 
 export function ListUsersPage(): React.ReactElement {
   const listName = 'usuarios';

@@ -1,8 +1,8 @@
-import { Roles } from '../../_api'
+import { Roles } from '../_api'
 
 export interface RoutesConfig {
   path?: string
-  component?: any
+  component?: any;
   id: string
   exact?: boolean
   routes?: RoutesConfig[]

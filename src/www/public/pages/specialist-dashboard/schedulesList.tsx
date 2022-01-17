@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Grid, Paper, styled } from '@mui/material'
 import { schedulesActions } from '../../../../_actions'
 import { Alert } from '@material-ui/lab'
-import { getUserData } from '../../../../common/utils/userStorage'
+import { getUserData } from '../../../../helpers/userStorage'
 
 const Item = styled(Paper)(_ => {
   return ({
@@ -24,7 +24,7 @@ const ScheduleInfo = ({ data }: any) => <>
 export default function SpecialistScheduleList({ selectedSchedule, setSelectedSchedule }: {
   selectedSchedule: number | undefined;
   setSelectedSchedule: React.Dispatch<React.SetStateAction<number | undefined>>;
-}) {
+}): React.ReactElement {
   const { items = [] } = useSelector((state: any) => state.schedules)
   const dispatch = useDispatch()
 

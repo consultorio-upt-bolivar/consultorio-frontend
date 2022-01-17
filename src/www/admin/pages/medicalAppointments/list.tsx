@@ -1,12 +1,12 @@
 // React
 import React, { useEffect } from 'react'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 import { format } from 'date-fns'
 
-import theme from '../../../../common/theme/main'
+import theme from '../../../../theme/main'
 import { AdminLayout } from '../../components/adminLayout'
-import { DataTablaParams, DataTable } from '../../../../common/components/table'
+import { DataTablaParams, DataTable } from '../../../components/table'
 
 import { AppHistory } from '../../../../helpers'
 import { medicalAppointmentsActions as actions } from '../../../../_actions'

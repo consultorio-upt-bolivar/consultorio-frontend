@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { validationMessages } from '../../../../common/constants/formik'
+import { validationMessages } from '../../../../constants/formik'
 
 export const validationSchema = Yup.object({
   email: Yup.string()

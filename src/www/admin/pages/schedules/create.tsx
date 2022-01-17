@@ -2,14 +2,14 @@
 import { useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Container, FormControl, InputLabel, MenuItem, Select, FormHelperText, Typography } from '@material-ui/core'
+import { Button, Container, FormControl, InputLabel, MenuItem, Select, FormHelperText, Typography } from '@mui/material';
 import { useParams } from 'react-router'
 import { format, parse } from 'date-fns'
 
 import {
   formStyles,
   GetFormikFields,
-} from '../../../../common/components/formik'
+} from '../../../components/formik'
 
 import { AdminLayout } from '../../components/adminLayout'
 import { formFields, initialValues, validationSchema } from './form'
@@ -123,6 +123,7 @@ export function CreateSchedulesPage(): React.ReactElement {
           <FormControl
             variant="outlined"
             className={classes.formControl}
+            sx={{ mb: 3 }}
           >
             <InputLabel className={classes.selectLabel} id='select-especialidad'>
               Especialidad
@@ -179,6 +180,7 @@ export function CreateSchedulesPage(): React.ReactElement {
           {formikFields}
 
           <Button
+            sx={{ mt: 2 }}
             type="submit"
             fullWidth
             variant="contained"

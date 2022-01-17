@@ -1,28 +1,15 @@
 import React from 'react'
-import {
-  Box,
-  Checkbox,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  InputLabel,
-  makeStyles,
-  MenuItem,
-  Select,
-  TextField,
-} from '@material-ui/core'
-
-// TODO: PUT LOCALE ES
 import esLocale from 'date-fns/locale/es';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import TimePicker from '@mui/lab/TimePicker';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import { TextField as MuiTextField } from '@mui/material';
+import { Box, Checkbox, Divider, FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import theme from '../../theme/main';
 
 // Styles
-export const formStyles = makeStyles((theme) => ({
+export const formStyles = makeStyles({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -57,7 +44,7 @@ export const formStyles = makeStyles((theme) => ({
   errorText: {
     width: '100%'
   }
-}))
+})
 
 const DivContainer = ({ width, children, ...props }: any) => {
   const classes = formStyles()
@@ -105,7 +92,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
         input = (
           <div style={{
             width: "100%"
-          }}>
+          }} key={options.type + name}>
             <br /><Divider /><br />
           </div>
         )
@@ -161,6 +148,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
         input = (
           <DivContainer width={options.width} key={name}>
             <FormControl
+              sx={{ mt: 2 }}
               variant="outlined"
               className={classes.formControl}
             >
@@ -278,9 +266,10 @@ export const GetFormikFields = (formik: any, fields: any) => {
                 onChange={(date: Date | null) => {
                   formik.setFieldValue(name, date)
                 }}
-                renderInput={(params) => <MuiTextField
+                renderInput={(params) => <TextField
                   margin="normal"
                   fullWidth
+                  sx={{ mt: 3 }}
                   required={options.required}
                   disabled={options.readonly}
                   {...params}
@@ -302,7 +291,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
                 onChange={(date: Date | null) => {
                   formik.setFieldValue(name, date)
                 }}
-                renderInput={(params: any) => <MuiTextField
+                renderInput={(params: any) => <TextField
                   margin="normal"
                   fullWidth
                   required={options.required}
@@ -319,5 +308,5 @@ export const GetFormikFields = (formik: any, fields: any) => {
     return input
   })
 
-  return <Box mt={4} display="flex" justifyContent="space-between" flexWrap="wrap" padding="0">{inputs}</Box>
+  return <Box display="flex" justifyContent="space-between" flexWrap="wrap" padding="0">{inputs}</Box>
 }

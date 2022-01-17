@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { validationMessages } from '../../../../common/constants/formik'
+import { validationMessages } from '../../../../constants/formik'
 
 export const validationSchema = Yup.object({
   name: Yup.string()
@@ -11,6 +11,8 @@ export const validationSchema = Yup.object({
   description: Yup.string()
     .required(validationMessages.required)
     .min(5, validationMessages.minLength.replace('$', '5')),
+  image: Yup.string().nullable(true)
+    .required(validationMessages.required),
 })
 
 export const initialValues = {
@@ -20,6 +22,7 @@ export const initialValues = {
   isMain: 0,
   isActive: 0,
   order: 0,
+  image: ''
 }
 
 export const formFields = {

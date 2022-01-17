@@ -1,6 +1,6 @@
 // React
 import React, { useEffect } from 'react'
-import Container from '@material-ui/core/Container'
+import { Container, Typography, Avatar, Button, Grid, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 
 // Forms
@@ -10,20 +10,16 @@ import { useFormik } from 'formik'
 import { authActions } from '../../../../_actions'
 
 // Material
-import Avatar from '@material-ui/core/Avatar'
-import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import Typography from '@material-ui/core/Typography'
 import { formFields, initialValues, validationSchema } from './signinForm'
 
 import {
   formStyles,
   GetFormikFields,
-} from '../../../../common/components/formik'
-import { Link } from 'react-router-dom'
+} from '../../../components/formik'
+import { PublicLayout } from '../../../components/publicLayout';
 
-export function SigninPage(): React.ReactElement {
+export function SigninPage() {
   const formOptions = {
     title: 'Registro',
     loadingText: 'Registrando',
@@ -63,39 +59,60 @@ export function SigninPage(): React.ReactElement {
   const formikFields = GetFormikFields(formik, formFields)
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {loading ? formOptions.loadingText : formOptions.title}
-        </Typography>
+    <PublicLayout>
+      <Box
+        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 10, width: "100%", height: "100%" }}
+      >
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            {loading ? formOptions.loadingText : formOptions.title}
+          </Typography>
 
-        <form className={classes.form} noValidate>
-          {formikFields}
+          <form className={classes.form} noValidate>
+            {formikFields}
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={loading}
-            onClick={(e) => handleSubmit(e)}
-          >
-            Registrarme
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link to="/forgot-password">Olvidaste tu contraseña?</Link>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={loading}
+              onClick={(e) => handleSubmit(e)}
+            >
+              Registrarme
+            </Button>
+
+            <Grid container sx={{ mt: 2 }}>
+              <Grid item xs>
+                <Button
+                  sx={{
+                    color: "secondary",
+                    fontSize: "12",
+                    textTransform: "none"
+                  }}
+                  component="a"
+                  href="/forgot-password"
+                >¿Olvidaste tu contraseña?</Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  sx={{
+                    color: "secondary",
+                    fontSize: "12",
+                    textTransform: "none"
+                  }}
+                  component="a"
+                  href="/login"
+                >¿Ya tienes cuenta? Ingresar</Button>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link to="/login">tienes cuenta? Ingresa</Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+          </form>
+        </div>
+      </Box>
+    </PublicLayout>
   )
 }

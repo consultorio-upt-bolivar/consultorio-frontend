@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import { Collapse, Divider, Link } from '@material-ui/core'
+import { Divider, Collapse, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { AdminSidebar, SidebarConfig } from '../routes'
 import { AppHistory } from '../../../helpers'
 import { useLocation } from 'react-router-dom'
-import theme from '../../../common/theme/main'
+import theme from '../../../theme/main'
 import { Roles } from '../../../_api'
 import { useSelector } from 'react-redux'
 
@@ -28,9 +24,8 @@ export default function SidemenuList(): React.ReactElement {
       }
 
       return (
-        <span key={route.id + '-menu'}>
-          <ListItem
-            button
+        <React.Fragment key={route.id + '-menu'}>
+          <ListItem button
             onClick={() =>
               submenu.length
                 ? setOpenMenu(openMenu == route.text ? '' : route.text)
@@ -52,8 +47,6 @@ export default function SidemenuList(): React.ReactElement {
             ) : null}
           </ListItem>
 
-
-
           {submenu.map((subMenuItem: SidebarConfig) => {
             const subItemRoles: string[] = [Roles.Admin, Roles.Admin2, ...subMenuItem.requiredRoles ?? []]
 
@@ -62,7 +55,7 @@ export default function SidemenuList(): React.ReactElement {
             }
 
             return (
-              <span key={subMenuItem.id + '-submenu'}>
+              <React.Fragment key={subMenuItem.id + '-submenu'}>
                 <Collapse
                   in={openMenu == route.text}
                   timeout="auto"
@@ -72,28 +65,30 @@ export default function SidemenuList(): React.ReactElement {
                     paddingLeft: theme.spacing(1)
                   }}>
 
-                    <ListItem button onClick={() =>
-                      AppHistory.push(subMenuItem.path, {
-                        activeMenu: route.text,
-                        title: subMenuItem.text,
-                      })
-                    }>
+                    <ListItem
+                      button
+                      onClick={() =>
+                        AppHistory.push(subMenuItem.path, {
+                          activeMenu: route.text,
+                          title: subMenuItem.text,
+                        })
+                      }>
                       <ListItemIcon>
                         <subMenuItem.icon />
                       </ListItemIcon>
-                      <ListItemText primary={subMenuItem.text} />
+                      <ListItemText primaryTypographyProps={{ style: { fontSize: "14px" } }} primary={subMenuItem.text} />
                     </ListItem>
                   </List>
                 </Collapse>
-              </span>
+              </React.Fragment>
             )
-          })}
-
-          <Divider />
-        </span>
+          })
+          }
+          <Divider></Divider>
+        </React.Fragment >
       )
     }
   )
 
-  return <>{SidebarMenuList}</>
+  return <List>{SidebarMenuList}</List>
 }

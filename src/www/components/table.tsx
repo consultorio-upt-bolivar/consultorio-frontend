@@ -1,6 +1,8 @@
-import { IconButton, makeStyles, Theme } from '@material-ui/core'
+import React from 'react'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/DeleteOutlined'
+import { IconButton, makeStyles } from '@material-ui/core'
+import { RemoveRedEyeOutlined } from '@material-ui/icons'
 
 import {
   DataGrid,
@@ -10,9 +12,8 @@ import {
   GridRowModel,
   esES,
 } from '@mui/x-data-grid'
-import React from 'react'
-import theme from '../theme/main'
-import { RemoveRedEyeOutlined } from '@material-ui/icons'
+
+import theme from '../../theme/main';
 
 export interface DataTablaParams {
   columns: GridColDef[]
@@ -22,13 +23,13 @@ export interface DataTablaParams {
   editAction?: (id: number) => void
 }
 
-export const DataTable = ({
+export function DataTable({
   columns,
   rows,
   deleteAction,
   toggleAction,
   editAction,
-}: DataTablaParams): React.ReactElement => {
+}: DataTablaParams): React.ReactElement {
   columns.push({
     field: 'actions',
     headerName: 'Acciones',
@@ -42,13 +43,14 @@ export const DataTable = ({
     disableReorder: true,
   })
 
-  return (
-    <DataGrid
-      localeText={(esES as any).props.MuiDataGrid.localeText}
-      columns={columns}
-      rows={rows}
-    />
-  )
+  return <DataGrid
+    sx={{
+      mt: 3
+    }}
+    localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+    columns={columns}
+    rows={rows}
+  />
 }
 
 interface RowMenuProps {
@@ -56,7 +58,7 @@ interface RowMenuProps {
   id: GridRowId
 }
 
-export function RowMenuCell({
+function RowMenuCell({
   deleteAction,
   toggleAction,
   editAction,
@@ -110,17 +112,14 @@ export function RowMenuCell({
   return node
 }
 
-const useRowMenuStyles = makeStyles(
-  (theme: Theme) => ({
-    root: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: theme.spacing(1),
-      color: theme.palette.text.secondary,
-    },
-    textPrimary: {
-      color: theme.palette.text.primary,
-    },
-  }),
-  { defaultTheme: theme }
-)
+const useRowMenuStyles = makeStyles({
+  root: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+    color: theme.palette.text.secondary,
+  },
+  textPrimary: {
+    color: theme.palette.text.primary,
+  },
+})

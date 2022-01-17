@@ -1,76 +1,172 @@
-import React, { useEffect, useState } from 'react'
-import clsx from 'clsx'
+import React, { useState } from 'react'
 import {
-  Box,
-  Button,
-  Container,
-  createStyles,
   makeStyles,
-  Theme,
-  useMediaQuery,
-} from '@material-ui/core'
+} from '@mui/styles';
 
-import AdminHeader, { drawerWidth } from './header'
-import SidemenuList from './sidemenu'
-import theme from '../../../common/theme/main'
+import { styled, Theme, CSSObject } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import MuiDrawer from '@mui/material/Drawer';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { AppHistory } from '../../../helpers';
+import { useLocation } from 'react-router-dom';
+import UserAvatarMenu from '../../components/userAvatarMenu';
+import { useSelector } from 'react-redux';
+import { Breadcrumbs, Container, CssBaseline, Drawer } from '@mui/material';
+import SidemenuList from './sidemenu';
+
+const drawerWidth = 240;
+
+const DrawerHeader = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: "20px",
+}));
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+interface Props {
+  children: React.ReactElement
+  window?: () => Window;
+}
 
 export const AdminLayout = ({
   children,
-}: {
-  children: React.ReactElement
-}): React.ReactElement => {
-  const isBigWindow = useMediaQuery(theme.breakpoints.up('md'));
-  const [openSidebar, setOpenSidebar] = useState(false)
+  window
+}: Props): React.ReactElement => {
   const classes = useLayoutStyles()
+  const userData = useSelector((state: any) => state.authentication.user)
+  const { state } = useLocation<any>()
 
-  useEffect(() => {
-    setOpenSidebar(isBigWindow)
-  }, [isBigWindow])
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Container className={classes.rootLayout}>
-      <AdminHeader open={isBigWindow} setOpen={setOpenSidebar}>
-        <SidemenuList />
-      </AdminHeader>
-      <Container
-        className={clsx(classes.container, {
-          [classes.containerOpen]: openSidebar,
-          [classes.containerClosed]: !openSidebar,
-        })}
-      >
-        {children}
-      </Container>
-    </Container>
+      <Box sx={{ display: 'flex' }}>
+        <AppBar
+          position="fixed"
+          sx={{
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            ml: { sm: `${drawerWidth}px` },
+          }}>
+          <Toolbar>
+            <div
+              onClick={() => setMobileOpen(!mobileOpen)}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                sx={{ mr: 2, display: { sm: 'none' } }}
+              >
+                <MenuIcon />
+              </IconButton>
+
+            </div>
+
+            <Breadcrumbs aria-label="breadcrumb" style={{ flexGrow: 1 }}>
+              <Typography noWrap className={classes.appBarTitleText} onClick={() => AppHistory.replace('/admin')}>Dashboard</Typography>
+              {state?.title ? <Typography noWrap className={classes.appBarTitleText}>{state?.title}</Typography> : null}
+            </Breadcrumbs>
+
+            <UserAvatarMenu profileUrl="/admin/profile" name={userData?.name ?? ''}></UserAvatarMenu>
+          </Toolbar>
+        </AppBar>
+        <Box
+          component="nav"
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+          aria-label="mailbox folders"
+        >
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              mt: 5,
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            }}
+          >
+            <SidemenuList />
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: 'none', sm: 'block' },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            }}
+            open
+          >
+            <DrawerHeader>
+              Consultorio UPT
+            </DrawerHeader>
+            <Divider />
+            <SidemenuList />
+          </Drawer>
+        </Box>
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, pt: 12, pb: 3, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        >
+          {children}
+        </Box>
+      </Box>
+    </Container >
   )
 }
 
-const useLayoutStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    rootLayout: {
-      padding: '0px',
-      height: `calc(100vh - 100px)`,
-      maxWidth: '100vw !important',
-    },
-    container: {
-      maxWidth: '100vw !important',
-      width: `100%`,
-      marginLeft: 85,
-      display: 'flex',
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-      marginTop: '80px',
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    containerOpen: {
-      width: `calc(100% - ${drawerWidth + 40}px)`,
-      marginLeft: `${drawerWidth + 20}px`,
-    },
-    containerClosed: {
-      width: `calc(100% - ${110}px)`,
-      marginLeft: `${90}px`,
-    },
-  })
-)
+const useLayoutStyles = makeStyles({
+  rootLayout: {
+    padding: '0px',
+    height: `calc(100vh - 100px)`,
+    maxWidth: '100vw !important',
+  },
+  appBarTitle: {
+    flexGrow: 1,
+    color: 'white',
+  },
+  appBarTitleText: {
+    color: 'white',
+    cursor: 'pointer'
+  },
+  menuButton: {
+    marginRight: 36,
+  },
+  hide: {
+    display: 'none',
+  }
+})

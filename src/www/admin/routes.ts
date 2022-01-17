@@ -1,6 +1,5 @@
-import { OverridableComponent } from '@material-ui/core/OverridableComponent'
 import { AddBoxOutlined, ClassOutlined, DashboardOutlined, DesktopWindowsOutlined, FavoriteBorderOutlined, GroupAddOutlined, HomeWorkOutlined, LocalHospital, ReorderOutlined, Schedule, Security } from '@material-ui/icons'
-import { RoutesConfig } from '../../common/interfaces/routesConfig.interface'
+import { RoutesConfig } from '../../interfaces/routesConfig.interface'
 import { Roles } from '../../_api'
 import { DashboardPage } from './pages/dashboard/dashboard'
 import { UpdateMedicalAppointmentPage } from './pages/medicalAppointments/update'
@@ -20,6 +19,7 @@ import { ListUsersPage } from './pages/users/list'
 import { ProfileAdminPage } from './pages/profile-admin'
 import { CreateMedicalAppointmentPage } from './pages/medicalAppointments/create'
 import { DatabasesPage } from './pages/databases'
+import { OverridableComponent } from '@mui/material/OverridableComponent'
 
 export interface SidebarConfig {
   path: string
@@ -112,7 +112,7 @@ export const AdminSidebar: SidebarConfig[] = [
       },
       {
         path: '/admin/oficinas/crear',
-        text: 'Nuevo consultorio medico',
+        text: 'Nuevo consultorio',
         id: 'crear-oficina',
         icon: AddBoxOutlined,
       },

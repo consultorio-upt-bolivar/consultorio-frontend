@@ -4,19 +4,19 @@ import * as Yup from 'yup'
 import { add } from 'date-fns'
 import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, FormControl, InputLabel, MenuItem, Select, FormHelperText, Typography } from '@material-ui/core'
+import { Typography, Container, FormControl, InputLabel, MenuItem, Select, FormHelperText } from '@mui/material';
 
 import {
     formStyles,
     GetFormikFields
-} from '../../../../common/components/formik'
+} from '../../../components/formik'
 
 import { AdminLayout } from '../../components/adminLayout'
 
 // Variable
 import { specialitiesActions } from '../../../../_actions'
-import { AvaliableDates } from '../../../../common/components/avaliableDates'
-import { validationMessages } from '../../../../common/constants/formik'
+import { AvaliableDates } from '../../../components/avaliableDates'
+import { validationMessages } from '../../../../constants/formik'
 
 export function CreateMedicalAppointmentPage(): React.ReactElement {
     const today = new Date()
@@ -93,6 +93,7 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                     <FormControl
                         variant="outlined"
                         className={classes.formControl}
+                        sx={{ mt: 2 }}
                     >
                         <InputLabel className={classes.selectLabel} id='select-especialidad'>
                             Especialidad

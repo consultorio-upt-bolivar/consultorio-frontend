@@ -2,18 +2,18 @@
 import { useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Container, Typography } from '@material-ui/core'
+import { Button, Container, Typography } from '@mui/material'
 
 import {
     formStyles,
     GetFormikFields,
-} from '../../../../common/components/formik'
+} from '../../../components/formik'
 
 import { formFields, initialValues, validationSchema } from './form'
 
 // Variable
 import { usersActions as actions } from '../../../../_actions'
-import { PublicLayout } from '../../components/publicLayout'
+import { PublicLayout } from '../../../components/publicLayout'
 
 export function UserProfilePage(): React.ReactElement {
     const { user } = useSelector((store: any) => store.authentication)

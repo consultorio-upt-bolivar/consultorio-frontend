@@ -1,10 +1,9 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Container, Grid, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { medicalAppointmentsActions } from '../../../../_actions'
-import { AppointmentDialog } from '../../../../common/components/appointmentDialog'
-import { PublicLayout } from '../../components/publicLayout'
-import { DataTablaParams, DataTable } from '../../../../common/components/table'
+import { PublicLayout } from '../../../components/publicLayout'
+import { DataTablaParams, DataTable } from '../../../components/table'
 import { format } from 'date-fns'
 import SpecialistScheduleList from './schedulesList'
 import { TakeMedicalAppointmentDialog } from './takeMedicalAppointment'
@@ -84,7 +83,10 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
 
     return (
         <PublicLayout>
-            <>
+            <Container
+                maxWidth="xl"
+                sx={{ overflow: 'hidden', my: 10, width: "100%", height: "100%" }}
+            >
                 <Grid container spacing={2} justifyContent="center" style={{ marginTop: '10px', marginBottom: '50px' }}>
                     <Grid item xs={12} sm={3} md={4}>
                         <Typography noWrap fontWeight={500} my={2} textAlign="center">JORNADAS</Typography>
@@ -113,7 +115,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                     open,
                     setOpen
                 }} />
-            </>
+            </Container>
         </PublicLayout>
     )
 }

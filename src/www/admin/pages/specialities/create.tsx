@@ -2,12 +2,12 @@
 import { useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Checkbox, Container, FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core'
+import { Button, Checkbox, Container, FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useParams } from 'react-router'
 
 import {
   formStyles,
-} from '../../../../common/components/formik'
+} from '../../../components/formik'
 
 import { AdminLayout } from '../../components/adminLayout'
 import { initialValues, validationSchema } from './form'
@@ -149,6 +149,7 @@ export function CreateSpecialitiesPage(): React.ReactElement {
           </FormHelperText>
 
           <Button
+            sx={{ mt: 2 }}
             type="submit"
             fullWidth
             variant="contained"

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { Roles } from '../../_api'
-import { getToken, getUserData } from '../utils/userStorage'
+import { getToken, getUserData } from '../../helpers/userStorage'
 
 export const PrivateRoute = ({
   path,
@@ -29,7 +29,7 @@ export const PrivateRoute = ({
     <Route
       path={path}
       exact={exact}
-      render={(props) => <Component {...props} routes={routes} />}
+      render={(props: any) => <Component {...props} routes={routes} />}
     />
   )
 }

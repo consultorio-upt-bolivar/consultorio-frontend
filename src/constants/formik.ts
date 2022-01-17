@@ -3,4 +3,5 @@ export const validationMessages = {
   invalid: 'El campo $ es invalido',
   minLength: 'Debe tener $ caracteres como minimo',
   maxLength: 'Debe tener $ caracteres como maximo',
+  email: 'Email invalido',
 }
