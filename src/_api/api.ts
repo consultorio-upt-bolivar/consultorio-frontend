@@ -56,6 +56,31 @@ export interface CancelMedicalAppointmentDTO {
 /**
  * 
  * @export
+ * @interface ContactFormDTO
+ */
+export interface ContactFormDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof ContactFormDTO
+     */
+    email: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContactFormDTO
+     */
+    subject: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContactFormDTO
+     */
+    description: string;
+}
+/**
+ * 
+ * @export
  * @interface CreateMedicalAppointmentDTO
  */
 export interface CreateMedicalAppointmentDTO {
@@ -3177,6 +3202,35 @@ export const StadisticsApiAxiosParamCreator = function (configuration?: Configur
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        downloadReportStadistics: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/stadistics/download-report`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} dateFrom 
          * @param {string} dateEnd 
          * @param {*} [options] Override http request option.
@@ -3281,6 +3335,15 @@ export const StadisticsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async downloadReportStadistics(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.downloadReportStadistics(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} dateFrom 
          * @param {string} dateEnd 
          * @param {*} [options] Override http request option.
@@ -3313,6 +3376,14 @@ export const StadisticsApiFactory = function (configuration?: Configuration, bas
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        downloadReportStadistics(options?: any): AxiosPromise<void> {
+            return localVarFp.downloadReportStadistics(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} dateFrom 
          * @param {string} dateEnd 
          * @param {*} [options] Override http request option.
@@ -3341,6 +3412,16 @@ export const StadisticsApiFactory = function (configuration?: Configuration, bas
  * @extends {BaseAPI}
  */
 export class StadisticsApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StadisticsApi
+     */
+    public downloadReportStadistics(options?: any) {
+        return StadisticsApiFp(this.configuration).downloadReportStadistics(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {string} dateFrom 
@@ -3403,6 +3484,41 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {ContactFormDTO} contactFormDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        contactFormMailUsers: async (contactFormDTO: ContactFormDTO, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'contactFormDTO' is not null or undefined
+            assertParamExists('contactFormMailUsers', 'contactFormDTO', contactFormDTO)
+            const localVarPath = `/users/contact-form-mail`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(contactFormDTO, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3750,6 +3866,16 @@ export const UsersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {ContactFormDTO} contactFormDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async contactFormMailUsers(contactFormDTO: ContactFormDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.contactFormMailUsers(contactFormDTO, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {CreateUserDTO} createUserDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3853,6 +3979,15 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @param {ContactFormDTO} contactFormDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        contactFormMailUsers(contactFormDTO: ContactFormDTO, options?: any): AxiosPromise<void> {
+            return localVarFp.contactFormMailUsers(contactFormDTO, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {CreateUserDTO} createUserDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3946,6 +4081,17 @@ export class UsersApi extends BaseAPI {
      */
     public changePasswordMailUsers(email: string, options?: any) {
         return UsersApiFp(this.configuration).changePasswordMailUsers(email, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ContactFormDTO} contactFormDTO 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public contactFormMailUsers(contactFormDTO: ContactFormDTO, options?: any) {
+        return UsersApiFp(this.configuration).contactFormMailUsers(contactFormDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

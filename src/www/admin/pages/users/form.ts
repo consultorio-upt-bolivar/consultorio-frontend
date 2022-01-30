@@ -28,16 +28,8 @@ export const initialValues = {
 
 export const formFields = {
   name: 'Nombre',
-  phone: {
-    type: 'number',
-    label: 'Telefono',
-    required: true
-  },
-  legalId: {
-    type: 'number',
-    label: 'Identificación',
-    required: true
-  },
+  legalId: "Identificación",
+  phone: "Telefono",
   profile: {
     label: 'Tipo de usuario',
     id: 'name',

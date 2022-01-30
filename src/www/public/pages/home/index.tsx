@@ -1,4 +1,5 @@
 import React from 'react'
+import ModalsCarousel from '../../../components/modalsCarousel'
 import { PublicLayout } from '../../../components/publicLayout'
 import BannerHome from './banner'
 import { ContactForm } from './contactForm'
@@ -9,6 +10,7 @@ export const HomePage = (): React.ReactElement => {
     <>
       <PublicLayout showFooter={true}>
         <>
+          <ModalsCarousel></ModalsCarousel>
           <BannerHome></BannerHome>
           <HomeInfo></HomeInfo>
           <ContactForm></ContactForm>

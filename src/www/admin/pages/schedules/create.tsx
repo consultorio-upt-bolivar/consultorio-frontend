@@ -123,7 +123,6 @@ export function CreateSchedulesPage(): React.ReactElement {
           <FormControl
             variant="outlined"
             className={classes.formControl}
-            sx={{ mb: 3 }}
           >
             <InputLabel className={classes.selectLabel} id='select-especialidad'>
               Especialidad

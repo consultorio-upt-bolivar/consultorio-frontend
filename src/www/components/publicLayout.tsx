@@ -64,7 +64,7 @@ export const PublicLayout = ({
             href="/" sx={{ textDecoration: "none" }}
           >Consultorio medico UPT</Typography>
 
-          {!userData ?
+          {!userData?.name ?
             <Button
               color="inherit"
               component="a"

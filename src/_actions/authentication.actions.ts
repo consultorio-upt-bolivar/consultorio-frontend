@@ -141,7 +141,7 @@ async function setAuthData() {
   return res.data
 }
 
-function getAuthData(): unknown {
+function getAuthData(noredirect = false): unknown {
   const auth = new AuthApi(getConfiguration())
 
   return (dispatch: Dispatch) => {
@@ -154,9 +154,11 @@ function getAuthData(): unknown {
         dispatch(success(res.data))
       })
       .catch((error) => {
-        const errMessage = handleError(error)
+        console.log({
+          error
+        })
+        const errMessage = handleError(error, noredirect)
         dispatch(failure(errMessage))
-        dispatch(toastActions.error(errMessage))
       })
   }
 

@@ -1,8 +1,8 @@
 // React
 import { useFormik } from 'formik'
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Box, Button, Container, Grid, Paper, styled } from '@mui/material';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Box, Button, Grid } from '@mui/material';
 
 import {
   formStyles,
@@ -13,6 +13,9 @@ import { Typography } from '@mui/material'
 
 import * as Yup from 'yup'
 import { validationMessages } from '../../../../constants/formik'
+import { UsersApi } from '../../../../_api';
+import { getConfiguration } from '../../../../config/api.config';
+import { toastActions } from '../../../../_actions';
 
 export const validationSchema = Yup.object({
   email: Yup.string()
@@ -44,17 +47,27 @@ export const formFields = {
 }
 
 export function ContactForm(): React.ReactElement {
-  const { loading, data } = useSelector((store: any) => store.modals)
-
+  const [loading, setLoading] = useState(false)
   const classes = formStyles()
   const dispatch = useDispatch()
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      console.log(values)
-      //dispatch(actions.createOne(values))
+    onSubmit: async (values) => {
+      const auth = new UsersApi(getConfiguration())
+
+      setLoading(true);
+
+      try {
+        await auth.contactFormMailUsers(values)
+        dispatch(toastActions.success("Formulario enviado!"))
+      } catch (error) {
+        dispatch(toastActions.error("No se ha podido enviar el formulario, intente nuevamente!"))
+      }
+      finally {
+        setLoading(false);
+      }
     },
   })
 

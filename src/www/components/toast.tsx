@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toastActions } from '../../_actions'
 import { makeStyles } from '@mui/styles';
 import theme from '../../theme/main'
-import { Snackbar } from '@mui/material';
+import { Snackbar } from '@material-ui/core';
 
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />

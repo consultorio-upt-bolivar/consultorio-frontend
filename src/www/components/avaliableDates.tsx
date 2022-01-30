@@ -125,7 +125,7 @@ export const AvaliableDates = (params: {
                     Fechas disponibles:
                 </Typography>
 
-                <Grid container spacing={2} style={{ marginTop: '20px', marginBottom: '20px', overflow: 'hidden' }}>
+                <Grid container spacing={2} sx={{ py: 4, px: 2 }} style={{ marginTop: '20px', marginBottom: '20px', overflow: 'hidden' }}>
                     {avaliable}
                 </Grid>
             </Box>
@@ -159,7 +159,7 @@ export const AvaliableDates = (params: {
                     Fecha elegida: {selectedDate.date}
                 </Typography>
 
-                <Grid container spacing={2} style={{ marginTop: '20px', marginBottom: '20px', overflow: 'hidden' }}>
+                <Grid container sx={{ py: 4, px: 2 }} spacing={2} style={{ marginTop: '20px', marginBottom: '20px', overflow: 'hidden' }}>
                     {hours}
                 </Grid>
 
