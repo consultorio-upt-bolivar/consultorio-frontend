@@ -60,7 +60,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                 field: 'userName',
                 headerName: 'Normbre del usuario',
                 description: 'Normbre del usuario',
-                flex: 1,
+                width: 200
             },
             {
                 field: 'userType',

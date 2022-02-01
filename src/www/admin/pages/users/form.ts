@@ -8,7 +8,7 @@ export const validationSchema = Yup.object({
     .email(validationMessages.invalid.replace('$', 'Email'))
     .required(validationMessages.required),
   phone: Yup.string().required(validationMessages.required),
-  legalId: Yup.string().required(validationMessages.required),
+  legalId: Yup.string().max(20, validationMessages.maxLength.replace('$', '20')).required(validationMessages.required),
   profile: Yup.string().required(validationMessages.required),
   password: Yup.string()
     .min(5, validationMessages.minLength.replace('$', '5'))

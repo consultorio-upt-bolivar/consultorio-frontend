@@ -1,6 +1,6 @@
 // React
 import React, { useEffect } from 'react'
-import { Container, Avatar, Button, Grid, Typography, Box } from '@mui/material';
+import { Avatar, Button, Grid, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 
 // Forms
@@ -42,7 +42,7 @@ export function LoginPage() {
     },
   })
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault()
 
     if (formik.isValid) {
@@ -61,10 +61,11 @@ export function LoginPage() {
 
   return (
     <PublicLayout>
-      <Box
+      <Grid
+        container
         sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 10, width: "100%", height: "100%" }}
       >
-        <div className={classes.paper}>
+        <Grid item xs={11} sm={10} md={5} lg={4} xl={3} className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -111,8 +112,8 @@ export function LoginPage() {
               >¿No tienes cuenta? Crear una</Button>
             </Grid>
           </Grid>
-        </div>
-      </Box>
+        </Grid>
+      </Grid>
     </PublicLayout>
   )
 }

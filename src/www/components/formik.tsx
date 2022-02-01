@@ -71,7 +71,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
           <TextField
             required
             variant="outlined"
-            margin="normal"
+            margin="dense"
             fullWidth
             id={name}
             label={options}
@@ -103,7 +103,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
           <DivContainer width={options.width} key={name}>
             <TextField
               variant="outlined"
-              margin="normal"
+              margin="dense"
               disabled={options.readonly}
               required={options.required}
               fullWidth
@@ -126,7 +126,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
             <TextField
               InputLabelProps={{ shrink: true }}
               variant="outlined"
-              margin="normal"
+              margin="dense"
               disabled={options.readonly}
               required={options.required}
               fullWidth
@@ -148,7 +148,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
         input = (
           <DivContainer width={options.width} key={name}>
             <FormControl
-              sx={{ mt: 2 }}
+              sx={{ mt: 1 }}
               variant="outlined"
               className={classes.formControl}
             >
@@ -157,14 +157,14 @@ export const GetFormikFields = (formik: any, fields: any) => {
               </InputLabel>
               <Select
                 fullWidth
-                margin="normal"
+                margin="dense"
                 required={options.required}
                 labelId={'select-' + name}
                 label={name}
                 disabled={options.readonly}
                 {...formik.getFieldProps(name)}
               >
-                <MenuItem value="">
+                <MenuItem selected>
                   Seleccionar
                 </MenuItem>
                 {options.values.map((el: any) => {
@@ -188,7 +188,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
           <DivContainer width={options.width} key={name}>
             <TextField
               variant="outlined"
-              margin="normal"
+              margin="dense"
               multiline
               fullWidth
               id={name}
@@ -211,7 +211,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
           <DivContainer width={options.width} key={name}>
             <TextField
               variant="outlined"
-              margin="normal"
+              margin="dense"
               type="password"
               fullWidth
               id={name}
@@ -267,7 +267,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
                   formik.setFieldValue(name, date)
                 }}
                 renderInput={(params) => <TextField
-                  margin="normal"
+                  margin="dense"
                   fullWidth
                   sx={{ mt: 3 }}
                   required={options.required}
@@ -292,7 +292,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
                   formik.setFieldValue(name, date)
                 }}
                 renderInput={(params: any) => <TextField
-                  margin="normal"
+                  margin="dense"
                   fullWidth
                   required={options.required}
                   disabled={options.readonly}

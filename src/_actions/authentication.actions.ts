@@ -67,7 +67,7 @@ function login(email: string, password: string): unknown {
         })
       })
       .catch((error) => {
-        const errMessage = handleError(error)
+        const errMessage = handleError(error, false)
 
         dispatch(failure(errMessage))
         dispatch(toastActions.error(errMessage))
@@ -101,15 +101,27 @@ function signin(options: SigninDTO): unknown {
 
           dispatch(success(data))
 
-          if (
-            data.profile.id == Roles.Admin ||
-            data.profile.id == Roles.Admin2
-          ) {
-            AppHistory.push('/admin', {
-              activeMenu: 'Dashboard',
-            })
-          } else {
-            AppHistory.push('/')
+          switch (data.profile.id) {
+            case Roles.Admin: {
+              AppHistory.replace('/admin', {
+                activeMenu: 'Dashboard',
+              })
+              break;
+            }
+            case Roles.Admin2: {
+              AppHistory.replace('/admin', {
+                activeMenu: 'Dashboard',
+              })
+              break;
+            }
+            case Roles.MedicalSpecialist: {
+              AppHistory.replace('/especialista-dashboard')
+              break;
+            }
+            default: {
+              AppHistory.replace('/dashboard')
+              break;
+            }
           }
         })
       })

@@ -428,7 +428,7 @@ export interface PaginatedResponse {
      * @type {Array<string>}
      * @memberof PaginatedResponse
      */
-    response: Array<string>;
+    results: Array<string>;
 }
 /**
  * 
@@ -3444,6 +3444,120 @@ export class StadisticsApi extends BaseAPI {
      */
     public getRefferedUsersStadistics(dateFrom: string, dateEnd: string, options?: any) {
         return StadisticsApiFp(this.configuration).getRefferedUsersStadistics(dateFrom, dateEnd, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * UptApi - axios parameter creator
+ * @export
+ */
+export const UptApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} userType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateLegalIdUPT: async (id: string, userType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('validateLegalIdUPT', 'id', id)
+            // verify required parameter 'userType' is not null or undefined
+            assertParamExists('validateLegalIdUPT', 'userType', userType)
+            const localVarPath = `/upt/validate-id`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (userType !== undefined) {
+                localVarQueryParameter['userType'] = userType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UptApi - functional programming interface
+ * @export
+ */
+export const UptApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UptApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} userType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async validateLegalIdUPT(id: string, userType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateLegalIdUPT(id, userType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * UptApi - factory interface
+ * @export
+ */
+export const UptApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UptApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} userType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateLegalIdUPT(id: string, userType: string, options?: any): AxiosPromise<void> {
+            return localVarFp.validateLegalIdUPT(id, userType, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UptApi - object-oriented interface
+ * @export
+ * @class UptApi
+ * @extends {BaseAPI}
+ */
+export class UptApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} id 
+     * @param {string} userType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UptApi
+     */
+    public validateLegalIdUPT(id: string, userType: string, options?: any) {
+        return UptApiFp(this.configuration).validateLegalIdUPT(id, userType, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

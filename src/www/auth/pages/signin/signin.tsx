@@ -1,13 +1,13 @@
 // React
 import React, { useEffect } from 'react'
-import { Container, Typography, Avatar, Button, Grid, Box } from '@mui/material';
+import { Typography, Avatar, Button, Grid, FormControl, TextField, FormHelperText } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 
 // Forms
 import { useFormik } from 'formik'
 
 // Logic
-import { authActions } from '../../../../_actions'
+import { authActions, toastActions } from '../../../../_actions'
 
 // Material
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
@@ -18,6 +18,10 @@ import {
   GetFormikFields,
 } from '../../../components/formik'
 import { PublicLayout } from '../../../components/publicLayout';
+import { UptApi } from '../../../../_api';
+import { getConfiguration } from '../../../../config/api.config';
+import { handleError } from '../../../../helpers/handleApiError';
+import { Roles } from '../../../../constants/roles';
 
 export function SigninPage() {
   const formOptions = {
@@ -30,7 +34,7 @@ export function SigninPage() {
 
   // Logout user
   useEffect(() => {
-    //dispatch(authActions.logout())
+    dispatch(authActions.logout())
   }, [])
 
   // Form
@@ -38,32 +42,64 @@ export function SigninPage() {
     initialValues,
     validationSchema,
     onSubmit: (data: any) => {
-      const { phone, legalId, ...rest } = data;
+      const { familyLegalId, ...rest } = data;
 
-      dispatch(authActions.signin({
-        phone: phone + "",
-        legalId: legalId + "",
-        ...rest
-      }))
+      if (formik.values["profile"] === Roles.Family) {
+        rest.familyLegalId = familyLegalId
+      }
+
+      dispatch(authActions.signin(rest))
     },
   })
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault()
 
-    if (formik.isValid) {
-      formik.submitForm()
+    if (!formik.isValid) {
+      return;
     }
+
+    try {
+      if (isNaN(+formik.values.legalId)) {
+        dispatch(toastActions.error("Cedula invalida."))
+        return;
+      }
+
+      const api = new UptApi(getConfiguration())
+      await api.validateLegalIdUPT(formik.values.legalId, formik.values.profile)
+    } catch (error) {
+      const msg = handleError(error);
+      dispatch(toastActions.error(msg))
+      return
+    }
+
+    if (formik.values["profile"] === Roles.Family) {
+      try {
+        if (isNaN(+formik.values.familyLegalId)) {
+          dispatch(toastActions.error("Cedula de familiar invalida."))
+          return;
+        }
+
+        const api = new UptApi(getConfiguration())
+        await api.validateLegalIdUPT(formik.values.familyLegalId, Roles.Employee)
+      } catch (error) {
+        dispatch(toastActions.error("Cedula de familiar invalida."))
+        return
+      }
+    }
+
+    formik.submitForm()
   }
 
   const formikFields = GetFormikFields(formik, formFields)
 
   return (
     <PublicLayout>
-      <Box
+      <Grid
+        container
         sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 10, width: "100%", height: "100%" }}
       >
-        <div className={classes.paper}>
+        <Grid item xs={11} sm={10} md={5} lg={4} xl={3} className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -73,6 +109,30 @@ export function SigninPage() {
 
           <form className={classes.form} noValidate>
             {formikFields}
+
+            {
+              formik.values["profile"] === Roles.Family ?
+                <FormControl
+                  sx={{ marginTop: "0px !important" }}
+                  variant="outlined"
+                  className={classes.formControl}
+                >
+                  <TextField
+                    variant="outlined"
+                    margin="dense"
+                    fullWidth
+                    id="familyLegalId"
+                    label="Cedula familiar"
+                    {...formik.getFieldProps("familyLegalId")}
+                  />
+                  <FormHelperText className={classes.errorText} error>
+                    {formik.touched["familyLegalId"] && formik.errors["familyLegalId"]
+                      ? formik.errors["familyLegalId"]
+                      : null}
+                  </FormHelperText>
+                </FormControl>
+                : null
+            }
 
             <Button
               type="submit"
@@ -85,34 +145,34 @@ export function SigninPage() {
             >
               Registrarme
             </Button>
-
-            <Grid container sx={{ mt: 2 }}>
-              <Grid item xs>
-                <Button
-                  sx={{
-                    color: "secondary",
-                    fontSize: "12",
-                    textTransform: "none"
-                  }}
-                  component="a"
-                  href="/forgot-password"
-                >¿Olvidaste tu contraseña?</Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  sx={{
-                    color: "secondary",
-                    fontSize: "12",
-                    textTransform: "none"
-                  }}
-                  component="a"
-                  href="/login"
-                >¿Ya tienes cuenta? Ingresar</Button>
-              </Grid>
-            </Grid>
           </form>
-        </div>
-      </Box>
+
+          <Grid container sx={{ mt: 2 }}>
+            <Grid item xs>
+              <Button
+                sx={{
+                  color: "secondary",
+                  fontSize: "12",
+                  textTransform: "none"
+                }}
+                component="a"
+                href="/forgot-password"
+              >¿Olvidaste tu contraseña?</Button>
+            </Grid>
+            <Grid item>
+              <Button
+                sx={{
+                  color: "secondary",
+                  fontSize: "12",
+                  textTransform: "none"
+                }}
+                component="a"
+                href="/login"
+              >¿Ya tienes cuenta? Ingresar</Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     </PublicLayout>
   )
 }

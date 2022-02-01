@@ -102,6 +102,19 @@ const ApiMessages: ApiError[] = [
   {
     error: 'Send mail ok!',
     message: 'Correo enviado existosamente.',
+  },
+  {
+    error: 'Invalid legal id.',
+    message: 'Cedula invalida.',
+  },
+  {
+    error: 'user not authorized',
+    message: 'El usuario esta pendiente de autorización.',
+    redirect: '/'
+  },
+  {
+    error: 'user inactive',
+    message: 'El usuario ha sido deshabilitado por el administrador.',
   }
 ]
 
@@ -134,17 +147,15 @@ export const handleError = ({
   message,
   response: responseAxios
 }: any, noredirect = false): string => {
-  const apiMessage = responseAxios?.data?.response?.message ?? message;
+  const apiMessage = responseAxios?.data?.response?.message ?? responseAxios?.data?.response ?? message;
 
   // Find custom message
   let responseMsg: any = ApiMessages.find((el) => el.error == apiMessage)
 
   // Bad request
   if (!responseMsg && responseAxios.status == 400) {
-    const msg = apiMessage.join(', ')
-
     responseMsg = {
-      message: Array.isArray(apiMessage) ? msg : apiMessage
+      message: Array.isArray(apiMessage) ? apiMessage.join(', ') : apiMessage
     }
   }
 
