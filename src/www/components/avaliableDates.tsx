@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { appointmentsActions, medicalAppointmentsActions } from '../../_actions'
+import { alertActions, appointmentsActions, medicalAppointmentsActions } from '../../_actions'
 import { format, parse, isFuture } from 'date-fns'
 import { formStyles } from './formik'
 import Typography from '@mui/material/Typography'
@@ -65,18 +65,26 @@ export const AvaliableDates = (params: {
     const handleSubmit = (e: React.MouseEvent) => {
         e.preventDefault()
 
-        const options = {
-            date: `${selectedDate.date} ${selectedDate.hour.split(' ')[0]}:00`,
-            scheduleId: params.specialityId,
-            userId: userData.id
+        
+      dispatch(alertActions.show({
+        title: "Confirmar turno",
+        description: `Has seleccionado una cita medica para el dia ${selectedDate.date} y hora: ${selectedDate.hour}, es correcto?`,
+        callback: () => {
+            const options = {
+                date: `${selectedDate.date} ${selectedDate.hour.split(' ')[0]}:00`,
+                scheduleId: params.specialityId,
+                userId: userData.id
+            }
+    
+            const dispatchOptions: ActionOptions = {
+                toast: "Cita medica creada!",
+                callback: params.submitCallback
+            }
+    
+            dispatch(medicalAppointmentsActions.createOne(options, dispatchOptions))
         }
+      }));
 
-        const dispatchOptions: ActionOptions = {
-            toast: "Cita medica creada!",
-            callback: params.submitCallback
-        }
-
-        dispatch(medicalAppointmentsActions.createOne(options, dispatchOptions))
     }
 
     // Listen if the params changes to get dates

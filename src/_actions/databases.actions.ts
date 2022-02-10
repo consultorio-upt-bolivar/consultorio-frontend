@@ -27,7 +27,7 @@ function clearState(): ActionFn {
   }
 }
 
-function backupDatabase(showToast = true): ActionFn {
+function backupDatabase(showToast = true, cb: () => void): ActionFn {
   const api = new DatabasesApi(getConfiguration())
 
   return (dispatch: Dispatch) => {
@@ -40,11 +40,17 @@ function backupDatabase(showToast = true): ActionFn {
         if (showToast) {
           dispatch(toastActions.success(successMessages.backupDatabase))
         }
+
+        if (cb) {
+          cb()
+        }
       },
       (error: Error) => {
         const errMessage = handleError(error)
         dispatch(failure(errMessage))
         dispatch(toastActions.error(errMessage))
+
+        if (cb) cb();
       }
     )
   }
@@ -68,28 +74,33 @@ function restoreDatabase(file: any, showToast = true, callback: () => void): Act
 
     const formData = new FormData();
 
-    formData.append('file', file)
+    formData.append('file', file);
 
     fetch(conf.basePath + '/databases/restore', {
       method: 'POST',
       body: formData,
       headers: conf.baseOptions.headers
     })
+      .then(res => res.json())
       .then(() => {
-        dispatch(success())
+        dispatch(success());
 
         if (showToast) {
-          dispatch(toastActions.success(successMessages.restoreDatabase))
+          dispatch(toastActions.success(successMessages.restoreDatabase));
         }
 
         if (callback) {
-          callback()
+          callback();
         }
-      }, (error: Error) => {
-        const errMessage = handleError(error)
-        dispatch(failure(errMessage))
-        dispatch(toastActions.error(errMessage))
-      })
+      }).catch((error) => {
+        const errMessage = handleError(error);
+        dispatch(failure(errMessage));
+        dispatch(toastActions.error(errMessage));
+
+        if (callback) {
+          callback();
+        }
+      });
   }
 
   function request() {

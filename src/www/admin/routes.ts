@@ -20,6 +20,7 @@ import { ProfileAdminPage } from './pages/profile-admin'
 import { CreateMedicalAppointmentPage } from './pages/medicalAppointments/create'
 import { DatabasesPage } from './pages/databases'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
+import { AuthorizationRequestPage } from './pages/authorization-requets/list'
 
 export interface SidebarConfig {
   path: string
@@ -74,6 +75,12 @@ export const AdminSidebar: SidebarConfig[] = [
         path: '/admin/usuarios/crear',
         text: 'Nuevo usuario',
         id: 'crear-usuario',
+        icon: AddBoxOutlined,
+      },
+      {
+        path: '/admin/usuarios/familiares-autorizaciones',
+        text: 'Autorizacion de familiares',
+        id: 'autorizar-familiar',
         icon: AddBoxOutlined,
       },
     ],
@@ -255,6 +262,12 @@ export const AdminRoutes: RoutesConfig[] = [
     component: CreateUsersPage,
     exact: true,
     id: 'crear-usuarios'
+  },
+  {
+    path: '/admin/usuarios/familiares-autorizaciones',
+    component: AuthorizationRequestPage,
+    exact: true,
+    id: 'autorizar-familiar',
   },
   {
     path: '/admin/usuarios/:id',

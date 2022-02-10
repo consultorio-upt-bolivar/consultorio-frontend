@@ -1,24 +1,34 @@
 import { alertConstants } from '../_constants'
 
 interface AlertAction {
+  show: boolean
   type?: string
-  message?: string
+  title?: string
+  description?: string
+  callback?: () => void
 }
 
-export function alert(state = {}, action: AlertAction): AlertAction {
+export function alert(state: AlertAction = { show: false }, action: AlertAction): AlertAction {
   switch (action.type) {
-    case alertConstants.SUCCESS:
+    case alertConstants.SHOW:
       return {
-        type: 'alert-success',
-        message: action.message,
+        show: true,
+        title: action.title,
+        description: action.description,
+        callback: action.callback
       }
-    case alertConstants.ERROR:
+    case alertConstants.HIDE:
       return {
-        type: 'alert-danger',
-        message: action.message,
+        show: false,
+        title: state.title,
+        description: state.description
       }
     case alertConstants.CLEAR:
-      return {}
+      return {
+        show: false,
+        title: state.title,
+        description: state.description
+      }
     default:
       return state
   }

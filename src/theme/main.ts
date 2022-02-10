@@ -14,6 +14,10 @@ const rawTheme = createThemeV5({
       main: '#4cc7ea',
       contrastText: 'rgba(255,255,255,0.87)',
     },
+    error: {
+      main: 'rgb(232, 59, 70)',
+      contrastText: 'rgba(255,255,255,0.87)',
+    },
   },
   typography: {
     fontFamily: "'Work Sans', sans-serif",

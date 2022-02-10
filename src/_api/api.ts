@@ -307,10 +307,10 @@ export interface CreateUserDTO {
     legalId: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof CreateUserDTO
      */
-    familyUserId: number;
+    familyLegalId: string;
     /**
      * 
      * @type {Roles}
@@ -535,16 +535,41 @@ export interface SigninDTO {
     legalId: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SigninDTO
      */
-    familyUserId: number;
+    familyLegalId: string;
     /**
      * 
      * @type {PublicRoles}
      * @memberof SigninDTO
      */
     profile: PublicRoles;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateAuthParams
+ */
+export interface UpdateAuthParams {
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateAuthParams
+     */
+    userId: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateAuthParams
+     */
+    familyId: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateAuthParams
+     */
+    status: boolean;
 }
 /**
  * 
@@ -3765,6 +3790,39 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPendingAuthorizationUsers: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/users/pending-family-authorization`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3794,6 +3852,45 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UpdateAuthParams} updateAuthParams 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateFamilyAuthorizationUsers: async (updateAuthParams: UpdateAuthParams, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateAuthParams' is not null or undefined
+            assertParamExists('updateFamilyAuthorizationUsers', 'updateAuthParams', updateAuthParams)
+            const localVarPath = `/users/update-family-autthorization`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateAuthParams, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -4022,12 +4119,31 @@ export const UsersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPendingAuthorizationUsers(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPendingAuthorizationUsers(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async logicDisableUsers(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.logicDisableUsers(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {UpdateAuthParams} updateAuthParams 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateFamilyAuthorizationUsers(updateAuthParams: UpdateAuthParams, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateFamilyAuthorizationUsers(updateAuthParams, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -4131,12 +4247,29 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPendingAuthorizationUsers(options?: any): AxiosPromise<object> {
+            return localVarFp.getPendingAuthorizationUsers(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         logicDisableUsers(id: number, options?: any): AxiosPromise<void> {
             return localVarFp.logicDisableUsers(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UpdateAuthParams} updateAuthParams 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateFamilyAuthorizationUsers(updateAuthParams: UpdateAuthParams, options?: any): AxiosPromise<object> {
+            return localVarFp.updateFamilyAuthorizationUsers(updateAuthParams, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4245,6 +4378,16 @@ export class UsersApi extends BaseAPI {
 
     /**
      * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public getPendingAuthorizationUsers(options?: any) {
+        return UsersApiFp(this.configuration).getPendingAuthorizationUsers(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4252,6 +4395,17 @@ export class UsersApi extends BaseAPI {
      */
     public logicDisableUsers(id: number, options?: any) {
         return UsersApiFp(this.configuration).logicDisableUsers(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UpdateAuthParams} updateAuthParams 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public updateFamilyAuthorizationUsers(updateAuthParams: UpdateAuthParams, options?: any) {
+        return UsersApiFp(this.configuration).updateFamilyAuthorizationUsers(updateAuthParams, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -6,8 +6,9 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { databasesActions } from '../../../../_actions';
+import { alertActions, databasesActions } from '../../../../_actions';
 import { format } from 'date-fns'
+import { loadingActions } from '../../../../_actions/loading.actions';
 
 const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
@@ -53,30 +54,40 @@ export const DatabasesPage = (): React.ReactElement => {
   }, [sql])
 
   const handleBackupDatabase = () => {
-    console.log('backup database')
-    dispatch(databasesActions.backupDatabase())
+    dispatch(loadingActions.show())
+
+    dispatch(databasesActions.backupDatabase(false, () => {
+      dispatch(loadingActions.hide())
+    }))
   }
 
   const handleRestoreDatabase = () => {
-    if (sqlFile) {
-      console.log('restore database')
-      dispatch(databasesActions.restoreDatabase(sqlFile, true, () => {
+    if (!sqlFile) return
 
-        dispatch(databasesActions.clearState())
-        setSqlFile(false)
+    dispatch(loadingActions.show())
 
-        const inputCurrent: any = inputRef.current;
+    dispatch(alertActions.show({
+      title: "Restaurar base de datos",
+      description: "Estas seguro de restaurar la base de datos? Los datos actuales seran remplazados.",
+      callback: () => {
+        dispatch(databasesActions.restoreDatabase(sqlFile, true, () => {
 
-        if (inputCurrent) {
-          inputCurrent.value = "";
-        }
-      }))
-    }
+          dispatch(databasesActions.clearState())
+          setSqlFile(false)
+
+          const inputCurrent: any = inputRef.current;
+
+          if (inputCurrent) {
+            inputCurrent.value = "";
+          }
+
+          dispatch(loadingActions.hide())
+        }))
+      }
+    }));
   }
 
   const handleClickButton = () => {
-    console.log('handleClickButton', inputRef.current)
-
     if (inputRef.current) {
       (inputRef.current as any).click()
     }

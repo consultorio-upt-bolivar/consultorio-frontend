@@ -14,6 +14,8 @@ import {
 } from '@mui/x-data-grid'
 
 import theme from '../../theme/main';
+import { alertActions } from '../../_actions'
+import { useDispatch } from 'react-redux'
 
 export interface DataTablaParams {
   columns: GridColDef[]
@@ -30,18 +32,20 @@ export function DataTable({
   toggleAction,
   editAction,
 }: DataTablaParams): React.ReactElement {
-  columns.push({
-    field: 'actions',
-    headerName: 'Acciones',
-    renderCell: RowMenuCell({ editAction, toggleAction, deleteAction }),
-    sortable: false,
-    width: 100,
-    headerAlign: 'center',
-    filterable: false,
-    align: 'right',
-    disableColumnMenu: true,
-    disableReorder: true,
-  })
+  if(editAction || toggleAction || deleteAction) {
+    columns.push({
+      field: 'actions',
+      headerName: 'Acciones',
+      renderCell: RowMenuCell({ editAction, toggleAction, deleteAction }),
+      sortable: false,
+      width: 100,
+      headerAlign: 'center',
+      filterable: false,
+      align: 'right',
+      disableColumnMenu: true,
+      disableReorder: true,
+    })
+  }
 
   return <DataGrid
     sx={{
@@ -53,9 +57,18 @@ export function DataTable({
   />
 }
 
-interface RowMenuProps {
+export interface RowMenuProps {
   api: GridApi
   id: GridRowId
+  row: any
+}
+
+interface HandleClickProps {
+  event: any,
+  id: number,
+  title: string,
+  description: string,
+  fn?: (id: number) => void
 }
 
 function RowMenuCell({
@@ -68,12 +81,29 @@ function RowMenuCell({
   deleteAction?: (id: number) => void
 }): (props: RowMenuProps) => React.ReactNode {
   const node = (props: RowMenuProps) => {
-    const { id } = props
-    const classes = useRowMenuStyles()
+    const { id, row: { isActive, name } } = props
 
-    const handleClick = (event: any, id: number, fn: (id: number) => void) => {
-      event.stopPropagation()
-      fn(id)
+    const classes = useRowMenuStyles()
+    const dispatch = useDispatch()
+
+    const handleClick = ({
+      event,
+      id,
+      fn,
+      title,
+      description
+    }: HandleClickProps) => {
+      if (!fn) return;
+
+      event.stopPropagation();
+
+      dispatch(alertActions.show({
+        title,
+        description,
+        callback: () => {
+          fn(id);
+        }
+      }));
     }
 
     return (
@@ -83,7 +113,10 @@ function RowMenuCell({
           className={classes.textPrimary}
           size="small"
           aria-label="edit"
-          onClick={(e) => handleClick(e, Number(id), editAction)}
+          onClick={(e) => {
+            e.stopPropagation()
+            editAction(Number(id))
+          }}
         >
           <EditIcon fontSize="small" />
         </IconButton> : null}
@@ -92,7 +125,9 @@ function RowMenuCell({
           color="inherit"
           size="small"
           aria-label="delete"
-          onClick={(e) => handleClick(e, Number(id), deleteAction)}
+          onClick={(e) => handleClick({
+            event: e, id: Number(id), fn: deleteAction, title: `Eliminar elemento`, description: `Estas seguro de eliminar el elemento ${name ?? id}?`
+          })}
         >
           <DeleteIcon fontSize="small" />
         </IconButton> : null}
@@ -101,7 +136,9 @@ function RowMenuCell({
           color="inherit"
           size="small"
           aria-label="toggle"
-          onClick={(e) => handleClick(e, Number(id), toggleAction)}
+          onClick={(e) => handleClick({
+            event: e, id: Number(id), fn: toggleAction, title: `Cambiar visibilidad`, description: `Estas seguro de  ${isActive ? 'desactivar' : 'activar'} la visibilidad elemento ${name ?? id}?`
+          })}
         >
           <RemoveRedEyeOutlined fontSize="small" />
         </IconButton> : null}
@@ -112,7 +149,7 @@ function RowMenuCell({
   return node
 }
 
-const useRowMenuStyles = makeStyles({
+export const useRowMenuStyles = makeStyles({
   root: {
     display: 'inline-flex',
     alignItems: 'center',
