@@ -25,7 +25,7 @@ export function App(): React.ReactElement {
 
   return (
     <div className="App">
-      <>
+      <div>
         <AlertModal />
         <ToastMessage />
         <Router history={AppHistory}>
@@ -109,7 +109,7 @@ export function App(): React.ReactElement {
         >
           <CircularProgress color="inherit" />
         </Backdrop>
-      </>
+      </div>
     </div>
   )
 }

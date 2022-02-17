@@ -12,6 +12,18 @@ export const stadisticsActions = {
   GetStadistics,
 }
 
+export interface SystemData {
+  totalStudents: string;
+  totalAdministratives: string;
+  totalFamilies: string;
+  totalSpecialists: string;
+  totalUsers: string;
+  totalOffices: string;
+  totalSpecialities: string;
+  attendedMedicalAppointments: string;
+  cancelledMedicalAppointments: string;
+}
+
 const constants = stadisticsConstants;
 
 function GetStadistics(params: {
@@ -26,11 +38,56 @@ function GetStadistics(params: {
     try {
       const { data: refferedUsers } = await api.getRefferedUsersStadistics(params.dateFrom, params.dateEnd)
       const { data: mostUsedSpecialities } = await api.getMostUsedSpecialitiesStadistics(params.dateFrom, params.dateEnd)
+      const { data: systemData } : any = await api.getSystemDataStadistics();
+
+      const usersData = [
+        {
+          name: "Estudiantes",
+          total: systemData.totalStudents
+        },
+        {
+          name: "Personal Administrativo",
+          total: systemData.totalAdministratives
+        },
+        {
+          name: "Familiares",
+          total: systemData.totalFamilies
+        },
+        {
+          name: "Especialistas",
+          total: systemData.totalSpecialists
+        },
+        {
+          name: "Total Usuarios",
+          total: systemData.totalUsers
+        }
+      ]
+
+      const generalData = [
+        {
+          name: "Consutorios",
+          total: systemData.totalOffices
+        },
+        {
+          name: "Especialidades",
+          total: systemData.totalSpecialities
+        },
+        {
+          name: "Consultas medicas atendidas",
+          total: systemData.attendedMedicalAppointments
+        },
+        {
+          name: "Consultas medicas canceladas",
+          total: systemData.cancelledMedicalAppointments
+        }
+      ]
 
       dispatch({
         type: constants.GET_STADISTICS_SUCCESS, data: {
           refferedUsers,
-          mostUsedSpecialities
+          mostUsedSpecialities,
+          usersData,
+          generalData
         }
       })
     } catch (error) {

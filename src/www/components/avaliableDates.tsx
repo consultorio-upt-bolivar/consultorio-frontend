@@ -21,6 +21,7 @@ export const AvaliableDates = (params: {
     dateFrom: Date
     dateEnd: Date
     specialityId: string
+    user?: any
     submitCallback?: () => void
 }) => {
     const [step, setStep] = useState('findAvaliableDates')
@@ -73,7 +74,7 @@ export const AvaliableDates = (params: {
             const options = {
                 date: `${selectedDate.date} ${selectedDate.hour.split(' ')[0]}:00`,
                 scheduleId: params.specialityId,
-                userId: userData.id
+                userId: params.user?.id && params.user?.id != '' ? params.user?.id : userData.id
             }
     
             const dispatchOptions: ActionOptions = {
@@ -205,6 +206,10 @@ export const AvaliableDates = (params: {
                                     </Typography>
                                     <Typography mt={'20px'} component="div">
                                         Doctor: {selectedDate.specialist.name}
+                                    </Typography>
+
+                                   <Typography mt={'20px'} component="div">
+                                        Usuario: {params.user?.id && params.user?.id != '' ? params.user?.name : userData.name}
                                     </Typography>
                                 </CardContent>
                             </Card>

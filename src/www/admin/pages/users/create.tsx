@@ -82,6 +82,8 @@ export function CreateUsersPage(): React.ReactElement {
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault()
 
+    console.log(formik.errors);
+
     if (formik.isValid) {
       formik.submitForm()
     }

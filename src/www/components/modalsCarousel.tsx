@@ -87,11 +87,11 @@ export default function ModalsCarousel() {
                 >
                     {items.map((modal: any) => {
                         return <div key={modal.id}>
-                            <Typography sx={{ my: 1 }} variant='h5'>{modal.title}</Typography>
+                            {/* <Typography sx={{ my: 1 }} variant='h5'>{modal.title}</Typography> */}
                             <img style={{
                                 maxWidth: "500px"
                             }} src={modal.image} />
-                            <Typography sx={{ mt: 1, mb: 0, fontSize: 14 }} variant='h5'>{modal.description}</Typography>
+                            {/* <Typography sx={{ mt: 1, mb: 0, fontSize: 14 }} variant='h5'>{modal.description}</Typography> */}
                         </div>
                     })}
                 </Carousel>

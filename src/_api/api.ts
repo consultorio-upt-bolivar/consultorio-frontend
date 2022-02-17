@@ -3348,6 +3348,39 @@ export const StadisticsApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSystemDataStadistics: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/stadistics/system-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -3389,6 +3422,15 @@ export const StadisticsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getRefferedUsersStadistics(dateFrom, dateEnd, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSystemDataStadistics(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSystemDataStadistics(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -3426,6 +3468,14 @@ export const StadisticsApiFactory = function (configuration?: Configuration, bas
          */
         getRefferedUsersStadistics(dateFrom: string, dateEnd: string, options?: any): AxiosPromise<void> {
             return localVarFp.getRefferedUsersStadistics(dateFrom, dateEnd, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSystemDataStadistics(options?: any): AxiosPromise<object> {
+            return localVarFp.getSystemDataStadistics(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -3469,6 +3519,16 @@ export class StadisticsApi extends BaseAPI {
      */
     public getRefferedUsersStadistics(dateFrom: string, dateEnd: string, options?: any) {
         return StadisticsApiFp(this.configuration).getRefferedUsersStadistics(dateFrom, dateEnd, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StadisticsApi
+     */
+    public getSystemDataStadistics(options?: any) {
+        return StadisticsApiFp(this.configuration).getSystemDataStadistics(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

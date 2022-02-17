@@ -14,7 +14,7 @@ import {
 import { AdminLayout } from '../../components/adminLayout'
 
 // Variable
-import { specialitiesActions } from '../../../../_actions'
+import { specialitiesActions, usersActions } from '../../../../_actions'
 import { AvaliableDates } from '../../../components/avaliableDates'
 import { validationMessages } from '../../../../constants/formik'
 
@@ -22,6 +22,7 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
     const today = new Date()
 
     const { items: specialitiesList } = useSelector((store: any) => store.specialities)
+    const { items: usersList } = useSelector((store: any) => store.users)
 
     const classes = formStyles()
     const dispatch = useDispatch()
@@ -29,6 +30,13 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
     // Get specialities
     useEffect(() => {
         dispatch(specialitiesActions.getAll({
+            limit: 1000,
+            offset: 0,
+        }, {
+            toast: false
+        }))
+
+        dispatch(usersActions.getAll({
             limit: 1000,
             offset: 0,
         }, {
@@ -42,7 +50,8 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
             dateEnd: add(today, {
                 days: 5
             }),
-            specialityId: ''
+            specialityId: '',
+            user: null
         },
         validationSchema: Yup.object({
             date: Yup.string().required(validationMessages.required),
@@ -118,9 +127,38 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                             {formik.errors.specialityId ? formik.errors.specialityId : null}
                         </FormHelperText>
                     </FormControl>
+
+                    <FormControl
+                        variant="outlined"
+                        className={classes.formControl}
+                        sx={{ mt: 2 }}
+                    >
+                        <InputLabel className={classes.selectLabel} id='select-users'>
+                            Usuario
+                        </InputLabel>
+                        <Select
+                            labelId='select-users'
+                            label="user"
+                            {...formik.getFieldProps("user")}
+                        >
+                            <MenuItem value="">
+                                Seleccionar
+                            </MenuItem>
+                            {usersList?.map((el: any) => {
+                                return (
+                                    <MenuItem key={el.name} value={el}>
+                                        {el.name}
+                                    </MenuItem>
+                                )
+                            })}
+                        </Select>
+                        <FormHelperText error>
+                            {formik.errors.user ? formik.errors.user : null}
+                        </FormHelperText>
+                    </FormControl>
                 </form>
 
-                <AvaliableDates dateFrom={formik.values.dateFrom} dateEnd={formik.values.dateEnd} specialityId={formik.values.specialityId} />
+                <AvaliableDates dateFrom={formik.values.dateFrom} dateEnd={formik.values.dateEnd} specialityId={formik.values.specialityId} user={formik.values.user} />
             </Container>
         </AdminLayout>
     )

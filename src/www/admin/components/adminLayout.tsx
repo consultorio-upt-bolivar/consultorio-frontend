@@ -153,7 +153,7 @@ const useLayoutStyles = makeStyles({
   rootLayout: {
     padding: '0px',
     height: `calc(100vh - 100px)`,
-    maxWidth: '100vw !important',
+    maxWidth: '100vw !important'
   },
   appBarTitle: {
     flexGrow: 1,
