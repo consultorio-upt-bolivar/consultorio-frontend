@@ -34,6 +34,15 @@ const Item = styled(Paper)(({ theme }) => ({
   height: '100px'
 }));
 
+const validateImageSize = (file: File) => {
+  const fileSize = file.size / 1024 / 1024; // in MiB
+  if (fileSize > 1) {
+    return false
+  } else {
+    return true
+  }
+}
+
 export function CreateModalPage(): React.ReactElement {
   // Variable
   const formName = 'Modal';
@@ -78,7 +87,14 @@ export function CreateModalPage(): React.ReactElement {
   }
 
   const validateFile = async (e: React.SyntheticEvent) => {
+    formik.setFieldValue('image', null, false);
+
     const file = (e as any).target?.files[0] ?? false
+
+    if (!validateImageSize(file)) {
+      formik.setFieldError("image", "El tamaño maximo de la imagen es 1 Mib")
+      return;
+    }
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -166,7 +182,7 @@ export function CreateModalPage(): React.ReactElement {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={loading}
+            disabled={loading || !formik.isValid}
             onClick={(e) => handleSubmit(e)}
           >
             {data && params.id ? 'Actualizar' : 'Crear'}

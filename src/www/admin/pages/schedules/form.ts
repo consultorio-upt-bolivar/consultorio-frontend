@@ -10,7 +10,7 @@ export const validationSchema = Yup.object({
   dateEnd: Yup.string().required(validationMessages.required),
   startHour: Yup.string().required(validationMessages.required),
   endHour: Yup.string().required(validationMessages.required),
-  appointmentInterval: Yup.number().min(15).max(60).required(validationMessages.required),
+  appointmentInterval: Yup.number().min(15, validationMessages.min.replace('$', '15 minutos')).max(60, validationMessages.max.replace('$', '60 minutos')).required(validationMessages.required),
   officeId: Yup.string().required(validationMessages.required),
   specialityId: Yup.string().required(validationMessages.required),
   specialistId: Yup.string().required(validationMessages.required)

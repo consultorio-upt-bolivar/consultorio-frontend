@@ -7,6 +7,7 @@ import { formStyles } from './formik'
 import Typography from '@mui/material/Typography'
 import { Alert, Box, Button, Card, CardContent, Grid, Paper, styled } from '@mui/material'
 import { ActionOptions } from '../../_actions/generic.actions'
+import { loadingActions } from '../../_actions/loading.actions'
 
 const Item = styled(Box)(() => ({
     textAlign: 'center',
@@ -30,18 +31,17 @@ export const AvaliableDates = (params: {
     specialityId: string
     specialistId?: string
     user?: any
-    submitCallback?: () => void
+    submitCallback: () => void
 }) => {
     const [step, setStep] = useState('findAvaliableDates')
     const [selectedDate, setSelectedDate] = useState<any>({})
+    const [loading, setLoading] = useState<any>(false)
     const { loading: creatingAppointment, error: errorAppointments } = useSelector((state: any) => state.medicalAppointments)
     const { items: avaliablesUsers = [] } = useSelector((state: any) => state.appointments)
     const userData = useSelector((state: any) => state.authentication.user)
 
     const dispatch = useDispatch()
     const classes = formStyles()
-
-    console.log(avaliablesUsers)
 
     const getAvaliableDates = () => {
         if (params.specialityId == "") {
@@ -83,6 +83,8 @@ export const AvaliableDates = (params: {
             title: "Confirmar turno",
             description: `Has seleccionado una cita médica para el dia ${selectedDate.date} y hora: ${selectedDate.hour}, es correcto?`,
             callback: () => {
+                setLoading(true)
+
                 const options = {
                     date: `${selectedDate.date} ${selectedDate.hour.split(' ')[0]}:00`,
                     scheduleId: params.specialityId,
@@ -90,14 +92,26 @@ export const AvaliableDates = (params: {
                 }
 
                 const dispatchOptions: ActionOptions = {
-                    toast: "Cita médica creada!",
-                    callback: params.submitCallback
+                    toast: false,
+                    callback: () => {
+                        setLoading(false)
+                        params.submitCallback()
+                    }
                 }
 
                 dispatch(medicalAppointmentsActions.createOne(options, dispatchOptions))
             }
         }));
     }
+
+    // Loading circle
+    useEffect(() => {
+        if(loading) {
+            dispatch(loadingActions.show())
+        } else {
+            dispatch(loadingActions.hide())
+        }
+    }, [loading])
 
     // Listen if the params changes to get dates
     useEffect(() => {

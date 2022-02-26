@@ -81,7 +81,7 @@ export function LoginPage() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              disabled={loading}
+              disabled={loading || !formik.isValid}
               onClick={(e) => handleSubmit(e)}
             >
               Ingresar

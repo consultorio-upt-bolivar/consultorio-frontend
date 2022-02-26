@@ -1,33 +1,70 @@
 // React
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux'
 import { format } from 'date-fns'
 
 import theme from '../../../../theme/main'
 import { AdminLayout } from '../../components/adminLayout'
-import { DataTablaParams, DataTable } from '../../../components/table'
+import { DataTablaParams, DataTable, RowMenuProps, useRowMenuStyles } from '../../../components/table'
 
-import { AppHistory } from '../../../../helpers'
-import { medicalAppointmentsActions as actions } from '../../../../_actions'
+import { alertActions, medicalAppointmentsActions } from '../../../../_actions'
+
+import { IconButton } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/DeleteOutlined'
+import { RemoveRedEyeOutlined } from '@material-ui/icons'
+import { TakeMedicalAppointmentDialog } from '../../../components/takeMedicalAppointment';
+import { CancelMedicalAppointmentDialog } from '../../../components/cancelMedicalAppointment';
 
 export function ListMedicalAppointmentsPage(): React.ReactElement {
   const listName = 'Citas médicas';
+  const [open, setOpen] = useState(false)
+  const [medicalAppointment, setMedicalAppointment] = useState<number | undefined>()
+  const [openCancel, setOpenCancel] = useState(false)
+  const [cancelAppointmentId, setCancelAppointment] = useState<number | undefined>()
   const { items } = useSelector((state: any) => state.medicalAppointments)
   const dispatch = useDispatch()
 
-  useEffect(() => {
+  const getMedicalAppointments = () => {
     dispatch(
-      actions.getAll({
+      medicalAppointmentsActions.getAll({
         limit: 25000,
         offset: 0
       })
     )
+  }
+
+  useEffect(() => {
+    getMedicalAppointments();
   }, [])
 
-  const editAction = (id: number) => {
-    AppHistory.push('/admin/citas-medicas/' + id)
+  const handleClick = (event: any, row: any) => {
+    event.stopPropagation();
+
+    dispatch(alertActions.show({
+      title: `Citas médica`,
+      description: `Quieres modificar esta cita médica?`,
+      callback: () => {
+        setMedicalAppointment(row.id)
+        setOpen(true);
+      }
+    }));
   }
+
+  const handleCancel = (event: any, row: any) => {
+    event.stopPropagation();
+
+    dispatch(alertActions.show({
+      title: `Citas médica`,
+      description: `Quieres cancelar esta cita médica?`,
+      callback: () => {
+        setCancelAppointment(row.id)
+        setOpenCancel(true);
+      }
+    }));
+  }
+
+  const rowMenuClasses = useRowMenuStyles()
 
   const params: DataTablaParams = {
     columns: [
@@ -35,49 +72,95 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
         field: 'id',
         headerName: 'ID',
         description: 'Id unico en la DB',
-        width: 100,
-      },
-      {
-        field: 'cancelled',
-        headerName: 'Fue cancelada?',
-        description: 'Cancelada?',
-        width: 200,
+        width: 100
       },
       {
         field: 'specialityName',
         headerName: 'Especialidad',
         description: 'Especialidad de la jornada',
-        width: 200,
+        width: 200
       },
       {
         field: 'date',
         headerName: 'Fecha',
         description: 'Fecha',
-        width: 200
+        width: 150
       },
       {
         field: 'userName',
         headerName: 'Normbre del usuario',
         description: 'Normbre del usuario',
-        flex: 1,
+        flex: 150
       },
       {
         field: 'userType',
         headerName: 'Tipo de usuario',
         description: 'Tipo de usuario',
-        width: 200,
+        width: 150,
       },
+      {
+        field: 'cancelled',
+        headerName: 'Cancelada',
+        description: 'Cancelada',
+        type: "boolean",
+        width: 100,
+      },
+      {
+        field: 'attended',
+        headerName: 'Atendida',
+        description: 'Atendida por el especialista',
+        type: "boolean",
+        width: 100,
+      },
+      {
+        field: 'actions',
+        headerName: 'Acciones',
+        renderCell: (props: RowMenuProps) => {
+          const { row } = props;
+
+          return (
+            <div className={rowMenuClasses.root}>
+              <IconButton
+                color="inherit"
+                className={rowMenuClasses.textPrimary}
+                size="small"
+                aria-label="toggle"
+                onClick={(e) => handleClick(e, row)}
+              >
+                <RemoveRedEyeOutlined fontSize="small" />
+              </IconButton>
+
+              <IconButton
+                color="inherit"
+                className={rowMenuClasses.textPrimary}
+                size="small"
+                aria-label="toggle"
+                onClick={(e) => handleCancel(e, row)}
+              >
+                <DeleteIcon fontSize="small" />
+              </IconButton>
+            </div>
+          )
+        },
+        sortable: false,
+        width: 100,
+        headerAlign: 'center',
+        filterable: false,
+        align: 'center',
+        disableColumnMenu: true,
+        disableReorder: true
+      }
     ],
     rows: items?.map((el: any) => {
       el.specialityName = el.schedule.speciality.name
       el.userName = el.user.name + " | " + el.user.email
       el.userType = el.user.profile.name
-      el.cancelled = el.cancellationDate && el.cancellationReason ? el.cancellationReason : 'No'
+      el.cancelled = !!el.cancellationDate && el.cancellationReason
       el.date = format(new Date(el.date), 'yyyy-MM-dd HH:mm')
+      el.attended = el.report && el.report.length > 0;
 
       return el
-    }) ?? [],
-    editAction,
+    }) ?? []
   }
 
   return (
@@ -105,6 +188,22 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
             <DataTable {...params} />
           </div>
         </Box>
+
+        <TakeMedicalAppointmentDialog {...{
+          medicalAppointment,
+          setMedicalAppointment,
+          open,
+          setOpen,
+          getMedicalAppointments
+        }} />
+
+        <CancelMedicalAppointmentDialog {...{
+          medicalAppointmentId: cancelAppointmentId,
+          setMedicalAppointment: setCancelAppointment,
+          open: openCancel,
+          setOpen: setOpenCancel,
+          getMedicalAppointments
+        }} />
       </Box>
     </AdminLayout>
   )

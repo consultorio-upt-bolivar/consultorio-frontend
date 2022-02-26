@@ -30,12 +30,18 @@ export function SigninPage() {
   }
   const dispatch = useDispatch()
   const classes = formStyles()
-  const { loading } = useSelector((store: any) => store.authentication)
+  const { loading, error } = useSelector((store: any) => store.authentication)
 
   // Logout user
   useEffect(() => {
     dispatch(authActions.logout())
   }, [])
+
+  useEffect(() => {
+    if(error) {
+      formik.resetForm(undefined);
+    }
+  }, [error])
 
   // Form
   const formik = useFormik({
@@ -140,7 +146,7 @@ export function SigninPage() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              disabled={loading}
+              disabled={loading || !formik.isValid}
               onClick={(e) => handleSubmit(e)}
             >
               Registrarme

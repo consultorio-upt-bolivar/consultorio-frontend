@@ -20,6 +20,7 @@ import { validationMessages } from '../../../../constants/formik'
 import { UsersApi } from '../../../../_api'
 import { getConfiguration } from '../../../../config/api.config'
 import { handleError } from '../../../../helpers/handleApiError'
+import { AppHistory } from '../../../../helpers'
 
 export function CreateMedicalAppointmentPage(): React.ReactElement {
     const today = new Date()
@@ -43,6 +44,11 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
             const msg = handleError(err, false)
             dispatch(toastActions.error(msg))
         }
+    }
+
+    const submitCallback = () => {
+        dispatch(toastActions.success("Cita médica creada!"));
+        AppHistory.push('/admin/citas-medicas')
     }
 
     // Get specialities
@@ -171,8 +177,11 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                                 )
                             })}
                         </Select>
-                        <FormHelperText error id="my-helper-text">
-                            {formik.errors.officeId ? formik.errors.officeId : null}
+
+                        <FormHelperText className={classes.errorText} error>
+                            {formik.touched.officeId && formik.errors.officeId
+                                ? formik.errors.officeId
+                                : null}
                         </FormHelperText>
                     </FormControl>
 
@@ -200,8 +209,11 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                                 )
                             })}
                         </Select>
-                        <FormHelperText error>
-                            {formik.errors.specialityId ? formik.errors.specialityId : null}
+
+                        <FormHelperText className={classes.errorText} error>
+                            {formik.touched.specialityId && formik.errors.specialityId
+                                ? formik.errors.specialityId
+                                : null}
                         </FormHelperText>
                     </FormControl>
 
@@ -228,8 +240,10 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                                 )
                             })}
                         </Select>
-                        <FormHelperText error id="my-helper-text">
-                            {formik.errors.specialistId ? formik.errors.specialistId : null}
+                        <FormHelperText className={classes.errorText} error>
+                            {formik.touched.specialistId && formik.errors.specialistId
+                                ? formik.errors.specialistId
+                                : null}
                         </FormHelperText>
                     </FormControl>
 
@@ -257,8 +271,10 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                                 )
                             })}
                         </Select>
-                        <FormHelperText error>
-                            {formik.errors.user ? formik.errors.user : null}
+                        <FormHelperText className={classes.errorText} error>
+                            {formik.touched.user && formik.errors.user
+                                ? formik.errors.user
+                                : null}
                         </FormHelperText>
                     </FormControl>
                 </form>
@@ -276,6 +292,7 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                     specialityId={formik.values.specialityId}
                     specialistId={formik.values.specialistId}
                     user={formik.values.user}
+                    submitCallback={submitCallback}
                 />
             </Container>
         </AdminLayout>

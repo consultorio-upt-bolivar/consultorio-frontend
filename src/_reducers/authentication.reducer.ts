@@ -7,6 +7,7 @@ const initialState = user ? { loggedIn: true, user } : {}
 
 interface AuthAction {
   loading?: boolean
+  error?: boolean
   loggedIn?: boolean
   user?: unknown
 }
@@ -14,6 +15,7 @@ interface AuthAction {
 export function authentication(
   state = {
     loading: false,
+    error: false,
     ...initialState
   },
   action: {
@@ -32,7 +34,10 @@ export function authentication(
         user: action.user,
       }
     case authConstants.LOGIN_FAILURE:
-      return {}
+      return {
+        loading: false,
+        error: true
+      }
 
     case authConstants.SIGNIN_REQUEST:
       return {
@@ -44,7 +49,10 @@ export function authentication(
         user: action.user,
       }
     case authConstants.SIGNIN_FAILURE:
-      return {}
+      return {
+        loading: false,
+        error: true
+      }
     case authConstants.SEND_MAIL_REQUEST:
       return {
         loading: true,
@@ -56,6 +64,7 @@ export function authentication(
     case authConstants.SEND_MAIL_FAILURE:
       return {
         loading: false,
+        error: true
       }
     case authConstants.CHANGE_PASSWORD_REQUEST:
       return {
@@ -68,6 +77,7 @@ export function authentication(
     case authConstants.CHANGE_PASSWORD_FAILURE:
       return {
         loading: false,
+        error: true
       }
     case authConstants.LOGOUT:
       clearUserStorage()

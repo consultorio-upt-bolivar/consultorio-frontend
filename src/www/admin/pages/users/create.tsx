@@ -110,7 +110,7 @@ export function CreateUsersPage(): React.ReactElement {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={loading}
+            disabled={loading || !formik.isValid}
             onClick={handleSubmit}
           >
             {data && params.id ? 'Actualizar' : 'Crear'}

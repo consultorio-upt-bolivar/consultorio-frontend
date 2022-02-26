@@ -5,22 +5,25 @@ import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, FormHelperText, TextField } from '@mui/material';
-import { formStyles, GetFormikFields } from '../../../components/formik';
-import { alertActions, appointmentsActions, specialitiesActions } from '../../../../_actions';
-import { MedicalAppointmentsApi } from '../../../../_api';
-import { getConfiguration } from '../../../../config/api.config';
-import { validationMessages } from '../../../../constants/formik';
+import { formStyles, GetFormikFields } from './formik';
+import { alertActions, appointmentsActions, specialitiesActions } from '../../_actions';
+import { MedicalAppointmentsApi } from '../../_api';
+import { getConfiguration } from '../../config/api.config';
+import { validationMessages } from '../../constants/formik';
+import { loadingActions } from '../../_actions/loading.actions';
 
 export function CancelMedicalAppointmentDialog({
     medicalAppointmentId,
     setMedicalAppointment,
     open,
-    setOpen
+    setOpen,
+    getMedicalAppointments
 }: {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
     medicalAppointmentId: number | undefined;
     setMedicalAppointment: React.Dispatch<React.SetStateAction<number | undefined>>;
+    getMedicalAppointments: () => void
 }) {
     const [data, setData] = useState<any>(false)
     const [loading, setLoading] = useState<any>(false)
@@ -46,8 +49,10 @@ export function CancelMedicalAppointmentDialog({
     }
 
     const handleClose = () => {
+        getMedicalAppointments()
         setMedicalAppointment(undefined)
         setOpen(false)
+        setLoading(false)
     };
 
     const handleCancel = (e: React.MouseEvent) => {
@@ -60,17 +65,28 @@ export function CancelMedicalAppointmentDialog({
                 title: `Confirmar`,
                 description: `Estas seguro de cancelar esta cita médica?`,
                 callback: () => {
+                    setLoading(true);
+
                     dispatch(appointmentsActions.cancelAppointment(
                         +medicalAppointmentId, 
                         values.cancellationReason,
                         () => {
-                            handleClose()
+                            setLoading(false);
                         }
                     ))
                 }
             }));
         })
     }
+
+    // Loading circle
+    useEffect(() => {
+        if(loading) {
+            dispatch(loadingActions.show())
+        } else {
+            dispatch(loadingActions.hide())
+        }
+    }, [loading])
 
     // Get specialities
     useEffect(() => {
@@ -109,7 +125,7 @@ export function CancelMedicalAppointmentDialog({
             cancellationReason: '',
         },
         validationSchema: Yup.object({
-            cancellationReason: Yup.string().required(validationMessages.required)
+            cancellationReason: Yup.string().required(validationMessages.required).min(10, validationMessages.minLength.replace("$", "10"))
         }),
         onSubmit: async (values) => values,
     })
@@ -175,7 +191,7 @@ export function CancelMedicalAppointmentDialog({
                                         variant="contained"
                                         color="primary"
                                         className={classes.submit}
-                                        disabled={loading || !formik.isValid}
+                                        disabled={loading || !formik.isValid || data.cancellationDate || (data.report && data.report.length > 0)}
                                         onClick={(e) => handleCancel(e)}
                                     >
                                         Cancelar Cita médica

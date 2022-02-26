@@ -28,6 +28,11 @@ const DrawerHeader = styled('div')(() => ({
   padding: "20px",
 }));
 
+const BreadcrumbsStyled = styled(Breadcrumbs)(() => ({
+  color: "white",
+  flexGrow: 1
+}));
+
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
@@ -94,10 +99,10 @@ export const AdminLayout = ({
 
             </div>
 
-            <Breadcrumbs aria-label="breadcrumb" style={{ flexGrow: 1 }}>
+            <BreadcrumbsStyled aria-label="breadcrumb">
               <Typography noWrap className={classes.appBarTitleText} onClick={() => AppHistory.replace('/admin')}>Inicio</Typography>
               {state?.title ? <Typography noWrap className={classes.appBarTitleText}>{state?.title}</Typography> : null}
-            </Breadcrumbs>
+            </BreadcrumbsStyled>
 
             <UserAvatarMenu name={userData?.name ?? ''}></UserAvatarMenu>
           </Toolbar>
@@ -152,8 +157,9 @@ export const AdminLayout = ({
 const useLayoutStyles = makeStyles({
   rootLayout: {
     padding: '0px',
-    height: `calc(100vh - 100px)`,
-    maxWidth: '100vw !important'
+    height: '100vh',
+    maxWidth: '100vw !important',
+    position: "relative"
   },
   appBarTitle: {
     flexGrow: 1,

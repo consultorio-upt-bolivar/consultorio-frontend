@@ -108,7 +108,7 @@ export function UserProfilePage(): React.ReactElement {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        disabled={loading}
+                        disabled={loading || !formik.isValid}
                         onClick={(e) => handleSubmit(e)}
                     >
                         {data ? 'Actualizar' : 'Crear'}

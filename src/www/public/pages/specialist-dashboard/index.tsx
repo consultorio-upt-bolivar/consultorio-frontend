@@ -6,11 +6,11 @@ import { PublicLayout } from '../../../components/publicLayout'
 import { DataTablaParams, DataTable, RowMenuProps, useRowMenuStyles } from '../../../components/table'
 import { format } from 'date-fns'
 import SpecialistScheduleList from './schedulesList'
-import { TakeMedicalAppointmentDialog } from './takeMedicalAppointment'
 import { IconButton } from '@material-ui/core'
-import { RemoveRedEyeOutlined } from '@material-ui/icons'
 import DeleteIcon from '@material-ui/icons/DeleteOutlined'
-import { CancelMedicalAppointmentDialog } from './cancelMedicalAppointment'
+import { RemoveRedEyeOutlined } from '@material-ui/icons'
+import { CancelMedicalAppointmentDialog } from '../../../components/cancelMedicalAppointment'
+import { TakeMedicalAppointmentDialog } from '../../../components/takeMedicalAppointment'
 
 export const SpecialistDashboardPage = (): React.ReactElement => {
     const [open, setOpen] = useState(false)
@@ -21,7 +21,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
     const { items } = useSelector((state: any) => state.medicalAppointments)
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    const getMedicalAppointments = () => {
         dispatch(
             medicalAppointmentsActions.getAll({
                 limit: 25000,
@@ -29,6 +29,10 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                 where: `schedule.id==${selectedSchedule}`
             })
         )
+    }
+
+    useEffect(() => {
+        getMedicalAppointments()
     }, [selectedSchedule])
 
     const handleClick = (event: any, row: any) => {
@@ -113,7 +117,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                 renderCell: (props: RowMenuProps) => {
                     const { row } = props;
 
-                    if(row.cancellationDate || (row.report && row.report.length > 0)) return <></>;
+                    if (row.cancellationDate || (row.report && row.report.length > 0)) return <></>;
 
                     return (
                         <div className={rowMenuClasses.root}>
@@ -192,14 +196,16 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                     medicalAppointment,
                     setMedicalAppointment,
                     open,
-                    setOpen
+                    setOpen,
+                    getMedicalAppointments
                 }} />
-                
+
                 <CancelMedicalAppointmentDialog {...{
                     medicalAppointmentId: cancelAppointmentId,
                     setMedicalAppointment: setCancelAppointment,
                     open: openCancel,
-                    setOpen: setOpenCancel
+                    setOpen: setOpenCancel,
+                    getMedicalAppointments
                 }} />
             </Container>
         </PublicLayout>

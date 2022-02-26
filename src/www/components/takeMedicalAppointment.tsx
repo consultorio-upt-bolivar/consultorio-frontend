@@ -5,11 +5,12 @@ import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { formStyles, GetFormikFields } from '../../../components/formik';
-import { alertActions, medicalAppointmentsActions, specialitiesActions } from '../../../../_actions';
-import { MedicalAppointmentsApi } from '../../../../_api';
-import { getConfiguration } from '../../../../config/api.config';
-import { validationMessages } from '../../../../constants/formik';
+import { formStyles, GetFormikFields } from './formik';
+import { alertActions, medicalAppointmentsActions, specialitiesActions } from '../../_actions';
+import { MedicalAppointmentsApi } from '../../_api';
+import { getConfiguration } from '../../config/api.config';
+import { validationMessages } from '../../constants/formik';
+import { loadingActions } from '../../_actions/loading.actions';
 
 const ReportInfo = ({ data }: any) => {
     return <Grid item width="100%" padding={0}>
@@ -61,12 +62,14 @@ export function TakeMedicalAppointmentDialog({
     medicalAppointment,
     setMedicalAppointment,
     open,
-    setOpen
+    setOpen,
+    getMedicalAppointments
 }: {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
     medicalAppointment: number | undefined;
     setMedicalAppointment: React.Dispatch<React.SetStateAction<number | undefined>>;
+    getMedicalAppointments: () => void;
 }) {
     const [data, setData] = useState<any>(false)
     const [loading, setLoading] = useState<any>(false)
@@ -116,8 +119,10 @@ export function TakeMedicalAppointmentDialog({
     }
 
     const handleClose = () => {
+        getMedicalAppointments()
         setMedicalAppointment(undefined)
         setOpen(false)
+        setLoading(false)
     };
 
     const handleSubmit = (e: React.MouseEvent) => {
@@ -134,6 +139,8 @@ export function TakeMedicalAppointmentDialog({
                 options.refferedSpecialityId = values.refferedSpecialityId;
             }
 
+            setLoading(true);
+
             dispatch(alertActions.show({
                 title: `Confirmar`,
                 description: `¿Está seguro de guardar los datos?`,
@@ -145,6 +152,15 @@ export function TakeMedicalAppointmentDialog({
             }));
         })
     }
+
+    // Loading circle
+    useEffect(() => {
+        if(loading) {
+            dispatch(loadingActions.show())
+        } else {
+            dispatch(loadingActions.hide())
+        }
+    }, [loading])
 
     // Get specialities
     useEffect(() => {
@@ -284,7 +300,7 @@ export function TakeMedicalAppointmentDialog({
                                         variant="contained"
                                         color="primary"
                                         className={classes.submit}
-                                        disabled={loading || !formik.isValid}
+                                        disabled={loading || !formik.isValid || data.cancellationDate || (data.report && data.report.length > 0)}
                                         onClick={(e) => handleSubmit(e)}
                                     >
                                         Guardar reporte

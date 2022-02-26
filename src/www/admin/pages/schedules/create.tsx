@@ -82,7 +82,7 @@ export function CreateSchedulesPage(): React.ReactElement {
       }
 
       formik.setValues(options)
-      
+
       setFilteredSpecialities(specialitiesList.filter((el: any) => {
         return el.office.id == data.speciality.office.id
       }))
@@ -121,12 +121,12 @@ export function CreateSchedulesPage(): React.ReactElement {
       })
 
       setFilteredSpecialities(filtered)
-    
-      if(filteredSpecialities.length > 0) {
+
+      if (filteredSpecialities.length > 0) {
         formik.setFieldValue("specialityId", filtered[0].id)
       }
     }
-  }, [ formik.values.officeId ])
+  }, [formik.values.officeId])
 
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -174,8 +174,10 @@ export function CreateSchedulesPage(): React.ReactElement {
                 )
               })}
             </Select>
-            <FormHelperText error id="my-helper-text">
-              {formik.errors.officeId ? formik.errors.officeId : null}
+            <FormHelperText className={classes.errorText} error>
+              {formik.touched.officeId && formik.errors.officeId
+                ? formik.errors.officeId
+                : null}
             </FormHelperText>
           </FormControl>
 
@@ -202,8 +204,10 @@ export function CreateSchedulesPage(): React.ReactElement {
                 )
               })}
             </Select>
-            <FormHelperText error id="my-helper-text">
-              {formik.errors.specialityId ? formik.errors.specialityId : null}
+            <FormHelperText className={classes.errorText} error>
+              {formik.touched.specialityId && formik.errors.specialityId
+                ? formik.errors.specialityId
+                : null}
             </FormHelperText>
           </FormControl>
 
@@ -230,8 +234,10 @@ export function CreateSchedulesPage(): React.ReactElement {
                 )
               })}
             </Select>
-            <FormHelperText error id="my-helper-text">
-              {formik.errors.specialistId ? formik.errors.specialistId : null}
+            <FormHelperText className={classes.errorText} error>
+              {formik.touched.specialistId && formik.errors.specialistId
+                ? formik.errors.specialistId
+                : null}
             </FormHelperText>
           </FormControl>
 
@@ -244,7 +250,7 @@ export function CreateSchedulesPage(): React.ReactElement {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={loading}
+            disabled={loading || !formik.isValid}
             onClick={(e) => handleSubmit(e)}
           >
             {data && params.id ? 'Actualizar' : 'Crear'}

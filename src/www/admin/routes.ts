@@ -2,7 +2,6 @@ import { AddBoxOutlined, ClassOutlined, DashboardOutlined, DesktopWindowsOutline
 import { RoutesConfig } from '../../interfaces/routesConfig.interface'
 import { Roles } from '../../_api'
 import { DashboardPage } from './pages/dashboard/dashboard'
-import { UpdateMedicalAppointmentPage } from './pages/medicalAppointments/update'
 import { ListMedicalAppointmentsPage } from './pages/medicalAppointments/list'
 import { CreateModalPage } from './pages/modals/create'
 import { ListModalPage } from './pages/modals/list'
@@ -225,12 +224,6 @@ export const AdminRoutes: RoutesConfig[] = [
     path: '/admin/citas-medicas/solicitar',
     component: CreateMedicalAppointmentPage,
     id: 'solicitar-citas-medica',
-    requiredRoles: [Roles.MedicalSpecialist],
-  },
-  {
-    path: '/admin/citas-medicas/:id',
-    component: UpdateMedicalAppointmentPage,
-    id: 'actualizar-citas-medicas',
     requiredRoles: [Roles.MedicalSpecialist],
   },
   //Modales

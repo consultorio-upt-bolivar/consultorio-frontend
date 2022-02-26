@@ -89,7 +89,7 @@ export function CreateOfficePage(): React.ReactElement {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={loading}
+            disabled={loading || !formik.isValid}
             onClick={(e) => handleSubmit(e)}
           >
             {data && params.id ? 'Actualizar' : 'Crear'}

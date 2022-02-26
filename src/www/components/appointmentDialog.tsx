@@ -44,6 +44,8 @@ export function AppointmentDialog({
     }
 
     const handleClose = () => {
+        formik.resetForm(undefined);
+
         const options = {
             callback: () => setOpen(false)
         }
@@ -166,8 +168,10 @@ export function AppointmentDialog({
                                     )
                                 })}
                             </Select>
-                            <FormHelperText error id="my-helper-text">
-                                {formik.errors.officeId ? formik.errors.officeId : null}
+                            <FormHelperText className={classes.errorText} error>
+                                {formik.touched.officeId && formik.errors.officeId
+                                    ? formik.errors.officeId
+                                    : null}
                             </FormHelperText>
                         </FormControl>
 
@@ -194,8 +198,10 @@ export function AppointmentDialog({
                                     )
                                 })}
                             </Select>
-                            <FormHelperText error>
-                                {formik.errors.specialityId ? formik.errors.specialityId : null}
+                            <FormHelperText className={classes.errorText} error>
+                                {formik.touched.specialityId && formik.errors.specialityId
+                                    ? formik.errors.specialityId
+                                    : null}
                             </FormHelperText>
                         </FormControl>
 
@@ -222,8 +228,10 @@ export function AppointmentDialog({
                                     )
                                 })}
                             </Select>
-                            <FormHelperText error id="my-helper-text">
-                                {formik.errors.specialistId ? formik.errors.specialistId : null}
+                            <FormHelperText className={classes.errorText} error>
+                                {formik.touched.specialistId && formik.errors.specialistId
+                                    ? formik.errors.specialistId
+                                    : null}
                             </FormHelperText>
                         </FormControl>
 

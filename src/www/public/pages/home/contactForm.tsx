@@ -18,6 +18,9 @@ import { getConfiguration } from '../../../../config/api.config';
 import { toastActions } from '../../../../_actions';
 
 export const validationSchema = Yup.object({
+  name: Yup.string()
+    .required(validationMessages.required)
+    .min(5, validationMessages.minLength.replace('$', '5')),
   email: Yup.string()
     .email()
     .required(validationMessages.required),
@@ -30,12 +33,14 @@ export const validationSchema = Yup.object({
 })
 
 export const initialValues = {
+  name: '',
   email: '',
   subject: '',
   description: '',
 }
 
 export const formFields = {
+  name: 'Nombre',
   email: 'Correo electrónico',
   subject: 'Asunto',
   description: {
@@ -61,9 +66,9 @@ export function ContactForm(): React.ReactElement {
 
       try {
         await auth.contactFormMailUsers(values)
-        dispatch(toastActions.success("Formulario enviado!"))
+        dispatch(toastActions.success("Consulta enviada!"))
       } catch (error) {
-        dispatch(toastActions.error("No se ha podido enviar el formulario, intente nuevamente!"))
+        dispatch(toastActions.error("No se ha podido enviar la consulta, intente nuevamente!"))
       }
       finally {
         setLoading(false);
@@ -103,7 +108,7 @@ export function ContactForm(): React.ReactElement {
               variant="contained"
               color="primary"
               className={classes.submit}
-              disabled={loading}
+              disabled={loading || !formik.isValid}
               onClick={(e) => handleSubmit(e)}
             >
               Enviar consulta
