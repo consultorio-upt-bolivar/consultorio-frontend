@@ -11,7 +11,7 @@ import { AppHistory } from '../../../../helpers'
 import { officesActions as actions } from '../../../../_actions/offices.actions'
 
 export function ListOfficesPage(): React.ReactElement {
-  const listName = 'Oficinas';
+  const listName = 'Consultorios médicos';
   const { items } = useSelector((state: any) => state.offices)
   const dispatch = useDispatch()
 
@@ -26,7 +26,7 @@ export function ListOfficesPage(): React.ReactElement {
 
   const toggleAction = (id: number) => {
     dispatch(actions.toggleActive(id, {
-      toast: "Oficina actualizado!"
+      toast: "Consultorio médico actualizado!"
     }))
   }
 
@@ -38,32 +38,32 @@ export function ListOfficesPage(): React.ReactElement {
     columns: [
       {
         field: 'id',
-        headerName: 'Oficina ID',
-        description: 'Id unico en la DB',
+        headerName: 'ID',
+        description: 'Id único en la BD',
         flex: 1,
       },
       {
         field: 'name',
         headerName: 'Nombre',
-        description: 'Nombre de la oficina',
+        description: 'Nombre del consultorio',
         flex: 1,
       },
       {
         field: 'phone',
         headerName: 'Teléfono',
-        description: 'Teléfono de la oficina',
+        description: 'Teléfono del consultorio',
         flex: 1,
       },
       {
         field: 'place',
-        headerName: 'Lugar',
-        description: 'Ubicación de la oficina',
+        headerName: 'Dirección',
+        description: 'Dirección del consultorio',
         flex: 1,
       },
       {
         field: 'isActive',
         headerName: 'Activo',
-        description: 'Esta habilitado?',
+        description: 'Estado del consultorio',
         type: 'boolean',
         flex: 1,
       },

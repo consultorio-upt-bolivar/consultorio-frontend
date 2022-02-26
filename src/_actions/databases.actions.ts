@@ -9,8 +9,8 @@ import { DatabasesApi } from '../_api'
 import { databasesConstants } from '../_constants/databases.constants'
 
 const successMessages = {
-  backupDatabase: 'Base de datos respaldada!',
-  restoreDatabase: 'Base de datos restaurada!'
+  backupDatabase: 'Base de Datos respaldada!',
+  restoreDatabase: 'Base de Datos restaurada!'
 }
 
 export const databasesActions = {

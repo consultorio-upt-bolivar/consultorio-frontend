@@ -60,7 +60,7 @@ export const formFields = ({
   },
   isActive: {
     type: 'checkbox',
-    label: 'Esta habilitado?',
+    label: '¿Está habilitado?',
     required: true
   }
 })

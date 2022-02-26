@@ -28,18 +28,18 @@ export const UserDashboardPage = (): React.ReactElement => {
                         disabled={open}
                         onClick={() => setOpen(true)}
                     >
-                        <Typography noWrap fontSize="18" my={1} fontWeight={500} textAlign="center">SOLICITAR CITA MEDICA</Typography>
+                        <Typography noWrap fontSize="18" my={1} fontWeight={500} textAlign="center">SOLICITAR CITA MÉDICA</Typography>
                     </Button>
                 </div>
 
                 <Grid container spacing={2} justifyContent="center" style={{ marginTop: '10px' }}>
                     <Grid item xs={12} sm={6} md={6}>
-                        <Typography noWrap fontWeight={500} my={2} textAlign="center">CITAS PROGRAMADAS</Typography>
+                        <Typography noWrap fontWeight={500} my={2} textAlign="center">CITAS MÉDICAS PROGRAMADAS</Typography>
                         <MedicalAppointmentsListItem />
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={6}>
-                        <Typography noWrap fontWeight={500} my={2} textAlign="center">HISTORIAL DE CITAS</Typography>
+                        <Typography noWrap fontWeight={500} my={2} textAlign="center">HISTORIAL DE CITAS MÉDICAS</Typography>
                         <MedicalAppointmentsListItem showPast={true} />
                     </Grid>
                 </Grid>

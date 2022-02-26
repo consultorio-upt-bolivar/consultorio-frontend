@@ -22,14 +22,16 @@ const renderAlert = (message: string) => {
 
 const AppointmentInfo = ({ data, cancel }: any) => <Box style={{
   border: "1px solid silver",
-  borderRadius: "3px"
+  borderRadius: "3px",
 }}>
   <div style={{
     borderBottom: "1px solid silver",
-    padding: "10px 15px"
+    padding: "10px 15px",
+    backgroundColor: "#5eaab1",
+    color: "white"
   }}>
     <Typography sx={{ fontSize: 16 }} margin="0">
-      {data.schedule.speciality.name}
+      Especialidad médica: {data.schedule.speciality.name}
     </Typography>
   </div>
 
@@ -38,10 +40,10 @@ const AppointmentInfo = ({ data, cancel }: any) => <Box style={{
       Fecha: {format(new Date(data.date), 'yyyy-MM-dd HH:mm')} hrs
     </Typography>
     <Typography sx={{ fontSize: 16 }} margin="0">
-      Doctor: {data.schedule.specialist.name}
+      Especialista: {data.schedule.specialist.name}
     </Typography>
     <Typography sx={{ fontSize: 16 }} margin="0">
-      Consultorio: {data.schedule.speciality.office.name}
+      Consultorio médico: {data.schedule.speciality.office.name}
     </Typography>
     <Typography sx={{ fontSize: 16 }} margin="0">
       Lugar: {data.schedule.speciality.office.place}
@@ -72,7 +74,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
   const handleCancelAppointment = (appointmentId: number) => {
     dispatch(alertActions.show({
         title: `Cita médica`,
-        description: `¿Está seguro que quieres cancelar esta cita médica?`,
+        description: `¿Está seguro que quiere cancelar esta cita médica?`,
         callback: () => {
           dispatch(appointmentsActions.cancelAppointment(appointmentId, 'Cancelado por el usuario!', getAppointments))
         }

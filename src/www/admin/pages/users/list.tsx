@@ -13,7 +13,7 @@ import { PublicRoles, Roles } from '../../../../_api'
 import { getUserData } from '../../../../helpers/userStorage'
 
 export function ListUsersPage(): React.ReactElement {
-  const listName = 'usuarios';
+  const listName = 'Usuarios';
   const { items } = useSelector((state: any) => state.users)
   const dispatch = useDispatch()
 
@@ -49,7 +49,7 @@ export function ListUsersPage(): React.ReactElement {
       {
         field: 'id',
         headerName: 'ID',
-        description: 'Id unico en la DB',
+        description: 'Id único en la BD',
         flex: 1,
       },
       {
@@ -78,14 +78,14 @@ export function ListUsersPage(): React.ReactElement {
       },
       {
         field: 'type',
-        headerName: 'Tipo',
+        headerName: 'Tipo de usuario',
         description: 'Tipo de usuario',
         flex: 1,
       },
       {
         field: 'isActive',
         headerName: 'Activo',
-        description: 'Esta habilitado?',
+        description: '¿Está habilitado?',
         type: 'boolean',
         flex: 1,
       },

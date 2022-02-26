@@ -156,7 +156,7 @@ export function CreateSchedulesPage(): React.ReactElement {
             className={classes.formControl}
           >
             <InputLabel className={classes.selectLabel} id='select-consultorio'>
-              Consultorio
+              Consultorio médico
             </InputLabel>
             <Select
               labelId='select-consultorio'
@@ -184,7 +184,7 @@ export function CreateSchedulesPage(): React.ReactElement {
             className={classes.formControl}
           >
             <InputLabel className={classes.selectLabel} id='select-especialidad'>
-              Especialidad
+              Especialidad médica
             </InputLabel>
             <Select
               labelId='select-especialidad'
@@ -212,7 +212,7 @@ export function CreateSchedulesPage(): React.ReactElement {
             className={classes.formControl}
           >
             <InputLabel className={classes.selectLabel} id='select-especialista'>
-              Doctor Especialista
+              Especialista
             </InputLabel>
             <Select
               labelId='select-especialista'

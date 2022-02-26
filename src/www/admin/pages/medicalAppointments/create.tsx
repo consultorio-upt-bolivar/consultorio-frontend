@@ -143,7 +143,7 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                         textAlign: 'center',
                     }}
                 >
-                    Solicitar cita médica
+                    Solicitar Cita médica
                 </Typography>
                 <form className={classes.form} noValidate>
                     {formikFields}
@@ -153,7 +153,7 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                         className={classes.formControl}
                     >
                         <InputLabel className={classes.selectLabel} id='select-consultorio'>
-                            Consultorio
+                            Consultorio médico
                         </InputLabel>
                         <Select
                             labelId='select-consultorio'
@@ -182,7 +182,7 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                         sx={{ mt: 2 }}
                     >
                         <InputLabel className={classes.selectLabel} id='select-especialidad'>
-                            Especialidad
+                            Especialidad médica
                         </InputLabel>
                         <Select
                             labelId='select-especialidad'
@@ -239,7 +239,7 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                         sx={{ mt: 2 }}
                     >
                         <InputLabel className={classes.selectLabel} id='select-users'>
-                            Usuario a solictar la cita
+                            Paciente a solicitar la cita médica
                         </InputLabel>
                         <Select
                             labelId='select-users'

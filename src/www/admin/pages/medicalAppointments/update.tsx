@@ -18,7 +18,7 @@ import { medicalAppointmentsActions as actions, appointmentsActions, specialitie
 
 export function UpdateMedicalAppointmentPage(): React.ReactElement {
   // Variable
-  const formName = 'Cita Medica';
+  const formName = 'Cita Médica';
   const { loading, data } = useSelector((store: any) => store.medicalAppointments)
   const { items: specialitiesList } = useSelector((store: any) => store.specialities)
 
@@ -166,7 +166,7 @@ export function UpdateMedicalAppointmentPage(): React.ReactElement {
               disabled={loading}
               onClick={(e) => handleCancel(e)}
             >
-              {data?.cancellationDate && data?.cancellationReason ? 'Actualizar razon de cancelación' : "Cancelar Cita"}
+              {data?.cancellationDate && data?.cancellationReason ? 'Actualizar razón de cancelación' : "Cancelar Cita"}
             </Button>
           </Box>
 

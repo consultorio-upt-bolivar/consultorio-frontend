@@ -288,7 +288,7 @@ export const DashboardPage = (): React.ReactElement => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Especialidades más usadas</Typography>
+            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Especialidades médicas más usadas</Typography>
 
             <Paper
               sx={{

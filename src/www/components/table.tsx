@@ -143,7 +143,7 @@ function RowMenuCell({
           size="small"
           aria-label="toggle"
           onClick={(e) => handleClick({
-            event: e, id: Number(id), fn: toggleAction, title: `Cambiar visibilidad`, description: `¿Está seguro de  ${isActive ? 'desactivar' : 'activar'} la visibilidad elemento ${name ?? id}?`
+            event: e, id: Number(id), fn: toggleAction, title: `Cambiar visibilidad`, description: `¿Está seguro de  ${isActive ? 'desactivar' : 'activar'} la visibilidad del elemento ${name ?? id}?`
           })}
         >
           <RemoveRedEyeOutlined fontSize="small" />

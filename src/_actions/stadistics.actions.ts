@@ -46,7 +46,7 @@ function GetStadistics(params: {
           total: systemData.totalStudents
         },
         {
-          name: "Personal Administrativo",
+          name: "Personal universitario",
           total: systemData.totalAdministratives
         },
         {
@@ -65,11 +65,11 @@ function GetStadistics(params: {
 
       const generalData = [
         {
-          name: "Consutorios",
+          name: "Consultorios médicos",
           total: systemData.totalOffices
         },
         {
-          name: "Especialidades",
+          name: "Especialidades médicas",
           total: systemData.totalSpecialities
         },
         {

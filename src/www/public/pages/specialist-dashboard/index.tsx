@@ -36,7 +36,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
 
         dispatch(alertActions.show({
             title: `Citas médica`,
-            description: `Quieres ${row.cancellationDate ? 'modificar' : 'atender'} esta cita médica?`,
+            description: `¿Quiere ${row.cancellationDate ? 'modificar' : 'atender'} esta cita médica?`,
             callback: () => {
                 setMedicalAppointment(row.id)
                 setOpen(true);
@@ -49,7 +49,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
 
         dispatch(alertActions.show({
             title: `Citas médica`,
-            description: `Quieres cancelar esta cita médica?`,
+            description: `¿Quiere cancelar esta cita médica?`,
             callback: () => {
                 setCancelAppointment(row.id)
                 setOpenCancel(true);
@@ -64,13 +64,13 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
             {
                 field: 'id',
                 headerName: 'ID',
-                description: 'Id unico en la DB',
+                description: 'Id único en la BD',
                 width: 100,
                 hide: true
             },
             {
                 field: 'specialityName',
-                headerName: 'Especialidad',
+                headerName: 'Especialidad médica',
                 description: 'Especialidad de la jornada',
                 width: 200,
                 hide: true
@@ -83,8 +83,8 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
             },
             {
                 field: 'userName',
-                headerName: 'Normbre del usuario',
-                description: 'Normbre del usuario',
+                headerName: 'Nombre del paciente',
+                description: 'Nombre del usuario',
                 flex: 150
             },
             {

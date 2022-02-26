@@ -58,7 +58,7 @@ export function CancelMedicalAppointmentDialog({
         formik.submitForm().then(values => {
             dispatch(alertActions.show({
                 title: `Confirmar`,
-                description: `Estas seguro de cancelar esta cita médica?`,
+                description: `¿Está seguro de cancelar esta cita médica?`,
                 callback: () => {
                     dispatch(appointmentsActions.cancelAppointment(
                         +medicalAppointmentId, 
@@ -122,7 +122,7 @@ export function CancelMedicalAppointmentDialog({
             width: '49%'
         },
         specialityId: {
-            label: 'Especialidad',
+            label: 'Especialidad médica',
             readonly: true,
             type: 'text',
             width: '49%'
@@ -157,7 +157,7 @@ export function CancelMedicalAppointmentDialog({
                                     multiline
                                     fullWidth
                                     id="cancellationReason"
-                                    label='Razon de cancelación'
+                                    label=' de cancelación'
                                     rows={6}
                                     required={false}
                                     {...formik.getFieldProps("cancellationReason")}

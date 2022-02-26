@@ -11,7 +11,7 @@ import { AppHistory } from '../../../../helpers'
 import { modalsActions as actions } from '../../../../_actions'
 
 export function ListModalPage(): React.ReactElement {
-  const listName = 'modales';
+  const listName = 'Modales';
   const { items } = useSelector((state: any) => state.modals)
   const dispatch = useDispatch()
 
@@ -36,8 +36,8 @@ export function ListModalPage(): React.ReactElement {
     columns: [
       {
         field: 'id',
-        headerName: 'Modal ID',
-        description: 'Id unico en la BD',
+        headerName: 'ID',
+        description: 'Id único en la BD',
         flex: 200,
       },
       {

@@ -61,7 +61,7 @@ export function SigninPage() {
 
     try {
       if (isNaN(+formik.values.legalId)) {
-        dispatch(toastActions.error("Cedula invalida."))
+        dispatch(toastActions.error("Identificación inválida."))
         return;
       }
 
@@ -76,14 +76,14 @@ export function SigninPage() {
     if (formik.values["profile"] === Roles.Family) {
       try {
         if (isNaN(+formik.values.familyLegalId)) {
-          dispatch(toastActions.error("Cedula de familiar invalida."))
+          dispatch(toastActions.error("Identificación de familiar inválida."))
           return;
         }
 
         const api = new UptApi(getConfiguration())
         await api.validateLegalIdUPT(formik.values.familyLegalId, Roles.Employee)
       } catch (error) {
-        dispatch(toastActions.error("Cedula de familiar invalida."))
+        dispatch(toastActions.error("Identificación de familiar inválida."))
         return
       }
     }
@@ -122,7 +122,7 @@ export function SigninPage() {
                     margin="dense"
                     fullWidth
                     id="familyLegalId"
-                    label="Cedula familiar"
+                    label="Identificación de familiar"
                     {...formik.getFieldProps("familyLegalId")}
                   />
                   <FormHelperText className={classes.errorText} error>

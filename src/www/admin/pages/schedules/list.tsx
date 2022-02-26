@@ -39,7 +39,7 @@ export function ListSchedulesPage(): React.ReactElement {
       {
         field: 'id',
         headerName: 'ID',
-        description: 'Id unico en la DB',
+        description: 'Id único en la BD',
         flex: 1,
       },
       {
@@ -74,20 +74,20 @@ export function ListSchedulesPage(): React.ReactElement {
       },
       {
         field: 'specialityName',
-        headerName: 'Especialidad',
+        headerName: 'Especialidad médica',
         description: 'Especialidad de la jornada',
         flex: 1,
       },
       {
         field: 'specialistName',
-        headerName: 'Normbre del doctor',
-        description: 'Normbre del doctor especialista',
+        headerName: 'Nombre del especialista',
+        description: 'Nombre del especialista',
         flex: 1,
       },
       {
         field: 'isActive',
         headerName: 'Activo',
-        description: 'Esta habilitada?',
+        description: '¿Está habilitada?',
         type: 'boolean',
         flex: 1,
       },

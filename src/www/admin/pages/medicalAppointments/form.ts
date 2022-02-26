@@ -21,7 +21,7 @@ export const initialValues = ({
 export const formFields = ({
   date: {
     type: 'date',
-    label: 'Fecha cita',
+    label: 'Fecha cita médica',
     readonly: true,
     disablePast: false,
     maxDate: add(today, {
@@ -30,7 +30,7 @@ export const formFields = ({
     width: '49%'
   },
   specialityId: {
-    label: 'Especialidad',
+    label: 'Especialidad médica',
     type: 'text',
     readonly: true,
     width: '49%'
@@ -45,7 +45,7 @@ export const formFields = ({
     type: 'divider'
   },
   cancellationReason: {
-    label: 'Razon de cancelación',
+    label: 'Razón de cancelación',
     type: 'multiline',
     maxRows: 6,
     width: '100%'

@@ -5,11 +5,11 @@ export const officesActions = GenericActions({
   model: 'Offices',
   Api: OfficesApi,
   successMessages: {
-    getAll: 'Oficinas obtenidas!',
-    getOne: 'Oficina obtenida!',
-    createOne: 'Oficina creada!',
-    updateOne: 'Oficina actualizada!',
-    deleteOne: 'Oficina eliminada!',
-    toggleActive: 'Oficina actualizada!',
+    getAll: 'Consultorios médicos obtenidos!',
+    getOne: 'Consultorio médico obtenido!',
+    createOne: 'Consultorio médico creado!',
+    updateOne: 'Consultorio médico actualizado!',
+    deleteOne: 'Consultorio médico eliminado!',
+    toggleActive: 'Consultorio médico actualizado!',
   }
 })

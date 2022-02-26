@@ -70,17 +70,17 @@ export default function UserAvatarMenu({ name }: {
     },
     [Roles.Student]: {
       dashboard: "/dashboard",
-      dashboardLinkName: "Solicitar cita",
+      dashboardLinkName: "Solicitar cita médica",
       profile: "/profile"
     },
     [Roles.Family]: {
       dashboard: "/dashboard",
-      dashboardLinkName: "Solicitar cita",
+      dashboardLinkName: "Solicitar cita médica",
       profile: "/profile"
     },
     [Roles.Employee]: {
       dashboard: "/dashboard",
-      dashboardLinkName: "Solicitar cita",
+      dashboardLinkName: "Solicitar cita médica",
       profile: "/profile"
     }
   }
@@ -110,8 +110,8 @@ export default function UserAvatarMenu({ name }: {
             }}
           >
             <MenuItem onClick={() => goLink(redirectUrls[userData?.profile?.id].dashboard)}>{redirectUrls[userData?.profile?.id].dashboardLinkName ?? 'Admin'}</MenuItem>
-            <MenuItem onClick={() => goLink(redirectUrls[userData?.profile?.id].profile)}>Perfil usuario</MenuItem>
-            <MenuItem onClick={logout}>Salir de sesion</MenuItem>
+            <MenuItem onClick={() => goLink(redirectUrls[userData?.profile?.id].profile)}>Editar perfil</MenuItem>
+            <MenuItem onClick={logout}>Cerrar sesión</MenuItem>
           </Menu>
         </div>
       )}

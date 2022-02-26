@@ -11,7 +11,7 @@ export const PublicRoles = [{
   label: 'Estudiante',
   value: 'student'
 }, {
-  label: 'Administrativo',
+  label: 'Personal universitario',
   value: 'employee'
 }, {
   label: 'Familiar',
