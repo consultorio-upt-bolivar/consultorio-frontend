@@ -108,7 +108,7 @@ export function TakeMedicalAppointmentDialog({
             const res = await api.getAllMedicalAppointments(1000, 0, `user.id==${data?.user?.id}`);
 
             const filtered = res.data.results.filter((el: any) => {
-                return el.schedule.speciality.id == data.schedule.speciality.id && el.id != data.id;
+                return el.report && el.report.length > 0 && !el.cancellationDate && el.id != data.id;
             })
 
             setHistoryList(filtered && filtered.length ? filtered : []);

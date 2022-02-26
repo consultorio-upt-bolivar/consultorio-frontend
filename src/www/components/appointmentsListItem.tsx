@@ -20,22 +20,19 @@ const renderAlert = (message: string) => {
   return <Grid item width="100%"><Alert severity="info">{message}</Alert></Grid>
 }
 
-const AppointmentInfo = ({ data, cancel }: any) => <Box style={{
-  border: "1px solid silver",
-  borderRadius: "3px",
-}}>
+const AppointmentInfo = ({ data, cancel }: any) => <Box>
   <div style={{
-    borderBottom: "1px solid silver",
     padding: "10px 15px",
     backgroundColor: "#5eaab1",
-    color: "white"
+    color: "white",
+    borderRadius: "3px"
   }}>
     <Typography sx={{ fontSize: 16 }} margin="0">
       Especialidad médica: {data.schedule.speciality.name}
     </Typography>
   </div>
 
-  <Box style={{ padding: "15px", overflow: 'hidden' }}>
+  <Box style={{ padding: "15px", overflow: 'hidden', border: "1px solid #c0c0c054", borderRadius: "3px" }}>
     <Typography sx={{ fontSize: 16 }} margin="0">
       Fecha: {format(new Date(data.date), 'yyyy-MM-dd HH:mm')} hrs
     </Typography>
@@ -51,7 +48,7 @@ const AppointmentInfo = ({ data, cancel }: any) => <Box style={{
   </Box>
 
   {cancel ? <div style={{
-    borderTop: "1px solid silver",
+    border: "1px solid #c0c0c054", borderRadius: "3px"
   }}>
     {cancel}
   </div> : null}

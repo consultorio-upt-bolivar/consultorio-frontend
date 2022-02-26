@@ -32,11 +32,6 @@ export function SigninPage() {
   const classes = formStyles()
   const { loading, error } = useSelector((store: any) => store.authentication)
 
-  // Logout user
-  useEffect(() => {
-    dispatch(authActions.logout())
-  }, [])
-
   useEffect(() => {
     if(error) {
       formik.resetForm(undefined);

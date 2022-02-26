@@ -29,11 +29,6 @@ export function LoginPage() {
 
   const { loading } = useSelector((store: any) => store.authentication)
 
-  // Logout user
-  useEffect(() => {
-    dispatch(authActions.logout())
-  }, [])
-
   const formik = useFormik({
     initialValues,
     validationSchema,
