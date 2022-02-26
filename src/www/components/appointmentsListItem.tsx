@@ -71,8 +71,8 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
 
   const handleCancelAppointment = (appointmentId: number) => {
     dispatch(alertActions.show({
-        title: `Cita medica`,
-        description: `Estas seguro que quieres cancelar esta cita medica?`,
+        title: `Cita médica`,
+        description: `Estas seguro que quieres cancelar esta cita médica?`,
         callback: () => {
           dispatch(appointmentsActions.cancelAppointment(appointmentId, 'Cancelado por el usuario!', getAppointments))
         }
@@ -88,7 +88,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
     if (!typedItems.length) return renderAlert(notFoundNextAppointments)
 
     const filteredAppointments = typedItems.filter(el => {
-      return isFuture(new Date(el.date)) && el.cancellationDate == null
+      return isFuture(new Date(el.date)) && (!el.cancellationDate && (!el.report && !el.report?.length))
     })
 
     if (!filteredAppointments.length) return renderAlert(notFoundNextAppointments)
@@ -117,7 +117,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
   const renderPastAppointments = () => {
     if (!typedItems.length) return renderAlert(notFoundPastAppointments)
 
-    const filteredAppointments = typedItems.filter(el => isPast(new Date(el.date)) || el.cancellationDate)
+    const filteredAppointments = typedItems.filter(el => isPast(new Date(el.date)) || el.cancellationDate || (el.report || el.report?.length))
 
     if (!filteredAppointments.length) return renderAlert(notFoundPastAppointments)
 

@@ -55,7 +55,7 @@ export const formFields = ({
   },
   appointmentInterval: {
     type: 'number',
-    label: 'Duración cita medica (Minuntos)',
+    label: 'Duración cita médica (Minuntos)',
     required: true
   },
   isActive: {

@@ -10,7 +10,7 @@ import { appointmentConstants } from '../_constants/appointment.constants'
 
 const successMessages = {
   getAvaliableDates: 'Fechas disponibles obtenidas!',
-  cancelAppointment: 'Cita medica cancelada!'
+  cancelAppointment: 'Cita médica cancelada!'
 }
 
 export const appointmentsActions = {
@@ -75,6 +75,7 @@ function cancelAppointment(id: number, reason: string, callback?: () => void): A
 
         dispatch(toastActions.success(successMessages.cancelAppointment))
 
+        console.log(callback)
         if (callback) {
           callback()
         }

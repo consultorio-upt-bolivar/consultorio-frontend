@@ -9,11 +9,15 @@ import SpecialistScheduleList from './schedulesList'
 import { TakeMedicalAppointmentDialog } from './takeMedicalAppointment'
 import { IconButton } from '@material-ui/core'
 import { RemoveRedEyeOutlined } from '@material-ui/icons'
+import DeleteIcon from '@material-ui/icons/DeleteOutlined'
+import { CancelMedicalAppointmentDialog } from './cancelMedicalAppointment'
 
 export const SpecialistDashboardPage = (): React.ReactElement => {
     const [open, setOpen] = useState(false)
-    const [selectedSchedule, setSelectedSchedule] = useState<number | undefined>()
     const [medicalAppointment, setMedicalAppointment] = useState<number | undefined>()
+    const [openCancel, setOpenCancel] = useState(false)
+    const [cancelAppointmentId, setCancelAppointment] = useState<number | undefined>()
+    const [selectedSchedule, setSelectedSchedule] = useState<number | undefined>()
     const { items } = useSelector((state: any) => state.medicalAppointments)
     const dispatch = useDispatch()
 
@@ -31,11 +35,24 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
         event.stopPropagation();
 
         dispatch(alertActions.show({
-            title: `Citas medica`,
-            description: `Quieres ${row.cancellationDate ? 'modificar' : 'atender'} esta cita medica?`,
+            title: `Citas médica`,
+            description: `Quieres ${row.cancellationDate ? 'modificar' : 'atender'} esta cita médica?`,
             callback: () => {
                 setMedicalAppointment(row.id)
                 setOpen(true);
+            }
+        }));
+    }
+
+    const handleCancel = (event: any, row: any) => {
+        event.stopPropagation();
+
+        dispatch(alertActions.show({
+            title: `Citas médica`,
+            description: `Quieres cancelar esta cita médica?`,
+            callback: () => {
+                setCancelAppointment(row.id)
+                setOpenCancel(true);
             }
         }));
     }
@@ -62,31 +79,41 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                 field: 'date',
                 headerName: 'Fecha',
                 description: 'Fecha',
-                width: 200
+                width: 150
             },
             {
                 field: 'userName',
                 headerName: 'Normbre del usuario',
                 description: 'Normbre del usuario',
-                flex: 1
+                flex: 150
             },
             {
                 field: 'userType',
                 headerName: 'Tipo de usuario',
                 description: 'Tipo de usuario',
-                width: 200,
+                width: 150,
             },
             {
                 field: 'cancelled',
-                headerName: 'Fue cancelada?',
-                description: 'Cancelada?',
-                width: 200,
+                headerName: 'Cancelada',
+                description: 'Cancelada',
+                type: "boolean",
+                width: 100,
+            },
+            {
+                field: 'attended',
+                headerName: 'Atendida',
+                description: 'Atendida por el especialista',
+                type: "boolean",
+                width: 100,
             },
             {
                 field: 'actions',
                 headerName: 'Acciones',
                 renderCell: (props: RowMenuProps) => {
                     const { row } = props;
+
+                    if(row.cancellationDate || (row.report && row.report.length > 0)) return <></>;
 
                     return (
                         <div className={rowMenuClasses.root}>
@@ -99,6 +126,16 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                             >
                                 <RemoveRedEyeOutlined fontSize="small" />
                             </IconButton>
+
+                            <IconButton
+                                color="inherit"
+                                className={rowMenuClasses.textPrimary}
+                                size="small"
+                                aria-label="toggle"
+                                onClick={(e) => handleCancel(e, row)}
+                            >
+                                <DeleteIcon fontSize="small" />
+                            </IconButton>
                         </div>
                     )
                 },
@@ -108,15 +145,16 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                 filterable: false,
                 align: 'center',
                 disableColumnMenu: true,
-                disableReorder: true,
+                disableReorder: true
             }
         ],
         rows: items?.map((el: any) => {
             el.specialityName = el.schedule.speciality.name
             el.userName = el.user.name + " | " + el.user.email
             el.userType = el.user.profile.name
-            el.cancelled = el.cancellationDate && el.cancellationReason ? el.cancellationReason : 'No'
+            el.cancelled = !!el.cancellationDate && el.cancellationReason
             el.date = format(new Date(el.date), 'yyyy-MM-dd HH:mm')
+            el.attended = el.report && el.report.length > 0;
 
             return el
         }) ?? []
@@ -155,6 +193,13 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                     setMedicalAppointment,
                     open,
                     setOpen
+                }} />
+                
+                <CancelMedicalAppointmentDialog {...{
+                    medicalAppointmentId: cancelAppointmentId,
+                    setMedicalAppointment: setCancelAppointment,
+                    open: openCancel,
+                    setOpen: setOpenCancel
                 }} />
             </Container>
         </PublicLayout>

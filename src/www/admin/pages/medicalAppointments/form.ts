@@ -54,7 +54,7 @@ export const formFields = ({
     type: 'divider'
   },
   report: {
-    label: 'Reporte medico',
+    label: 'Reporte médico',
     type: 'multiline',
     maxRows: 6,
     width: '100%'

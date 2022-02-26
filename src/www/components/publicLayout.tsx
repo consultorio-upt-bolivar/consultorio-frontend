@@ -62,7 +62,7 @@ export const PublicLayout = ({
             className={classes.appBarTitle}
             component="a"
             href="/" sx={{ textDecoration: "none" }}
-          >Consultorio medico UPT</Typography>
+          >Consultorio médico UPT</Typography>
 
           {!userData?.name ?
             <Button

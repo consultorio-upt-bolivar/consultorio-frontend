@@ -143,7 +143,7 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                         textAlign: 'center',
                     }}
                 >
-                    Solicitar cita medica
+                    Solicitar cita médica
                 </Typography>
                 <form className={classes.form} noValidate>
                     {formikFields}

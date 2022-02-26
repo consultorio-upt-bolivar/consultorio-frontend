@@ -30,7 +30,7 @@ export default function BannerHome() {
             }}
         >
             <Typography color="inherit" align="center" variant="h2">
-                Bienvenido al consultorio medico UPT
+                Bienvenido al consultorio médico UPT
             </Typography>
             <Typography
                 color="inherit"

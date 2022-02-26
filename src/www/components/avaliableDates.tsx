@@ -81,7 +81,7 @@ export const AvaliableDates = (params: {
 
         dispatch(alertActions.show({
             title: "Confirmar turno",
-            description: `Has seleccionado una cita medica para el dia ${selectedDate.date} y hora: ${selectedDate.hour}, es correcto?`,
+            description: `Has seleccionado una cita médica para el dia ${selectedDate.date} y hora: ${selectedDate.hour}, es correcto?`,
             callback: () => {
                 const options = {
                     date: `${selectedDate.date} ${selectedDate.hour.split(' ')[0]}:00`,
@@ -90,7 +90,7 @@ export const AvaliableDates = (params: {
                 }
 
                 const dispatchOptions: ActionOptions = {
-                    toast: "Cita medica creada!",
+                    toast: "Cita médica creada!",
                     callback: params.submitCallback
                 }
 
@@ -240,7 +240,7 @@ export const AvaliableDates = (params: {
                                 padding: "8px"
                             }}>
                                 <Typography sx={{ fontSize: 18, textAlign: "center" }} margin="0">
-                                    Confirmacion de cita medica
+                                    Confirmacion de cita médica
                                 </Typography>
                             </div>
                             <div style={{

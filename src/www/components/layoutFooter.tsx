@@ -5,7 +5,7 @@ function Copyright() {
     return (
         <React.Fragment>
             {'© '}
-            {'Consultorio medico UPT '}
+            {'Consultorio médico UPT '}
             {new Date().getFullYear()}
         </React.Fragment>
     );

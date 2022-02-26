@@ -50,8 +50,8 @@ export function ListSpecialitiesPage(): React.ReactElement {
       },
       {
         field: 'officeName',
-        headerName: 'Centro medico',
-        description: 'Centro medico de la especialidad',
+        headerName: 'Centro médico',
+        description: 'Centro médico de la especialidad',
         flex: 1,
       },
       {

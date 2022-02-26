@@ -138,7 +138,7 @@ export function AppointmentDialog({
                 open={open}
                 onClose={handleClose}
             >
-                <DialogTitle style={{ textAlign: 'center' }}>Solicitar cita medica</DialogTitle>
+                <DialogTitle style={{ textAlign: 'center' }}>Solicitar cita médica</DialogTitle>
                 <DialogContent>
                     <form noValidate>
                         {formikFields}

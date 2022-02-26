@@ -1,22 +1,61 @@
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, useTheme } from '@mui/material';
+import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography } from '@mui/material';
 import * as Yup from 'yup'
 import { format } from 'date-fns'
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { formStyles, GetFormikFields } from '../../../components/formik';
-import { appointmentsActions, medicalAppointmentsActions, specialitiesActions } from '../../../../_actions';
+import { alertActions, medicalAppointmentsActions, specialitiesActions } from '../../../../_actions';
 import { MedicalAppointmentsApi } from '../../../../_api';
 import { getConfiguration } from '../../../../config/api.config';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
+import { validationMessages } from '../../../../constants/formik';
 
-const Item = styled(Paper)(({ theme }) => ({
-    color: theme.palette.text.primary,
-    fontSize: '16px',
-    cursor: 'pointer',
-}));
+const ReportInfo = ({ data }: any) => {
+    return <Grid item width="100%" padding={0}>
+        <Box style={{
+            border: "1px solid silver",
+            borderRadius: "3px",
+            marginBottom: "10px"
+        }}>
+            <div className='d-flex justify-content-between' style={{
+                borderBottom: "1px solid silver",
+                padding: "10px 15px",
+                background: "#9e9e9e29",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center"
+            }}>
+                <Typography sx={{ fontSize: 16 }} margin="0">
+                    {data.schedule.speciality.name}
+                </Typography>
+
+                <Typography sx={{ fontSize: 14 }} margin="0">
+                    {format(new Date(data.date), "yyyy-MM-dd HH:mm")}
+                </Typography>
+            </div>
+
+            <Box style={{ padding: "10px 15px", overflow: 'hidden' }}>
+                <Typography sx={{ fontSize: 16 }} margin="0">
+                    Especialista: {data.schedule.specialist.name}
+                </Typography>
+
+                <Typography sx={{ fontSize: 16 }} margin="0">
+                    Reporte médico: {data.report}
+                </Typography>
+            </Box>
+
+            {data.refferedSpeciality ? <div style={{
+                borderTop: "1px solid silver",
+                padding: "10px 15px"
+            }}>
+                <Typography sx={{ fontSize: 14 }} margin="0">
+                    Referido a {data.refferedSpeciality.name}
+                </Typography>
+            </div> : null}
+        </Box>
+    </Grid >
+}
 
 export function TakeMedicalAppointmentDialog({
     medicalAppointment,
@@ -64,9 +103,11 @@ export function TakeMedicalAppointmentDialog({
 
             const res = await api.getAllMedicalAppointments(1000, 0, `user.id==${data?.user?.id}`);
 
-            setHistoryList(res.data.results.filter((el: any) => {
-                return el.schedule.speciality.id == data.schedule.speciality.id && el.report != null && el.report.length
-            }));
+            const filtered = res.data.results.filter((el: any) => {
+                return el.schedule.speciality.id == data.schedule.speciality.id && el.id != data.id;
+            })
+
+            setHistoryList(filtered && filtered.length ? filtered : []);
         } catch (error) {
             console.log(error)
         } finally {
@@ -93,20 +134,15 @@ export function TakeMedicalAppointmentDialog({
                 options.refferedSpecialityId = values.refferedSpecialityId;
             }
 
-            dispatch(medicalAppointmentsActions.updateOne(+medicalAppointment, options, {
-                callback: getMedicalAppointment
-            }))
-        })
-    }
-
-    const handleCancel = (e: React.MouseEvent) => {
-        e.preventDefault()
-
-        if (!formik.isValid || !medicalAppointment) return;
-
-        formik.submitForm().then(values => {
-            dispatch(appointmentsActions.cancelAppointment(+medicalAppointment, values.cancellationReason,
-                getMedicalAppointment))
+            dispatch(alertActions.show({
+                title: `Confirmar`,
+                description: `Estas seguro de guardar los datos?`,
+                callback: () => {
+                    dispatch(medicalAppointmentsActions.updateOne(+medicalAppointment, options, {
+                        callback: getMedicalAppointment
+                    }))
+                }
+            }));
         })
     }
 
@@ -132,7 +168,6 @@ export function TakeMedicalAppointmentDialog({
                 date: format(new Date(data.date), 'yyyy-MM-dd HH:mm'),
                 specialityId: data.schedule.speciality.name,
                 userId: data.user.name,
-                cancellationReason: data?.cancellationReason ?? "",
                 report: data?.report ?? "",
                 refferedSpecialityId: data.refferedSpeciality?.id ?? ''
             }
@@ -148,14 +183,12 @@ export function TakeMedicalAppointmentDialog({
             date: '',
             specialityId: '',
             userId: '',
-            cancellationReason: '',
             report: '',
             refferedSpecialityId: ''
         },
         validationSchema: Yup.object({
             refferedSpecialityId: Yup.string().nullable(),
-            report: Yup.string().nullable(),
-            cancellationReason: Yup.string().nullable()
+            report: Yup.string().required(validationMessages.required).min(10, validationMessages.minLength.replace("$", "10"))
         }),
         onSubmit: async (values) => values,
     })
@@ -174,7 +207,7 @@ export function TakeMedicalAppointmentDialog({
             width: '49%'
         },
         userId: {
-            label: 'Usuario',
+            label: 'Paciente',
             type: 'text',
             readonly: true,
             width: '100%'
@@ -190,51 +223,14 @@ export function TakeMedicalAppointmentDialog({
                 open={open}
                 onClose={handleClose}
             >
-                <DialogTitle style={{ textAlign: 'center', background: "#9e9e9e14" }}>Atender cita medica</DialogTitle>
+                <DialogTitle style={{ textAlign: 'center', background: "#9e9e9e14" }}>Atender cita médica</DialogTitle>
                 <DialogContent sx={{ mt: 0 }}>
                     <Grid container spacing={4} sx={{ mt: 1 }} justifyContent={"center"}>
                         <Grid item xs={12} md={5}>
-                            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Formulario de cita medica</Typography>
+                            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Formulario de cita médica</Typography>
 
                             <form noValidate>
                                 {formikStaticFields}
-
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    multiline
-                                    fullWidth
-                                    id="cancellationReason"
-                                    label='Razon de cancelación'
-                                    rows={6}
-                                    required={false}
-                                    {...formik.getFieldProps("cancellationReason")}
-                                />
-
-                                <FormHelperText className={classes.errorText} error>
-                                    {formik.touched["cancellationReason"] && formik.errors["cancellationReason"]
-                                        ? formik.errors["cancellationReason"]
-                                        : null}
-                                </FormHelperText>
-
-                                <Box mt={2} display="flex" justifyContent="end">
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                        className={classes.submit}
-                                        disabled={loading || data?.report}
-                                        onClick={(e) => handleCancel(e)}
-                                    >
-                                        {data?.cancellationDate && data?.cancellationReason ? 'Actualizar razon de cancelación' : "Cancelar Cita"}
-                                    </Button>
-                                </Box>
-
-                                <div style={{
-                                    width: "100%"
-                                }}>
-                                    <br /><Divider /><br />
-                                </div>
 
                                 <TextField
                                     variant="outlined"
@@ -288,7 +284,7 @@ export function TakeMedicalAppointmentDialog({
                                         variant="contained"
                                         color="primary"
                                         className={classes.submit}
-                                        disabled={loading || (data?.cancellationReason && data?.cancellationDate)}
+                                        disabled={loading || !formik.isValid}
                                         onClick={(e) => handleSubmit(e)}
                                     >
                                         Guardar reporte
@@ -296,31 +292,17 @@ export function TakeMedicalAppointmentDialog({
                                 </Box>
                             </form>
                         </Grid>
-                        
+
                         <Grid item xs={12} md={5}>
-                            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Reportes medicos previos</Typography>
-                            
-                            {historyList.length > 0 ? 
-                                <Grid container spacing={2} style={{ marginTop: '30px', marginBottom: '30px' }}>
+                            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Historial Médico</Typography>
+
+                            {historyList.length ?
+                                <Grid container spacing={0} style={{ marginTop: '40px', marginBottom: '30px' }}>
                                     {historyList.map((el: any) => {
-                                        return <Grid item width="100%" padding={0} key={'history-' + el.id}>
-                                            <Item elevation={1}>
-                                                <div style={{
-                                                    textAlign: "right",
-                                                    fontSize: "12px",
-                                                    fontWeight: 600,
-                                                    padding: "8px"
-                                                }}>{format(new Date(el.date), "yyyy-MM-dd")}</div>
-                                                <div style={{
-                                                    textAlign: "justify",
-                                                    fontSize: "16px",
-                                                    padding: "0px 20px 8px 20px",
-                                                }}>{el.report}</div>
-                                            </Item>
-                                        </Grid>
+                                        return <ReportInfo key={'history-' + el.id} data={el} />
                                     })}
-                                </Grid> : 
-                                <Alert severity="info" style={{ marginTop: "40px" }}>El usuario no posee reportes medicos previos.</Alert>
+                                </Grid> :
+                                <Alert severity="info" style={{ marginTop: "40px" }}>El usuario no posee reportes médicos previos.</Alert>
                             }
                         </Grid>
                     </Grid>
