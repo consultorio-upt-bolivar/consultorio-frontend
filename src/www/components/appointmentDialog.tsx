@@ -150,7 +150,7 @@ export function AppointmentDialog({
                             className={classes.formControl}
                         >
                             <InputLabel className={classes.selectLabel} id='select-consultorio'>
-                                Consultorio
+                                Consultorio médico
                             </InputLabel>
                             <Select
                                 labelId='select-consultorio'
@@ -180,7 +180,7 @@ export function AppointmentDialog({
                             className={classes.formControl}
                         >
                             <InputLabel className={classes.selectLabel} id='select-especialidad'>
-                                Especialidad
+                                Especialidad médica
                             </InputLabel>
                             <Select
                                 labelId='select-especialidad'

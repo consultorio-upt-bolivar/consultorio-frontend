@@ -35,7 +35,7 @@ export const formFields = {
       label: 'Estudiante',
       value: 'student'
     }, {
-      label: 'Administrativo',
+      label: 'Personal universitario',
       value: 'employee'
     }, {
       label: 'Familiar',

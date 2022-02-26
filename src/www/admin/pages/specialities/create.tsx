@@ -22,7 +22,7 @@ const dispatchOptions: ActionOptions = {
 
 export function CreateSpecialitiesPage(): React.ReactElement {
   // Variable
-  const formName = 'Especialidad';
+  const formName = 'Especialidad médica';
   const { loading, data } = useSelector((store: any) => store.specialities)
   const { items } = useSelector((store: any) => store.offices)
 
@@ -93,7 +93,7 @@ export function CreateSpecialitiesPage(): React.ReactElement {
             required
             fullWidth
             id="nombre"
-            label="nombre"
+            label="Nombre"
             {...formik.getFieldProps("name")}
           />
           <FormHelperText error id="my-helper-text">
@@ -107,7 +107,7 @@ export function CreateSpecialitiesPage(): React.ReactElement {
             className={classes.formControl}
           >
             <InputLabel className={classes.selectLabel} id='select-oficina'>
-              Oficina
+              Consultorio médico
             </InputLabel>
             <Select
               labelId='select-oficina'
@@ -142,7 +142,7 @@ export function CreateSpecialitiesPage(): React.ReactElement {
                 }}
               />
             }
-            label="Esta habilitado?"
+            label="¿Está habilitado?"
           />
           <FormHelperText error id="checkbox-error-text">
             {formik.errors.isActive ? formik.errors.isActive : null}

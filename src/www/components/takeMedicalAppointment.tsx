@@ -217,7 +217,7 @@ export function TakeMedicalAppointmentDialog({
             width: '49%'
         },
         specialityId: {
-            label: 'Especialidad',
+            label: 'Especialidad médica',
             readonly: true,
             type: 'text',
             width: '49%'

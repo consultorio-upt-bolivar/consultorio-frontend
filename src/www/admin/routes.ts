@@ -52,7 +52,7 @@ export const AdminSidebar: SidebarConfig[] = [
       },
       {
         path: '/admin/modales/crear',
-        text: 'Nuevo Modal',
+        text: 'Nuevo modal',
         id: 'crear-modales',
         icon: AddBoxOutlined,
       },
@@ -73,7 +73,7 @@ export const AdminSidebar: SidebarConfig[] = [
       },
       {
         path: '/admin/oficinas/crear',
-        text: 'Nuevo',
+        text: 'Nuevo consultorio',
         id: 'crear-oficina',
         icon: AddBoxOutlined,
       },
@@ -102,7 +102,7 @@ export const AdminSidebar: SidebarConfig[] = [
   {
     path: '/admin/especialistas',
     icon: FavoriteBorderOutlined,
-    text: 'Doctores',
+    text: 'Especialistas',
     id: 'especialistas',
     submenu: [
       {
@@ -113,7 +113,7 @@ export const AdminSidebar: SidebarConfig[] = [
       },
       {
         path: '/admin/especialistas/crear',
-        text: 'Nuevo doctor',
+        text: 'Nuevo especialista',
         id: 'crear-especialista',
         icon: AddBoxOutlined,
       },
@@ -122,7 +122,7 @@ export const AdminSidebar: SidebarConfig[] = [
   {
     path: '/admin/jornadas',
     icon: Schedule,
-    text: 'Jornadas médicas',
+    text: 'Jornadas',
     id: 'jornadas',
     submenu: [
       {
@@ -159,7 +159,7 @@ export const AdminSidebar: SidebarConfig[] = [
       },
       {
         path: '/admin/usuarios/familiares-autorizaciones',
-        text: 'Autorizacion de familiares',
+        text: 'Autorización de familiares',
         id: 'autorizar-familiar',
         icon: AddBoxOutlined,
       },
@@ -181,7 +181,7 @@ export const AdminSidebar: SidebarConfig[] = [
       },
       {
         path: '/admin/citas-medicas/solicitar',
-        text: 'Solicitar',
+        text: 'Solicitar cita médica',
         id: 'solicitar-citas-medicas',
         icon: AddBoxOutlined,
         requiredRoles: [Roles.MedicalSpecialist, Roles.MedicalSpecialist, Roles.Student, Roles.Employee, Roles.Family],
@@ -191,7 +191,7 @@ export const AdminSidebar: SidebarConfig[] = [
   {
     path: '/admin/base-de-datos',
     icon: Security,
-    text: 'Base de datos',
+    text: 'Base de Datos',
     id: 'base-de-datos'
   },
 ]

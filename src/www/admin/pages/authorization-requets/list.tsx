@@ -14,7 +14,7 @@ import { IconButton } from '@material-ui/core';
 import { RemoveRedEyeOutlined } from '@material-ui/icons';
 
 export function AuthorizationRequestPage(): React.ReactElement {
-  const listName = 'Autorizacion de grupo familiar';
+  const listName = 'Autorización de grupo familiar';
   const dispatch = useDispatch()
   const [items, setItems] = React.useState<Array<any>>([])
 
@@ -76,7 +76,7 @@ export function AuthorizationRequestPage(): React.ReactElement {
 
     dispatch(alertActions.show({
       title: `Cambiar visibilidad`,
-      description: `¿Esta seguro de  ${row.requestVerified === 1 ? 'desaprobar' : 'aprobar'} este usuario ${row.userFamilyName}?`,
+      description: `¿Está seguro de  ${row.requestVerified === 1 ? 'desaprobar' : 'aprobar'} este usuario ${row.userFamilyName}?`,
       callback: () => {
         updateFamilyAuthorizationUsers(row)
       }
@@ -90,7 +90,7 @@ export function AuthorizationRequestPage(): React.ReactElement {
       {
         field: 'id',
         headerName: 'ID',
-        description: 'Id unico en la DB',
+        description: 'Id único en la BD',
         flex: 1,
         hide: true
       },
@@ -102,8 +102,8 @@ export function AuthorizationRequestPage(): React.ReactElement {
       },
       {
         field: 'email',
-        headerName: 'Email del solicitante',
-        description: 'Email del usuario',
+        headerName: 'Correo electrónico del solicitante',
+        description: 'Correo electrónico del usuario',
         flex: 1,
       },
       {
@@ -120,20 +120,20 @@ export function AuthorizationRequestPage(): React.ReactElement {
       },
       {
         field: 'userFamilyLegalId',
-        headerName: 'Cedula del familiar',
-        description: 'Cedula del usuario',
+        headerName: 'Identificación del familiar',
+        description: 'Identificación del usuario',
         flex: 1,
       },
       {
         field: 'userFamilyEmail',
-        headerName: 'Email del familiar',
-        description: 'Email del usuario',
+        headerName: 'Correo electrónico del familiar',
+        description: 'Correo electrónico del usuario',
         flex: 1,
       },
       {
         field: 'requestVerified',
         headerName: 'Aprobado',
-        description: 'Esta aprobado?',
+        description: '¿Está aprobado?',
         type: 'boolean',
         width: 100,
       },

@@ -23,7 +23,7 @@ const dispatchOptions: ActionOptions = {
 
 export function CreateOfficePage(): React.ReactElement {
   // Variable
-  const formName = 'Consultorio';
+  const formName = 'Consultorio médico';
   const { loading, data } = useSelector((store: any) => store.offices)
 
   const classes = formStyles()

@@ -27,12 +27,12 @@ export const initialValues = {
 export const formFields = {
   name: 'Nombre',
   phone: {
-    type: 'number',
+    type: 'text',
     label: 'Teléfono',
     required: true
   },
   legalId: {
-    type: 'number',
+    type: 'text',
     label: 'Identificación',
     required: true
   },

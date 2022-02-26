@@ -12,7 +12,7 @@ import { specialistActions as actions } from '../../../../_actions'
 import { PublicRoles } from '../../../../_api'
 
 export function ListSpecialistsPage(): React.ReactElement {
-  const listName = 'especialidades';
+  const listName = 'Especialistas';
   const { items } = useSelector((state: any) => state.users)
   const dispatch = useDispatch()
 
@@ -41,45 +41,46 @@ export function ListSpecialistsPage(): React.ReactElement {
       {
         field: 'id',
         headerName: 'ID',
-        description: 'Id unico en la DB',
-        flex: 1,
+        description: 'Id único en la BD',
+        flex: 200,
       },
       {
         field: 'name',
         headerName: 'Nombre',
         description: 'Nombre del especialista',
-        flex: 1,
+        flex: 200,
       },
       {
         field: 'email',
         headerName: 'Correo electrónico',
-        description: 'Correo del usuario',
-        flex: 1,
+        description: 'Correo del especialista',
+        flex: 200,
       },
       {
         field: 'phone',
         headerName: 'Teléfono',
-        description: 'Teléfono del usuario',
-        flex: 1,
+        description: 'Teléfono del especialista',
+        flex: 200,
       },
       {
         field: 'legalId',
         headerName: 'Identificación',
-        description: 'Identificación del usuario',
-        flex: 1,
+        description: 'Identificación del especialista',
+        flex: 200,
       },
       {
         field: 'type',
-        headerName: 'Tipo',
-        description: 'Tipo de usuario',
-        flex: 1,
+        headerName: 'Tipo de usuario',
+        description: 'Tipo de especialistas',
+        flex: 200,
+        hide: true,
       },
       {
         field: 'isActive',
         headerName: 'Activo',
-        description: 'Esta habilitado?',
+        description: '¿Está habilitado?',
         type: 'boolean',
-        flex: 1,
+        flex: 200,
       },
     ],
     rows: items?.map((el: any) => {

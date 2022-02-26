@@ -77,6 +77,9 @@ export const GetFormikFields = (formik: any, fields: any) => {
             label={options}
             autoComplete={name}
             {...formik.getFieldProps(name)}
+            style={{
+                marginTop: "24px"
+              }}
           />
           <FormHelperText className={classes.errorText} error>
             {formik.touched[name] && formik.errors[name]
@@ -280,6 +283,9 @@ export const GetFormikFields = (formik: any, fields: any) => {
                   required={options.required}
                   disabled={options.readonly}
                   {...params}
+                  style={{
+                    marginTop: "24px"
+                  }}
                 />}
               />
             </LocalizationProvider>
@@ -304,6 +310,9 @@ export const GetFormikFields = (formik: any, fields: any) => {
                   required={options.required}
                   disabled={options.readonly}
                   {...params}
+                  style={{
+                    marginTop: "24px"
+                  }}
                 />}
               />
             </LocalizationProvider>

@@ -80,8 +80,8 @@ export const AvaliableDates = (params: {
         e.preventDefault()
 
         dispatch(alertActions.show({
-            title: "Confirmar turno",
-            description: `Has seleccionado una cita médica para el dia ${selectedDate.date} y hora: ${selectedDate.hour}, es correcto?`,
+            title: "Confirmar cita",
+            description: `Has seleccionado una cita médica para el dia ${selectedDate.date} y hora: ${selectedDate.hour}. ¿Es correcto?`,
             callback: () => {
                 setLoading(true)
 
@@ -135,7 +135,7 @@ export const AvaliableDates = (params: {
 
     // Render avaliable dates
     const renderDates = () => {
-        if (params.specialityId == "") return <Alert severity="info">Por favor seleccione un consultorio y una especialidad.</Alert>;
+        if (params.specialityId == "") return <Alert severity="info">Por favor seleccione un consultorio médico y una especialidad.</Alert>;
         if (!avaliablesUsers.length) return <Alert severity="info">No hay fechas disponibles para el rango seleccionado.</Alert>;
 
         return avaliablesUsers.map((user: any) => {
@@ -163,7 +163,9 @@ export const AvaliableDates = (params: {
                 }} key={`${user.id}-${user.name}-box`}>
                     <div style={{
                         borderBottom: "1px solid silver",
-                        padding: "8px"
+                        padding: "8px",
+                        backgroundColor: "#5eaab1",
+                        color: "white"
                     }}>
                         <Typography sx={{ fontSize: 18, textAlign: "center" }} margin="0">
                             Especialista: {user.name}
@@ -208,7 +210,10 @@ export const AvaliableDates = (params: {
 
         return (
             <Box>
-                <Item>Fecha elegida: {selectedDate.date}</Item>
+                <Item style={{
+                     backgroundColor: "#5eaab1",
+                     color: "white"
+                }}>Fecha elegida: {selectedDate.date}</Item>
 
                 <Box style={{
                     border: "1px solid silver",
@@ -218,10 +223,12 @@ export const AvaliableDates = (params: {
                 }}>
                     <div style={{
                         borderBottom: "1px solid silver",
-                        padding: "8px"
+                        padding: "8px",
+                        backgroundColor: "#5eaab1",
+                        color: "white"
                     }}>
-                        <Typography sx={{ fontSize: 16, textAlign: "center", color: "black" }} margin="0">
-                            Selecciona alguno de los horarios disponibles.
+                        <Typography sx={{ fontSize: 16, textAlign: "center"}} margin="0">
+                            Selecciona alguno de los horarios disponibles:
                         </Typography>
                     </div>
 
@@ -230,7 +237,7 @@ export const AvaliableDates = (params: {
                     </Grid>
                 </Box>
 
-                <Alert severity="info">Los horarios se muestran en formato 24 horas</Alert>
+                <Alert severity="info">Los horarios se muestran en formato 24 horas.</Alert>
             </Box>
         )
     }
@@ -251,10 +258,12 @@ export const AvaliableDates = (params: {
                         }}>
                             <div style={{
                                 borderBottom: "1px solid silver",
-                                padding: "8px"
+                                padding: "8px",
+                                backgroundColor: "#5eaab1",
+                                color: "white"
                             }}>
                                 <Typography sx={{ fontSize: 18, textAlign: "center" }} margin="0">
-                                    Confirmacion de cita médica
+                                    Confirmación de cita médica
                                 </Typography>
                             </div>
                             <div style={{
@@ -264,20 +273,20 @@ export const AvaliableDates = (params: {
                                     Fecha: {selectedDate.date} a las {selectedDate.hour}
                                 </Typography>
                                 <Typography mt={'20px'} component="div">
-                                    Consultorio: {selectedDate.office.name}
+                                    Consultorio médico: {selectedDate.office.name}
                                 </Typography>
                                 <Typography mt={'20px'} component="div">
-                                    Lugar: {selectedDate.office.place}
+                                    Dirección: {selectedDate.office.place}
                                 </Typography>
                                 <Typography mt={'20px'} component="div">
-                                    Especialidad: {selectedDate.speciality.name}
+                                    Especialidad médica: {selectedDate.speciality.name}
                                 </Typography>
                                 <Typography mt={'20px'} component="div">
-                                    Doctor: {selectedDate.specialist.name}
+                                    Especialista: {selectedDate.specialist.name}
                                 </Typography>
 
                                 <Typography mt={'20px'} component="div">
-                                    Usuario: {params.user?.id && params.user?.id != '' ? params.user?.name : userData.name}
+                                    Paciente: {params.user?.id && params.user?.id != '' ? params.user?.name : userData.name}
                                 </Typography>
                             </div>
                         </Box>
@@ -329,7 +338,7 @@ export const AvaliableDates = (params: {
                             onClick={(e) => handleSubmit(e)}
                             disabled={creatingAppointment}
                         >
-                            Confirmar turno
+                            Confirmar cita
                         </Button> : null
                 }
             </Box>

@@ -111,14 +111,14 @@ export const DatabasesPage = (): React.ReactElement => {
             textAlign: 'center',
           }}
         >
-          Gestion de base de datos
+          Gestión de Base de Datos
         </Typography>
 
         <Grid container spacing={2} style={{ marginTop: '50px', marginBottom: '50px' }} justifyContent="center">
           <Grid item onClick={() => handleBackupDatabase()}>
             <Item elevation={2}>
               <Typography component="p" variant="h5" mb={0} mt={0} align='center' gutterBottom>
-                Respaldar base de datos
+                Respaldar Base de Datos
               </Typography>
             </Item>
           </Grid>
@@ -126,7 +126,7 @@ export const DatabasesPage = (): React.ReactElement => {
           <Grid item>
             <Item elevation={1} style={{ flexWrap: 'wrap' }}>
               <Typography component="p" variant="h5" mb={0} mt={0} align='center' onClick={() => handleClickButton()}>
-                Restaurar base de datos
+                Restaurar Base de Datos
               </Typography>
 
               <input style={{ visibility: 'hidden', position: 'absolute', width: 0, height: 0 }} accept=".sql,application/sql" type="file" ref={inputRef} onChange={(e) => validateSqlFile(e)}></input>
@@ -151,7 +151,7 @@ export const DatabasesPage = (): React.ReactElement => {
                     onClick={() => handleRestoreDatabase()}
                   >
                     <small>
-                      Restaurar db con: {sqlFile?.name}
+                      Restaurar BD con: {sqlFile?.name}
                     </small>
                   </Button>
                 </div> : null

@@ -11,7 +11,7 @@ import { AppHistory } from '../../../../helpers'
 import { specialitiesActions as actions } from '../../../../_actions'
 
 export function ListSpecialitiesPage(): React.ReactElement {
-  const listName = 'Especialidades';
+  const listName = 'Especialidades médicas';
   const { items } = useSelector((state: any) => state.specialities)
   const dispatch = useDispatch()
 
@@ -26,7 +26,7 @@ export function ListSpecialitiesPage(): React.ReactElement {
 
   const toggleAction = (id: number) => {
     dispatch(actions.toggleActive(id, {
-      toast: "Especialidad actualizada!"
+      toast: "Especialidad médica actualizada!"
     }))
   }
 
@@ -39,7 +39,7 @@ export function ListSpecialitiesPage(): React.ReactElement {
       {
         field: 'id',
         headerName: 'ID',
-        description: 'Id unico en la DB',
+        description: 'Id único en la BD',
         flex: 1,
       },
       {
@@ -50,14 +50,14 @@ export function ListSpecialitiesPage(): React.ReactElement {
       },
       {
         field: 'officeName',
-        headerName: 'Centro médico',
-        description: 'Centro médico de la especialidad',
+        headerName: 'Consultorio médico',
+        description: 'Consultorio médico de la especialidad',
         flex: 1,
       },
       {
         field: 'isActive',
         headerName: 'Activo',
-        description: 'Esta habilitado?',
+        description: '¿Está habilitado?',
         type: 'boolean',
         flex: 1,
       },

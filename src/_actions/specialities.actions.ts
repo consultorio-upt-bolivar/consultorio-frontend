@@ -5,11 +5,11 @@ export const specialitiesActions = GenericActions({
   model: 'Specialities',
   Api: SpecialitiesApi,
   successMessages: {
-    getAll: 'Especialidades obtenidas!',
-    getOne: 'Especialidad obtenida!',
-    createOne: 'Especialidad creada!',
-    updateOne: 'Especialidad actualizada!',
-    deleteOne: 'Especialidad eliminada!',
-    toggleActive: 'Especialidad actualizada!',
+    getAll: 'Especialidades médicas obtenidas!',
+    getOne: 'Especialidad médica obtenida!',
+    createOne: 'Especialidad médica creada!',
+    updateOne: 'Especialidad médica actualizada!',
+    deleteOne: 'Especialidad médica eliminada!',
+    toggleActive: 'Especialidad médica actualizada!',
   }
 })

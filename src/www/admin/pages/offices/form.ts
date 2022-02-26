@@ -26,7 +26,7 @@ export const formFields = {
   phone: 'Teléfono',
   isActive: {
     type: 'checkbox',
-    label: '¿Esta habilitado?',
+    label: '¿Está habilitado?',
     required: true
   }
 }
