@@ -25,7 +25,7 @@ export const formFields = {
     name: 'Nombre',
     phone: {
         type: 'number',
-        label: 'Telefono',
+        label: 'Teléfono',
         required: true
     },
     legalId: {
@@ -35,7 +35,7 @@ export const formFields = {
     },
     email: {
         type: 'text',
-        label: 'Correo',
+        label: 'Correo electrónico',
         readonly: true
     },
     divider: {
@@ -43,7 +43,7 @@ export const formFields = {
     },
     password: {
         type: 'password',
-        label: 'Contrasena',
+        label: 'Contraseña',
         required: false
     },
 }

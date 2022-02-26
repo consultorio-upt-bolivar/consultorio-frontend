@@ -58,7 +58,7 @@ function GetStadistics(params: {
           total: systemData.totalSpecialists
         },
         {
-          name: "Total Usuarios",
+          name: "Total usuarios",
           total: systemData.totalUsers
         }
       ]
@@ -73,11 +73,11 @@ function GetStadistics(params: {
           total: systemData.totalSpecialities
         },
         {
-          name: "Consultas medicas atendidas",
+          name: "Citas médicas atendidas",
           total: systemData.attendedMedicalAppointments
         },
         {
-          name: "Consultas medicas canceladas",
+          name: "Citas médicas canceladas",
           total: systemData.cancelledMedicalAppointments
         }
       ]

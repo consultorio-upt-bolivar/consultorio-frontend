@@ -28,7 +28,7 @@ export const initialValues = {
 export const formCreateFields = {
   name: 'Nombre',
   legalId: "Identificación",
-  phone: "Telefono",
+  phone: "Teléfono",
   profile: {
     label: 'Tipo de usuario',
     id: 'name',
@@ -37,10 +37,10 @@ export const formCreateFields = {
     type: 'select',
     required: true
   },
-  email: 'Correo',
+  email: 'Correo electrónico',
   password: {
     type: 'password',
-    label: 'Contrasena',
+    label: 'Contraseña',
     required: false
   },
 }
@@ -53,7 +53,7 @@ export const formUpdateFields = {
     label: "Identificación",
     readonly: true
   },
-  phone: "Telefono",
+  phone: "Teléfono",
   profile: {
     label: 'Tipo de usuario',
     id: 'name',
@@ -65,7 +65,7 @@ export const formUpdateFields = {
   email: {
     type: "text",
     name: "email",
-    label: "Correo",
+    label: "Correo electrónico",
     readonly: true
   },
   divider: {
@@ -73,7 +73,7 @@ export const formUpdateFields = {
   },
   password: {
     type: 'password',
-    label: 'Contrasena',
+    label: 'Contraseña',
     required: false
   },
 }

@@ -136,7 +136,7 @@ export function TakeMedicalAppointmentDialog({
 
             dispatch(alertActions.show({
                 title: `Confirmar`,
-                description: `Estas seguro de guardar los datos?`,
+                description: `¿Está seguro de guardar los datos?`,
                 callback: () => {
                     dispatch(medicalAppointmentsActions.updateOne(+medicalAppointment, options, {
                         callback: getMedicalAppointment

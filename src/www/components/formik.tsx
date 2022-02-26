@@ -111,7 +111,8 @@ export const GetFormikFields = (formik: any, fields: any) => {
               label={options.label}
               autoComplete={name}
               {...formik.getFieldProps(name)}
-              key={name} style={{
+              key={name} 
+              style={{
                 marginTop: "24px"
               }}
             />
@@ -138,6 +139,9 @@ export const GetFormikFields = (formik: any, fields: any) => {
               autoComplete={name}
               type="number"
               {...formik.getFieldProps(name)}
+              style={{
+                marginTop: "24px"
+              }}
             />
             <FormHelperText className={classes.errorText} error>
               {formik.touched[name] && formik.errors[name]

@@ -62,14 +62,14 @@ export const PublicLayout = ({
             className={classes.appBarTitle}
             component="a"
             href="/" sx={{ textDecoration: "none" }}
-          >Consultorio médico UPT</Typography>
+          >Consultorio Médico Universitario Dr. José Gregorio Hernández UPT Bolívar</Typography>
 
           {!userData?.name ?
             <Button
               color="inherit"
               component="a"
               href="/login"
-            >Iniciar sesion</Button>
+            >Iniciar sesión</Button>
             :
             <UserAvatarMenu name={userData?.name ?? ''}></UserAvatarMenu>}
         </Toolbar>

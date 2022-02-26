@@ -1,7 +1,7 @@
 export const validationMessages = {
-  required: 'Requerido',
-  invalid: 'El campo $ es invalido',
-  minLength: 'Debe tener $ caracteres como minimo',
-  maxLength: 'Debe tener $ caracteres como maximo',
-  email: 'Email invalido',
+  required: '* Requerido.',
+  invalid: 'El campo $ es inválido',
+  minLength: 'Debe tener $ caracteres como mínimo.',
+  maxLength: 'Debe tener $ caracteres como máximo.',
+  email: 'Correo electrónico inválido',
 }

@@ -5,7 +5,7 @@ export const medicalAppointmentsActions = GenericActions({
   model: 'MedicalAppointments',
   Api: MedicalAppointmentsApi,
   successMessages: {
-    getAll: 'Citas medicas obtenidas!',
+    getAll: 'Citas médicas obtenidas!',
     getOne: 'Cita médica obtenida!',
     createOne: 'Cita médica creada!',
     updateOne: 'Cita médica actualizada!',

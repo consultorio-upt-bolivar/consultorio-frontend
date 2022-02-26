@@ -72,7 +72,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
   const handleCancelAppointment = (appointmentId: number) => {
     dispatch(alertActions.show({
         title: `Cita médica`,
-        description: `Estas seguro que quieres cancelar esta cita médica?`,
+        description: `¿Está seguro que quieres cancelar esta cita médica?`,
         callback: () => {
           dispatch(appointmentsActions.cancelAppointment(appointmentId, 'Cancelado por el usuario!', getAppointments))
         }
@@ -82,7 +82,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
   const typedItems = items as any[]
 
   const notFoundNextAppointments = "No tienes citas programadas!"
-  const notFoundPastAppointments = "Aun no has ido a ninguna cita medicas!"
+  const notFoundPastAppointments = "Aun no has solicitado una cita médica!"
 
   const renderNextAppointments = () => {
     if (!typedItems.length) return renderAlert(notFoundNextAppointments)

@@ -132,7 +132,7 @@ function RowMenuCell({
           size="small"
           aria-label="delete"
           onClick={(e) => handleClick({
-            event: e, id: Number(id), fn: deleteAction, title: `Eliminar elemento`, description: `Estas seguro de eliminar el elemento ${name ?? id}?`
+            event: e, id: Number(id), fn: deleteAction, title: `Eliminar elemento`, description: `¿Está seguro de eliminar el elemento ${name ?? id}?`
           })}
         >
           <DeleteIcon fontSize="small" />
@@ -143,7 +143,7 @@ function RowMenuCell({
           size="small"
           aria-label="toggle"
           onClick={(e) => handleClick({
-            event: e, id: Number(id), fn: toggleAction, title: `Cambiar visibilidad`, description: `Estas seguro de  ${isActive ? 'desactivar' : 'activar'} la visibilidad elemento ${name ?? id}?`
+            event: e, id: Number(id), fn: toggleAction, title: `Cambiar visibilidad`, description: `¿Está seguro de  ${isActive ? 'desactivar' : 'activar'} la visibilidad elemento ${name ?? id}?`
           })}
         >
           <RemoveRedEyeOutlined fontSize="small" />

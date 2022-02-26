@@ -76,7 +76,7 @@ export function AuthorizationRequestPage(): React.ReactElement {
 
     dispatch(alertActions.show({
       title: `Cambiar visibilidad`,
-      description: `Estas seguro de  ${row.requestVerified === 1 ? 'desaprobar' : 'aprobar'} este usuario ${row.userFamilyName}?`,
+      description: `¿Esta seguro de  ${row.requestVerified === 1 ? 'desaprobar' : 'aprobar'} este usuario ${row.userFamilyName}?`,
       callback: () => {
         updateFamilyAuthorizationUsers(row)
       }

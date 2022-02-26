@@ -5,7 +5,7 @@ function Copyright() {
     return (
         <React.Fragment>
             {'© '}
-            {'Consultorio médico UPT '}
+            {'Consultorio Médico Universitario Dr. José Gregorio Hernández UPT Bolívar '}
             {new Date().getFullYear()}
         </React.Fragment>
     );

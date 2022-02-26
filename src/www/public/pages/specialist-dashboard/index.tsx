@@ -174,7 +174,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                     </Grid>
 
                     <Grid item xs={12} sm={9} md={8}>
-                        <Typography noWrap fontWeight={500} my={2} textAlign="center">CITAS MEDICAS</Typography>
+                        <Typography noWrap fontWeight={500} my={2} textAlign="center">CITAS MÉDICAS</Typography>
 
                         <Box
                             display="flex"

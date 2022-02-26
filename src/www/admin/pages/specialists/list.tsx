@@ -52,14 +52,14 @@ export function ListSpecialistsPage(): React.ReactElement {
       },
       {
         field: 'email',
-        headerName: 'Correo',
+        headerName: 'Correo electrónico',
         description: 'Correo del usuario',
         flex: 1,
       },
       {
         field: 'phone',
-        headerName: 'Telefono',
-        description: 'Telefono del usuario',
+        headerName: 'Teléfono',
+        description: 'Teléfono del usuario',
         flex: 1,
       },
       {

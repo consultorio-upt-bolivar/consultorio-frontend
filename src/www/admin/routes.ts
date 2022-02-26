@@ -123,7 +123,7 @@ export const AdminSidebar: SidebarConfig[] = [
   {
     path: '/admin/jornadas',
     icon: Schedule,
-    text: 'Jornadas medicas',
+    text: 'Jornadas médicas',
     id: 'jornadas',
     submenu: [
       {
@@ -169,7 +169,7 @@ export const AdminSidebar: SidebarConfig[] = [
   {
     path: '/admin/citas-medicas',
     icon: LocalHospital,
-    text: 'Citas medicas',
+    text: 'Citas médicas',
     id: 'citas-medicas',
     requiredRoles: [Roles.MedicalSpecialist, Roles.MedicalSpecialist, Roles.Student, Roles.Employee, Roles.Family],
     submenu: [
@@ -213,7 +213,7 @@ export const AdminRoutes: RoutesConfig[] = [
     id: 'profilePage',
     requiredRoles: [Roles.MedicalSpecialist],
   },
-  // Citas Medicas
+  // Citas Médicas
   {
     path: '/admin/citas-medicas',
     component: ListMedicalAppointmentsPage,

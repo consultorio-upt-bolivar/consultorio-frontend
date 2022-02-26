@@ -28,7 +28,7 @@ export const formFields = {
   name: 'Nombre',
   phone: {
     type: 'number',
-    label: 'Telefono',
+    label: 'Teléfono',
     required: true
   },
   legalId: {
@@ -36,12 +36,12 @@ export const formFields = {
     label: 'Identificación',
     required: true
   },
-  email: 'Correo',
+  email: 'Correo electrónico',
   divider: {
       type: 'divider'
   },
   password: {
     type: 'password',
-    label: 'Contrasena',
+    label: 'Contraseña',
   },
 }

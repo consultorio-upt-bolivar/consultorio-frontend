@@ -94,78 +94,9 @@ export const DashboardPage = (): React.ReactElement => {
   return (
     <AdminLayout>
       <>
-        <Typography
-          component="h1"
-          variant="h5"
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          Estadisticas del sistema
-        </Typography>
-
-        <form className={classes.form} noValidate>
-          <LocalizationProvider dateAdapter={AdapterDateFns} locale={esLocale} >
-            <Grid container spacing={2} sx={{ mt: 4 }}>
-              <Grid item xs={12} md={5}>
-                <DesktopDatePicker
-                  label="Fecha desde"
-                  value={formik.values["dateFrom"]}
-                  onChange={(date: Date | null) => {
-                    formik.setFieldValue("dateFrom", date)
-                  }}
-                  renderInput={(params) => <TextField
-                    margin="normal"
-                    fullWidth
-                    sx={{ my: 0 }}
-                    required
-                    {...params}
-                  />}
-                />
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <DesktopDatePicker
-                  label="Fecha hasta"
-                  value={formik.values["dateEnd"]}
-                  onChange={(date: Date | null) => {
-                    formik.setFieldValue("dateEnd", date)
-                  }}
-                  renderInput={(params) => <TextField
-                    margin="normal"
-                    fullWidth
-                    sx={{ my: 0 }}
-                    required
-                    {...params}
-                  />}
-                />
-              </Grid>
-              <Grid item xs={12} md={2}>
-                <Button
-                  sx={{ height: "100%", my: 0, py: 2 }}
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  disabled={!!loading}
-                  onClick={(e) => handleSubmit(e)}
-                >
-                  Buscar
-                </Button>
-              </Grid>
-            </Grid>
-          </LocalizationProvider>
-        </form>
-
-        <Divider style={{
-          display: "block",
-          width: "100%",
-          height: "20px",
-          marginTop: "30px"
-        }}></Divider>
-
-        <Grid container spacing={2} justifyContent="start" style={{ marginTop: '30px', marginBottom: '50px', paddingTop: "50px", position: "relative" }}>
+        <Grid container spacing={2} justifyContent="start" style={{ marginBottom: '50px', position: "relative" }}>
           <Grid item xs={12} md={6}>
-            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Estadisticas generales</Typography>
+            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Estadísticas generales</Typography>
 
             <Paper
               sx={{
@@ -201,7 +132,7 @@ export const DashboardPage = (): React.ReactElement => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Estadisticas de usuarios</Typography>
+            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Estadísticas de usuarios registrados</Typography>
 
             <Paper
               sx={{
@@ -236,8 +167,89 @@ export const DashboardPage = (): React.ReactElement => {
             </Paper>
           </Grid>
 
+          <Grid item xs={12}>
+            <Fab
+              variant="extended"
+              color="primary"
+              aria-label="add"
+              className={fabClasses.fab}
+              onClick={downloadReport}
+            >
+              <Download className={fabClasses.extendedIcon} />
+              Descargar reporte
+            </Fab>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Divider style={{
+                display: "block",
+                width: "100%",
+                height: "20px",
+                marginTop: "30px"
+              }}></Divider>
+
+            <form className={classes.form} noValidate>
+              <LocalizationProvider dateAdapter={AdapterDateFns} locale={esLocale} >
+                <Grid container spacing={2} sx={{ mt: 4 }}>
+                  <Grid item xs={12} md={5}>
+                    <DesktopDatePicker
+                      label="Fecha desde"
+                      value={formik.values["dateFrom"]}
+                      onChange={(date: Date | null) => {
+                        formik.setFieldValue("dateFrom", date)
+                      }}
+                      renderInput={(params) => <TextField
+                        margin="normal"
+                        fullWidth
+                        sx={{ my: 0 }}
+                        required
+                        {...params}
+                      />}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={5}>
+                    <DesktopDatePicker
+                      label="Fecha hasta"
+                      value={formik.values["dateEnd"]}
+                      onChange={(date: Date | null) => {
+                        formik.setFieldValue("dateEnd", date)
+                      }}
+                      renderInput={(params) => <TextField
+                        margin="normal"
+                        fullWidth
+                        sx={{ my: 0 }}
+                        required
+                        {...params}
+                      />}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <Button
+                      sx={{ height: "100%", my: 0, py: 2 }}
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      disabled={!!loading}
+                      onClick={(e) => handleSubmit(e)}
+                    >
+                      Buscar
+                    </Button>
+                  </Grid>
+                </Grid>
+              </LocalizationProvider>
+            </form>
+
+            <Divider style={{
+              display: "block",
+              width: "100%",
+              height: "20px",
+              marginBottom: "20px",
+              marginTop: "30px"
+            }}></Divider>
+          </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Usuarios referidos</Typography>
+            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Pacientes referidos</Typography>
             <Paper
               sx={{
                 p: 2,
@@ -276,7 +288,7 @@ export const DashboardPage = (): React.ReactElement => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Especialidades mas usadas</Typography>
+            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Especialidades más usadas</Typography>
 
             <Paper
               sx={{
@@ -314,17 +326,6 @@ export const DashboardPage = (): React.ReactElement => {
               </ResponsiveContainer>
             </Paper>
           </Grid>
-
-          <Fab
-            variant="extended"
-            color="primary"
-            aria-label="add"
-            className={fabClasses.fab}
-            onClick={downloadReport}
-          >
-            <Download className={fabClasses.extendedIcon} />
-            Descargar reporte
-          </Fab>
         </Grid>
       </>
     </AdminLayout >

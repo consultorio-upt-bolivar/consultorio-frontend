@@ -21,8 +21,8 @@ import { PublicLayout } from '../../../components/publicLayout';
 
 export function LoginPage() {
   const formOptions = {
-    title: 'Iniciar sesion',
-    loadingText: 'Iniciando sesion',
+    title: 'Iniciar sesión',
+    loadingText: 'Iniciando sesión',
   }
   const dispatch = useDispatch()
   const classes = formStyles()
@@ -50,10 +50,10 @@ export function LoginPage() {
     }
   }
   const formFields = {
-    email: 'Correo',
+    email: 'Correo electrónico',
     password: {
       type: 'password',
-      label: 'Contrasena',
+      label: 'Contraseña',
     },
   }
 
@@ -109,7 +109,7 @@ export function LoginPage() {
                 }}
                 component="a"
                 href="/signin"
-              >¿No tienes cuenta? Crear una</Button>
+              >¿No tienes cuenta? Registrate!</Button>
             </Grid>
           </Grid>
         </Grid>

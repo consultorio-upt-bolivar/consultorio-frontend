@@ -67,8 +67,8 @@ export const DatabasesPage = (): React.ReactElement => {
     dispatch(loadingActions.show())
 
     dispatch(alertActions.show({
-      title: "Restaurar base de datos",
-      description: "Estas seguro de restaurar la base de datos? Los datos actuales seran remplazados.",
+      title: "Restaurar Base de Datos",
+      description: "¿Está seguro de restaurar la Base de Datos? Los datos actuales seran remplazados.",
       callback: () => {
         dispatch(databasesActions.restoreDatabase(sqlFile, true, () => {
 

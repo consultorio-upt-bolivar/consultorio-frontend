@@ -29,8 +29,8 @@ export default function BannerHome() {
                 backgroundPosition: 'center',
             }}
         >
-            <Typography color="inherit" align="center" variant="h2">
-                Bienvenido al consultorio médico UPT
+            <Typography color="inherit" align="center" variant="h4">
+                Bienvenido al Consultorio Médico Universitario Dr. José Gregorio Hernández UPT Bolívar
             </Typography>
             <Typography
                 color="inherit"
@@ -49,7 +49,7 @@ export default function BannerHome() {
                 className={classes.submit}
                 onClick={() => AppHistory.replace(!userData ? "/login" : redirectUrls[userData.profile.id])}
             >
-                {!userData ? "Iniciar sesion" : "Ingresar"}
+                {!userData ? "Iniciar sesión" : "Ingresar"}
             </Button>
         </BannerLayout >
     );

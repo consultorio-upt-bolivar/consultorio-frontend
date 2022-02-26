@@ -50,14 +50,14 @@ export function ListOfficesPage(): React.ReactElement {
       },
       {
         field: 'phone',
-        headerName: 'Telefono',
-        description: 'Telefono de la oficina',
+        headerName: 'Teléfono',
+        description: 'Teléfono de la oficina',
         flex: 1,
       },
       {
         field: 'place',
         headerName: 'Lugar',
-        description: 'Ubucacion de la oficina',
+        description: 'Ubicación de la oficina',
         flex: 1,
       },
       {

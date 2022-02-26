@@ -70,7 +70,7 @@ export function ForgotPasswordPage() {
               required
               fullWidth
               id="Correo"
-              label="Correo"
+              label="Correo electrónico"
               {...formik.getFieldProps("email")}
             />
             <FormHelperText error id="my-helper-text">
@@ -114,7 +114,7 @@ export function ForgotPasswordPage() {
                   }}
                   component="a"
                   href="/signin"
-                >¿No tienes cuenta? Registrate</Button>
+                >¿No tienes cuenta? Registrate!</Button>
               </Grid>
               <Grid item>
                 <Button

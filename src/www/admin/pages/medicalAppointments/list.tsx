@@ -12,7 +12,7 @@ import { AppHistory } from '../../../../helpers'
 import { medicalAppointmentsActions as actions } from '../../../../_actions'
 
 export function ListMedicalAppointmentsPage(): React.ReactElement {
-  const listName = 'Citas medicas';
+  const listName = 'Citas médicas';
   const { items } = useSelector((state: any) => state.medicalAppointments)
   const dispatch = useDispatch()
 

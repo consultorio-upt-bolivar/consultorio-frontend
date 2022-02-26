@@ -36,10 +36,10 @@ export const initialValues = {
 }
 
 export const formFields = {
-  email: 'Correo',
+  email: 'Correo electrónico',
   subject: 'Asunto',
   description: {
-    label: 'Descripcion',
+    label: 'Consulta',
     type: 'multiline',
     maxRows: 4,
     required: true
@@ -92,7 +92,7 @@ export function ContactForm(): React.ReactElement {
             variant="h5"
             sx={{ mb: 5 }}
           >
-            CONTACTANOS
+            CONTACTANOS!
           </Typography>
           <form className={classes.form} noValidate>
             {formikFields}

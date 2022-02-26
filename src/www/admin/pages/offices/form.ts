@@ -22,11 +22,11 @@ export const initialValues = {
 
 export const formFields = {
   name: 'Nombre',
-  place: 'Ubicacion',
-  phone: 'Telefono',
+  place: 'Ubicación',
+  phone: 'Teléfono',
   isActive: {
     type: 'checkbox',
-    label: 'Esta habilitado?',
+    label: '¿Esta habilitado?',
     required: true
   }
 }

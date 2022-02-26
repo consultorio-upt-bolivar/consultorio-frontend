@@ -132,7 +132,7 @@ export const AdminLayout = ({
             open
           >
             <DrawerHeader>
-              Administrador de sistema
+              Administrador
             </DrawerHeader>
             <Divider />
             <SidemenuList />

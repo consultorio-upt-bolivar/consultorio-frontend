@@ -23,6 +23,6 @@ export const formFields = {
   token: 'Código de seguridad',
   password: {
     type: 'password',
-    label: 'Contrasena',
+    label: 'Contraseña',
   },
 }

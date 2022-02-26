@@ -9,31 +9,31 @@ interface ApiError {
 const ApiMessages: ApiError[] = [
   {
     error: 'Invalid credentials or user inactive',
-    message: 'Los datos son invalidos.',
+    message: 'Correo electrónico o contraseña inválidos.',
   },
   {
     error: 'backup database error',
-    message: 'Error al respaldar la base de datos.',
+    message: 'Error al respaldar la Base de Datos.',
   },
   {
     error: 'restore database error',
-    message: 'Error al restaurar la base de datos.',
+    message: 'Error al restaurar la Base de Datos.',
   },
   {
     error: 'file not found',
-    message: 'Archivo adjunto invalido.',
+    message: 'Archivo adjunto inválido.',
   },
   {
     error: 'Invalid user',
-    message: 'Tipo de usuario invalido.',
+    message: 'El usuario no tiene permiso para realizar esta acción.',
   },
   {
     error: 'User does not exists!',
-    message: 'El usuario enviado es invalido.',
+    message: 'El usuario no existe.',
   },
   {
     error: 'Schedule does not exists!',
-    message: 'Jornada enviada invalida.',
+    message: 'Horario no encontrado.',
   },
   {
     error: 'MedicalAppointments already taken!',
@@ -49,15 +49,15 @@ const ApiMessages: ApiError[] = [
   },
   {
     error: 'User not found!',
-    message: 'No se encontro el usuario.',
+    message: 'Usuario no encontrado.',
   },
   {
     error: 'dbName is required',
-    message: 'Error en la conexion con la base de datos.',
+    message: 'Error en la conexión con la Base de Datos.',
   },
   {
     error: 'element already exists!',
-    message: 'El recurso que intenta crear ya existe.',
+    message: 'Los datos que intenta registrar ya existen.',
   },
   {
     error: 'Not found recource!',
@@ -73,7 +73,7 @@ const ApiMessages: ApiError[] = [
   },
   {
     error: 'User already exists!',
-    message: 'Usuario ya existente.',
+    message: 'El usuario ya existe.',
   },
   {
     error: 'User status updated!',
@@ -81,11 +81,11 @@ const ApiMessages: ApiError[] = [
   },
   {
     error: 'Invalid Password Token!',
-    message: 'El token inresado es invalido.',
+    message: 'El código ingresado es inválido.',
   },
   {
     error: 'Please send mail code first!',
-    message: 'Por favor solicitar el codigo previamente.',
+    message: 'Solicitar el código previamente.',
   },
   {
     error: 'Update Password Error!',
@@ -97,7 +97,7 @@ const ApiMessages: ApiError[] = [
   },
   {
     error: 'Send mail error!',
-    message: 'No se ha podido enviar el correo electronico.',
+    message: 'Error al enviar el correo electrónico.',
   },
   {
     error: 'Send mail ok!',
@@ -105,11 +105,11 @@ const ApiMessages: ApiError[] = [
   },
   {
     error: 'Invalid legal id.',
-    message: 'Cedula invalida.',
+    message: 'Cédula inválida.',
   },
   {
     error: 'user not authorized',
-    message: 'El usuario esta pendiente de autorización.'
+    message: 'El usuario está pendiente de autorización.'
   },
   {
     error: 'user inactive',
@@ -125,12 +125,12 @@ const ApiMessages: ApiError[] = [
 const NotFoundApiMessages: ApiError[] = [
   {
     error: 'Request failed with status code 401',
-    message: 'La sesion ha expirado.',
+    message: 'La sesión ha expirado.',
     redirect: '/login',
   },
   {
     error: 'Request failed with status code 400',
-    message: 'Los datos enviados son invalidos.',
+    message: 'Los datos enviados son inválidos.',
   },
   {
     error: 'Request failed with status code 500',
@@ -142,7 +142,7 @@ const NotFoundApiMessages: ApiError[] = [
   },
   {
     error: 'Request failed with status code 409',
-    message: 'El recurso ya fue creado.',
+    message: 'Los datos que intenta registrar ya existen.',
   }
 ]
 

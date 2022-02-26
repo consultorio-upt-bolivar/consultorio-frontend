@@ -28,7 +28,7 @@ export const initialValues = {
 export const formFields = {
   name: 'Nombre',
   legalId: "Identificación",
-  phone: "Telefono",
+  phone: "Teléfono",
   profile: {
     label: 'Tipo de usuario',
     values: [{
@@ -43,9 +43,9 @@ export const formFields = {
     }],
     type: 'select',
   },
-  email: 'Correo',
+  email: 'Correo electrónico',
   password: {
     type: 'password',
-    label: 'Contrasena',
+    label: 'Contraseña',
   },
 }
