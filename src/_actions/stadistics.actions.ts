@@ -46,7 +46,7 @@ function GetStadistics(params: {
           total: systemData.totalStudents
         },
         {
-          name: "Personal universitario",
+          name: "Personal U.",
           total: systemData.totalAdministratives
         },
         {
@@ -58,26 +58,26 @@ function GetStadistics(params: {
           total: systemData.totalSpecialists
         },
         {
-          name: "Total usuarios",
+          name: "Total",
           total: systemData.totalUsers
         }
       ]
 
       const generalData = [
         {
-          name: "Consultorios médicos",
+          name: "Consultorios M.",
           total: systemData.totalOffices
         },
         {
-          name: "Especialidades médicas",
+          name: "Especialidades M.",
           total: systemData.totalSpecialities
         },
         {
-          name: "Citas médicas atendidas",
+          name: "CM atendidas",
           total: systemData.attendedMedicalAppointments
         },
         {
-          name: "Citas médicas canceladas",
+          name: "CM canceladas",
           total: systemData.cancelledMedicalAppointments
         }
       ]
