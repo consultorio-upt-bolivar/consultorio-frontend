@@ -34,18 +34,18 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
       {
         field: 'id',
         headerName: 'ID',
-        description: 'Id unico en la DB',
+        description: 'Id único en la BD',
         width: 100,
       },
       {
         field: 'cancelled',
-        headerName: 'Fue cancelada?',
-        description: 'Cancelada?',
+        headerName: 'Cita cancelada',
+        description: 'Estado de cancelación de la cita médica',
         width: 200,
       },
       {
         field: 'specialityName',
-        headerName: 'Especialidad',
+        headerName: 'Especialidad médica',
         description: 'Especialidad de la jornada',
         width: 200,
       },
@@ -57,8 +57,8 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
       },
       {
         field: 'userName',
-        headerName: 'Normbre del usuario',
-        description: 'Normbre del usuario',
+        headerName: 'Nombre del paciente',
+        description: 'Nombre del usuario',
         flex: 1,
       },
       {
