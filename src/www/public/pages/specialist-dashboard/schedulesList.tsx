@@ -33,10 +33,12 @@ const ScheduleInfo = ({ data }: any) => {
   }}>
     <div style={{
       borderBottom: "1px solid silver",
-      padding: "10px 15px"
+      padding: "10px 15px",
+      backgroundColor: "#5eaab1",
+      color: "white"
     }}>
       <Typography sx={{ fontSize: 16 }} margin="0">
-        {data.speciality.name}
+        Especialidad médica: {data.speciality.name}
       </Typography>
     </div>
 

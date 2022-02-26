@@ -22,13 +22,14 @@ const ReportInfo = ({ data }: any) => {
             <div className='d-flex justify-content-between' style={{
                 borderBottom: "1px solid silver",
                 padding: "10px 15px",
-                background: "#9e9e9e29",
+                background: "#5eaab1",
+                color: "white",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center"
             }}>
                 <Typography sx={{ fontSize: 16 }} margin="0">
-                    {data.schedule.speciality.name}
+                    Especialidad médica: {data.schedule.speciality.name}
                 </Typography>
 
                 <Typography sx={{ fontSize: 14 }} margin="0">
@@ -51,7 +52,7 @@ const ReportInfo = ({ data }: any) => {
                 padding: "10px 15px"
             }}>
                 <Typography sx={{ fontSize: 14 }} margin="0">
-                    Referido a {data.refferedSpeciality.name}
+                    Referido a: {data.refferedSpeciality.name}
                 </Typography>
             </div> : null}
         </Box>

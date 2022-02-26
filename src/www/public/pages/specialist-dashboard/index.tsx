@@ -11,6 +11,7 @@ import DeleteIcon from '@material-ui/icons/DeleteOutlined'
 import { RemoveRedEyeOutlined } from '@material-ui/icons'
 import { CancelMedicalAppointmentDialog } from '../../../components/cancelMedicalAppointment'
 import { TakeMedicalAppointmentDialog } from '../../../components/takeMedicalAppointment'
+import { Alert } from '@material-ui/lab'
 
 export const SpecialistDashboardPage = (): React.ReactElement => {
     const [open, setOpen] = useState(false)
@@ -173,7 +174,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                 <Grid container spacing={2} justifyContent="center" style={{ marginTop: '10px', marginBottom: '50px' }}>
                     <Grid item xs={12} sm={3} md={4}>
                         <Typography noWrap fontWeight={500} my={2} textAlign="center">JORNADAS</Typography>
-
+                        <Alert style={{marginTop: '40px'}} severity="info">Selecciona una jornada para visualizar las citas médicas.</Alert>
                         <SpecialistScheduleList selectedSchedule={selectedSchedule} setSelectedSchedule={setSelectedSchedule} />
                     </Grid>
 
