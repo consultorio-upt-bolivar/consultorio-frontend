@@ -86,7 +86,10 @@ export function UserProfilePage(): React.ReactElement {
 
     return (
         <PublicLayout>
-            <Container>
+            <Container
+                maxWidth="xl"
+                sx={{ overflow: 'hidden', my: 5, width: "100%", height: "100%" }}
+            >
                 <Typography
                     component="h1"
                     variant="h5"

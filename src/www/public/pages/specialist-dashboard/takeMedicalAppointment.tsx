@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, useTheme } from '@mui/material';
+import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, useTheme } from '@mui/material';
 import * as Yup from 'yup'
 import { format } from 'date-fns'
 import { useFormik } from 'formik';
@@ -64,8 +64,6 @@ export function TakeMedicalAppointmentDialog({
 
             const res = await api.getAllMedicalAppointments(1000, 0, `user.id==${data?.user?.id}`);
 
-            console.log(res.data)
-
             setHistoryList(res.data.results.filter((el: any) => {
                 return el.schedule.speciality.id == data.schedule.speciality.id && el.report != null && el.report.length
             }));
@@ -115,8 +113,9 @@ export function TakeMedicalAppointmentDialog({
     // Get specialities
     useEffect(() => {
         dispatch(specialitiesActions.getAll({
-            limit: 1000,
+            limit: 25000,
             offset: 0,
+            where: "isActive==1"
         }))
     }, [])
 
@@ -164,17 +163,20 @@ export function TakeMedicalAppointmentDialog({
     const staticFields = ({
         date: {
             label: 'Fecha',
+            readonly: true,
             type: 'text',
             width: '49%'
         },
         specialityId: {
             label: 'Especialidad',
+            readonly: true,
             type: 'text',
             width: '49%'
         },
         userId: {
             label: 'Usuario',
             type: 'text',
+            readonly: true,
             width: '100%'
         }
     })
@@ -188,7 +190,7 @@ export function TakeMedicalAppointmentDialog({
                 open={open}
                 onClose={handleClose}
             >
-                <DialogTitle style={{ textAlign: 'center' }}>Atender cita medica</DialogTitle>
+                <DialogTitle style={{ textAlign: 'center', background: "#9e9e9e14" }}>Atender cita medica</DialogTitle>
                 <DialogContent sx={{ mt: 0 }}>
                     <Grid container spacing={4} sx={{ mt: 1 }} justifyContent={"center"}>
                         <Grid item xs={12} md={5}>
@@ -294,34 +296,42 @@ export function TakeMedicalAppointmentDialog({
                                 </Box>
                             </form>
                         </Grid>
+                        
                         <Grid item xs={12} md={5}>
-                            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Historial Medico</Typography>
-
-                            <Grid container spacing={2} style={{ marginTop: '30px', marginBottom: '30px' }}>
-                                {historyList.map((el: any) => {
-                                    return <Grid item width="100%" padding={0} key={'history-' + el.id}>
-                                        <Item elevation={1}>
-                                            <div style={{
-                                                textAlign: "right",
-                                                fontSize: "12px",
-                                                fontWeight: 600,
-                                                padding: "8px"
-                                            }}>{format(new Date(el.date), "yyyy-MM-dd")}</div>
-                                            <div style={{
-                                                textAlign: "justify",
-                                                fontSize: "16px",
-                                                padding: "0px 20px 8px 20px",
-                                            }}>{el.report}</div>
-                                        </Item>
-                                    </Grid>
-                                })}
-                            </Grid>
+                            <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Reportes medicos previos</Typography>
+                            
+                            {historyList.length > 0 ? 
+                                <Grid container spacing={2} style={{ marginTop: '30px', marginBottom: '30px' }}>
+                                    {historyList.map((el: any) => {
+                                        return <Grid item width="100%" padding={0} key={'history-' + el.id}>
+                                            <Item elevation={1}>
+                                                <div style={{
+                                                    textAlign: "right",
+                                                    fontSize: "12px",
+                                                    fontWeight: 600,
+                                                    padding: "8px"
+                                                }}>{format(new Date(el.date), "yyyy-MM-dd")}</div>
+                                                <div style={{
+                                                    textAlign: "justify",
+                                                    fontSize: "16px",
+                                                    padding: "0px 20px 8px 20px",
+                                                }}>{el.report}</div>
+                                            </Item>
+                                        </Grid>
+                                    })}
+                                </Grid> : 
+                                <Alert severity="info" style={{ marginTop: "40px" }}>El usuario no posee reportes medicos previos.</Alert>
+                            }
                         </Grid>
                     </Grid>
 
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>CERRAR</Button>
+                <DialogActions style={{ textAlign: 'center', background: "#9e9e9e14" }}>
+                    <Button style={{
+                        display: "block",
+                        margin: "auto",
+                        width: "300px",
+                    }} color="primary" variant="outlined" onClick={handleClose}>CERRAR</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment >

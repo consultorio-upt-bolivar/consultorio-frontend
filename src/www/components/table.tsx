@@ -23,6 +23,7 @@ export interface DataTablaParams {
   deleteAction?: (id: number) => void
   toggleAction?: (id: number) => void
   editAction?: (id: number) => void
+  onRowClick?: (params: any) => void
 }
 
 export function DataTable({
@@ -31,6 +32,7 @@ export function DataTable({
   deleteAction,
   toggleAction,
   editAction,
+  onRowClick
 }: DataTablaParams): React.ReactElement {
   if(editAction || toggleAction || deleteAction) {
     columns.push({
@@ -54,6 +56,10 @@ export function DataTable({
     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
     columns={columns}
     rows={rows}
+    onRowClick={(params) => {
+      if (!onRowClick) return;
+      onRowClick(params.row);
+    }}
   />
 }
 

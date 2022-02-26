@@ -27,6 +27,10 @@ export function toast(state: ToastAction = { show: false }, action: ToastAction)
         message: state.message
       }
     default:
-      return state
+      return {
+        show: false,
+        type: state.type,
+        message: state.message
+      }
   }
 }

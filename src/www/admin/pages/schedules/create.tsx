@@ -1,6 +1,6 @@
 // React
 import { useFormik } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Container, FormControl, InputLabel, MenuItem, Select, FormHelperText, Typography } from '@mui/material';
 import { useParams } from 'react-router'
@@ -15,7 +15,7 @@ import { AdminLayout } from '../../components/adminLayout'
 import { formFields, initialValues, validationSchema } from './form'
 
 // Variable
-import { schedulesActions as actions, specialitiesActions, usersActions } from '../../../../_actions'
+import { officesActions, schedulesActions as actions, specialitiesActions, usersActions } from '../../../../_actions'
 import { PublicRoles } from '../../../../_api'
 import { ActionOptions } from '../../../../_actions/generic.actions'
 
@@ -27,8 +27,11 @@ export function CreateSchedulesPage(): React.ReactElement {
   // Variable
   const formName = 'Jornada';
   const { loading, data } = useSelector((store: any) => store.schedules)
+  const { items: officesList } = useSelector((store: any) => store.offices)
   const { items: specialitiesList } = useSelector((store: any) => store.specialities)
   const { items: usersList } = useSelector((store: any) => store.users)
+
+  const [filteredSpecialities, setFilteredSpecialities] = useState([])
 
   const classes = formStyles()
   const dispatch = useDispatch()
@@ -37,15 +40,22 @@ export function CreateSchedulesPage(): React.ReactElement {
 
   // Get offices
   useEffect(() => {
-    dispatch(specialitiesActions.getAll({
-      limit: 1000,
+    dispatch(officesActions.getAll({
+      limit: 25000,
       offset: 0,
+      where: "isActive==1"
+    }))
+
+    dispatch(specialitiesActions.getAll({
+      limit: 25000,
+      offset: 0,
+      where: "isActive==1"
     }))
 
     dispatch(usersActions.getAll({
-      limit: 1000,
+      limit: 25000,
       offset: 0,
-      where: `profile.id==${PublicRoles.MedicalSpecialist}`
+      where: `profile.id==${PublicRoles.MedicalSpecialist};isActive==1`
     }))
   }, [])
 
@@ -62,6 +72,7 @@ export function CreateSchedulesPage(): React.ReactElement {
       const options = {
         specialityId: data.speciality.id,
         specialistId: data.specialist.id,
+        officeId: data.speciality?.office?.id ?? "",
         date: parse(data.date, 'yyyy-MM-dd', new Date()),
         dateEnd: parse(data.dateEnd, 'yyyy-MM-dd', new Date()),
         startHour: parse(data.startHour, 'HH:mm:ss', new Date()),
@@ -71,6 +82,10 @@ export function CreateSchedulesPage(): React.ReactElement {
       }
 
       formik.setValues(options)
+      
+      setFilteredSpecialities(specialitiesList.filter((el: any) => {
+        return el.office.id == data.speciality.office.id
+      }))
     }
   }, [data])
 
@@ -96,6 +111,22 @@ export function CreateSchedulesPage(): React.ReactElement {
       }
     },
   })
+
+  useEffect(() => {
+    if (formik.values.officeId == '') return;
+
+    if (formik.values.officeId) {
+      const filtered = specialitiesList.filter((el: any) => {
+        return el.office.id == formik.values.officeId
+      })
+
+      setFilteredSpecialities(filtered)
+    
+      if(filteredSpecialities.length > 0) {
+        formik.setFieldValue("specialityId", filtered[0].id)
+      }
+    }
+  }, [ formik.values.officeId ])
 
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -124,6 +155,34 @@ export function CreateSchedulesPage(): React.ReactElement {
             variant="outlined"
             className={classes.formControl}
           >
+            <InputLabel className={classes.selectLabel} id='select-consultorio'>
+              Consultorio
+            </InputLabel>
+            <Select
+              labelId='select-consultorio'
+              label="officeId"
+              {...formik.getFieldProps("officeId")}
+            >
+              <MenuItem value="">
+                Seleccionar
+              </MenuItem>
+              {officesList?.map((el: any) => {
+                return (
+                  <MenuItem key={el.name} value={el.id}>
+                    {el.name}
+                  </MenuItem>
+                )
+              })}
+            </Select>
+            <FormHelperText error id="my-helper-text">
+              {formik.errors.officeId ? formik.errors.officeId : null}
+            </FormHelperText>
+          </FormControl>
+
+          <FormControl
+            variant="outlined"
+            className={classes.formControl}
+          >
             <InputLabel className={classes.selectLabel} id='select-especialidad'>
               Especialidad
             </InputLabel>
@@ -135,7 +194,7 @@ export function CreateSchedulesPage(): React.ReactElement {
               <MenuItem value="">
                 Seleccionar
               </MenuItem>
-              {specialitiesList?.map((el: any) => {
+              {filteredSpecialities?.map((el: any) => {
                 return (
                   <MenuItem key={el.name} value={el.id}>
                     {el.name}

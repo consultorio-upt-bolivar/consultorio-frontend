@@ -37,6 +37,9 @@ export const formFields = {
     required: true
   },
   email: 'Correo',
+  divider: {
+      type: 'divider'
+  },
   password: {
     type: 'password',
     label: 'Contrasena',

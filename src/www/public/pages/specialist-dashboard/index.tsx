@@ -1,12 +1,14 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { medicalAppointmentsActions } from '../../../../_actions'
+import { alertActions, medicalAppointmentsActions } from '../../../../_actions'
 import { PublicLayout } from '../../../components/publicLayout'
-import { DataTablaParams, DataTable } from '../../../components/table'
+import { DataTablaParams, DataTable, RowMenuProps, useRowMenuStyles } from '../../../components/table'
 import { format } from 'date-fns'
 import SpecialistScheduleList from './schedulesList'
 import { TakeMedicalAppointmentDialog } from './takeMedicalAppointment'
+import { IconButton } from '@material-ui/core'
+import { RemoveRedEyeOutlined } from '@material-ui/icons'
 
 export const SpecialistDashboardPage = (): React.ReactElement => {
     const [open, setOpen] = useState(false)
@@ -18,17 +20,27 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
     useEffect(() => {
         dispatch(
             medicalAppointmentsActions.getAll({
-                limit: 1000,
+                limit: 25000,
                 offset: 0,
                 where: `schedule.id==${selectedSchedule}`
             })
         )
     }, [selectedSchedule])
 
-    const toggleAction = (id: number) => {
-        setMedicalAppointment(id)
-        setOpen(true)
+    const handleClick = (event: any, row: any) => {
+        event.stopPropagation();
+
+        dispatch(alertActions.show({
+            title: `Citas medica`,
+            description: `Quieres ${row.cancellationDate ? 'modificar' : 'atender'} esta cita medica?`,
+            callback: () => {
+                setMedicalAppointment(row.id)
+                setOpen(true);
+            }
+        }));
     }
+
+    const rowMenuClasses = useRowMenuStyles()
 
     const params: DataTablaParams = {
         columns: [
@@ -37,18 +49,14 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                 headerName: 'ID',
                 description: 'Id unico en la DB',
                 width: 100,
-            },
-            {
-                field: 'cancelled',
-                headerName: 'Fue cancelada?',
-                description: 'Cancelada?',
-                width: 200,
+                hide: true
             },
             {
                 field: 'specialityName',
                 headerName: 'Especialidad',
                 description: 'Especialidad de la jornada',
                 width: 200,
+                hide: true
             },
             {
                 field: 'date',
@@ -60,7 +68,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                 field: 'userName',
                 headerName: 'Normbre del usuario',
                 description: 'Normbre del usuario',
-                width: 200
+                flex: 1
             },
             {
                 field: 'userType',
@@ -68,6 +76,40 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                 description: 'Tipo de usuario',
                 width: 200,
             },
+            {
+                field: 'cancelled',
+                headerName: 'Fue cancelada?',
+                description: 'Cancelada?',
+                width: 200,
+            },
+            {
+                field: 'actions',
+                headerName: 'Acciones',
+                renderCell: (props: RowMenuProps) => {
+                    const { row } = props;
+
+                    return (
+                        <div className={rowMenuClasses.root}>
+                            <IconButton
+                                color="inherit"
+                                className={rowMenuClasses.textPrimary}
+                                size="small"
+                                aria-label="toggle"
+                                onClick={(e) => handleClick(e, row)}
+                            >
+                                <RemoveRedEyeOutlined fontSize="small" />
+                            </IconButton>
+                        </div>
+                    )
+                },
+                sortable: false,
+                width: 100,
+                headerAlign: 'center',
+                filterable: false,
+                align: 'center',
+                disableColumnMenu: true,
+                disableReorder: true,
+            }
         ],
         rows: items?.map((el: any) => {
             el.specialityName = el.schedule.speciality.name
@@ -77,15 +119,14 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
             el.date = format(new Date(el.date), 'yyyy-MM-dd HH:mm')
 
             return el
-        }) ?? [],
-        toggleAction,
+        }) ?? []
     }
 
     return (
         <PublicLayout>
             <Container
                 maxWidth="xl"
-                sx={{ overflow: 'hidden', my: 10, width: "100%", height: "100%" }}
+                sx={{ overflow: 'hidden', width: "100%", height: "100%" }}
             >
                 <Grid container spacing={2} justifyContent="center" style={{ marginTop: '10px', marginBottom: '50px' }}>
                     <Grid item xs={12} sm={3} md={4}>

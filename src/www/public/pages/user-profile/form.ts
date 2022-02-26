@@ -29,11 +29,15 @@ export const formFields = {
         required: true
     },
     legalId: {
-        type: 'number',
+        type: 'text',
         label: 'Identificación',
-        required: true
+        readonly: true
     },
-    email: 'Correo',
+    email: {
+        type: 'text',
+        label: 'Correo',
+        readonly: true
+    },
     divider: {
         type: 'divider'
     },

@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Grid, Paper, Stack, styled } from '@mui/material'
-import { appointmentsActions, medicalAppointmentsActions } from '../../_actions'
+import { Box, Button, Grid, Paper, Stack, styled, Typography } from '@mui/material'
+import { alertActions, appointmentsActions, medicalAppointmentsActions } from '../../_actions'
 import { format, isFuture, isPast } from 'date-fns'
 import { Alert } from '@material-ui/lab'
 import { Delete } from '@material-ui/icons'
 
-const Item = styled(Paper)(_ => {
+const Item = styled(Box)(_ => {
   return ({
-    padding: '20px 20px',
-    width: '100%'
+    width: '100%',
+    borderRadius: "3px",
+    cursor: 'pointer',
+    color: "black",
+    fontSize: "18px"
   });
 });
 
@@ -17,16 +20,40 @@ const renderAlert = (message: string) => {
   return <Grid item width="100%"><Alert severity="info">{message}</Alert></Grid>
 }
 
-const AppointmentInfo = ({ data }: any) => <>
-  <div><b>Fecha:</b> {format(new Date(data.date), 'yyyy-MM-dd')}</div>
-  <div><b>Hora:</b> {format(new Date(data.date), 'HH:mm')} hrs</div>
-  <div><b>Duracion:</b> {data.schedule.appointmentInterval} minuntos</div>
-  <div><b>Especialidad:</b> {data.schedule.speciality.name}</div>
-  <div><b>Doctor:</b> {data.schedule.specialist.name}</div>
-  <div><b>Nombre del consultorio:</b> {data.schedule.speciality.office.name}</div>
-  <div><b>Lugar:</b> {data.schedule.speciality.office.place}</div>
-  <div><b>Estado:</b> {data.cancellationDate ? 'Cancelada' : 'Activa'}</div>
-</>
+const AppointmentInfo = ({ data, cancel }: any) => <Box style={{
+  border: "1px solid silver",
+  borderRadius: "3px"
+}}>
+  <div style={{
+    borderBottom: "1px solid silver",
+    padding: "10px 15px"
+  }}>
+    <Typography sx={{ fontSize: 16 }} margin="0">
+      {data.schedule.speciality.name}
+    </Typography>
+  </div>
+
+  <Box style={{ padding: "15px", overflow: 'hidden' }}>
+    <Typography sx={{ fontSize: 16 }} margin="0">
+      Fecha: {format(new Date(data.date), 'yyyy-MM-dd HH:mm')} hrs
+    </Typography>
+    <Typography sx={{ fontSize: 16 }} margin="0">
+      Doctor: {data.schedule.specialist.name}
+    </Typography>
+    <Typography sx={{ fontSize: 16 }} margin="0">
+      Consultorio: {data.schedule.speciality.office.name}
+    </Typography>
+    <Typography sx={{ fontSize: 16 }} margin="0">
+      Lugar: {data.schedule.speciality.office.place}
+    </Typography>
+  </Box>
+
+  {cancel ? <div style={{
+    borderTop: "1px solid silver",
+  }}>
+    {cancel}
+  </div> : null}
+</Box>;
 
 export default function MedicalAppointmentsListItem({ showPast = false }: { showPast?: boolean }) {
   const { items = [] } = useSelector((state: any) => state.medicalAppointments)
@@ -43,7 +70,13 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
   }, [])
 
   const handleCancelAppointment = (appointmentId: number) => {
-    dispatch(appointmentsActions.cancelAppointment(appointmentId, 'Cancelado por el usuario!', getAppointments))
+    dispatch(alertActions.show({
+        title: `Cita medica`,
+        description: `Estas seguro que quieres cancelar esta cita medica?`,
+        callback: () => {
+          dispatch(appointmentsActions.cancelAppointment(appointmentId, 'Cancelado por el usuario!', getAppointments))
+        }
+    }));
   }
 
   const typedItems = items as any[]
@@ -61,20 +94,21 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
     if (!filteredAppointments.length) return renderAlert(notFoundNextAppointments)
 
     return filteredAppointments.map((el: any) => {
-      return <Grid item width="100%" padding={0} key={'d-' + el.date} onClick={(e) => console.log('hola')}>
-        <Item elevation={1}>
-          <AppointmentInfo data={el} />
-          <Stack mt={2} direction="row" spacing={2}>
+      return <Grid item width="100%" padding={0} key={'d-' + el.date}>
+        <Item>
+          <AppointmentInfo data={el} cancel={<Stack direction="row">
             <Button
-              variant="outlined"
               color="primary"
               startIcon={<Delete />}
               disabled={loading}
+              style={{
+                width: "100%"
+              }}
               onClick={() => handleCancelAppointment(el.id)}
             >
               Cancelar
             </Button>
-          </Stack>
+          </Stack>} />
         </Item>
       </Grid>
     })
@@ -88,8 +122,8 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
     if (!filteredAppointments.length) return renderAlert(notFoundPastAppointments)
 
     return filteredAppointments.map((el: any) => {
-      return <Grid item width="100%" padding={0} key={'d-' + el.date} onClick={(e) => console.log('hola')}>
-        <Item elevation={1}>
+      return <Grid item width="100%" padding={0} key={'d-' + el.date}>
+        <Item>
           <AppointmentInfo data={el} />
         </Item>
       </Grid>
@@ -97,7 +131,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
   }
 
   return (
-    <Grid container overflow="auto" spacing={2} style={{ marginTop: '30px', marginBottom: '30px', maxHeight: '600px', paddingBottom: '10px' }}>
+    <Grid container overflow="auto" spacing={2} style={{ marginTop: '30px', marginBottom: '30px', maxHeight: '600px', paddingBottom: '10px', paddingRight: '20px'  }}>
       {showPast ? renderPastAppointments() : renderNextAppointments()}
     </Grid>
   )

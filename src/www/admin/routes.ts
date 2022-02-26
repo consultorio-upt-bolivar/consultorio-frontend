@@ -36,7 +36,7 @@ export const AdminSidebar: SidebarConfig[] = [
     path: '/admin',
     icon: DashboardOutlined,
     id: 'dashboard',
-    text: 'Dashboard',
+    text: 'Inicio',
     requiredRoles: [Roles.MedicalSpecialist]
   },
   {
@@ -59,56 +59,11 @@ export const AdminSidebar: SidebarConfig[] = [
       },
     ],
   },
-  {
-    path: '/admin/usuarios',
-    icon: GroupAddOutlined,
-    text: 'Usuarios',
-    id: 'usuarios',
-    submenu: [
-      {
-        path: '/admin/usuarios',
-        text: 'Listado',
-        id: 'listado-usuarios',
-        icon: ReorderOutlined
-      },
-      {
-        path: '/admin/usuarios/crear',
-        text: 'Nuevo usuario',
-        id: 'crear-usuario',
-        icon: AddBoxOutlined,
-      },
-      {
-        path: '/admin/usuarios/familiares-autorizaciones',
-        text: 'Autorizacion de familiares',
-        id: 'autorizar-familiar',
-        icon: AddBoxOutlined,
-      },
-    ],
-  },
-  {
-    path: '/admin/especialistas',
-    icon: FavoriteBorderOutlined,
-    text: 'Especialistas',
-    id: 'especialistas',
-    submenu: [
-      {
-        path: '/admin/especialistas',
-        text: 'Listado',
-        id: 'listado-especialistas',
-        icon: ReorderOutlined,
-      },
-      {
-        path: '/admin/especialistas/crear',
-        text: 'Nuevo especialista',
-        id: 'crear-especialista',
-        icon: AddBoxOutlined,
-      },
-    ],
-  },
+  
   {
     path: '/admin/oficinas',
     icon: HomeWorkOutlined,
-    text: 'Oficinas',
+    text: 'Consultorios',
     id: 'oficinas',
     submenu: [
       {
@@ -119,7 +74,7 @@ export const AdminSidebar: SidebarConfig[] = [
       },
       {
         path: '/admin/oficinas/crear',
-        text: 'Nuevo consultorio',
+        text: 'Nuevo',
         id: 'crear-oficina',
         icon: AddBoxOutlined,
       },
@@ -146,9 +101,29 @@ export const AdminSidebar: SidebarConfig[] = [
     ],
   },
   {
+    path: '/admin/especialistas',
+    icon: FavoriteBorderOutlined,
+    text: 'Doctores',
+    id: 'especialistas',
+    submenu: [
+      {
+        path: '/admin/especialistas',
+        text: 'Listado',
+        id: 'listado-especialistas',
+        icon: ReorderOutlined,
+      },
+      {
+        path: '/admin/especialistas/crear',
+        text: 'Nuevo doctor',
+        id: 'crear-especialista',
+        icon: AddBoxOutlined,
+      },
+    ],
+  },
+  {
     path: '/admin/jornadas',
     icon: Schedule,
-    text: 'Jornadas',
+    text: 'Jornadas medicas',
     id: 'jornadas',
     submenu: [
       {
@@ -159,8 +134,34 @@ export const AdminSidebar: SidebarConfig[] = [
       },
       {
         path: '/admin/jornadas/crear',
-        text: 'Nueva jornada médica',
+        text: 'Nueva jornada',
         id: 'crear-jornada',
+        icon: AddBoxOutlined,
+      },
+    ],
+  },
+  {
+    path: '/admin/usuarios',
+    icon: GroupAddOutlined,
+    text: 'Usuarios',
+    id: 'usuarios',
+    submenu: [
+      {
+        path: '/admin/usuarios',
+        text: 'Listado',
+        id: 'listado-usuarios',
+        icon: ReorderOutlined
+      },
+      {
+        path: '/admin/usuarios/crear',
+        text: 'Nuevo usuario',
+        id: 'crear-usuario',
+        icon: AddBoxOutlined,
+      },
+      {
+        path: '/admin/usuarios/familiares-autorizaciones',
+        text: 'Autorizacion de familiares',
+        id: 'autorizar-familiar',
         icon: AddBoxOutlined,
       },
     ],

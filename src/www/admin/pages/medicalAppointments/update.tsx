@@ -30,8 +30,8 @@ export function UpdateMedicalAppointmentPage(): React.ReactElement {
   // Get offices
   useEffect(() => {
     dispatch(specialitiesActions.getAll({
-      limit: 1000,
-      offset: 0,
+      limit: 25000,
+      offset: 0
     }, {
       toast: false
     }))

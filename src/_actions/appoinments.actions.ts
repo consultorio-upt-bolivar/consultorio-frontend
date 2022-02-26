@@ -24,13 +24,14 @@ function getAvaliableDates(params: {
   dateFrom: string
   dateEnd: string
   specialityId: string
+  specialistId: string
 }, showToast = true): ActionFn {
   const api = new SchedulesApi(getConfiguration())
 
   return (dispatch: Dispatch) => {
     dispatch(request(params))
 
-    api.getAvaliableDatesSchedules(params.dateFrom, params.dateEnd, params.specialityId).then(
+    api.getAvaliableDatesSchedules(params.dateFrom, params.dateEnd, params.specialityId, params.specialistId).then(
       (res: any) => {
         dispatch(success(res.data))
 

@@ -34,8 +34,9 @@ export function CreateSpecialitiesPage(): React.ReactElement {
   // Get offices
   useEffect(() => {
     dispatch(officesActions.getAll({
-      limit: 1000,
+      limit: 25000,
       offset: 0,
+      where: "isActive==1"
     }))
   }, [])
 
@@ -68,7 +69,6 @@ export function CreateSpecialitiesPage(): React.ReactElement {
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault()
 
-    console.log(formik.isValid)
     if (formik.isValid) {
       formik.submitForm()
     }

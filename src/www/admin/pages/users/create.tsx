@@ -11,7 +11,7 @@ import {
 } from '../../../components/formik'
 
 import { AdminLayout } from '../../components/adminLayout'
-import { formFields, initialValues, validationSchema } from './form'
+import { formCreateFields, formUpdateFields, initialValues, validationSchema } from './form'
 
 // Variable
 import { usersActions as actions } from '../../../../_actions'
@@ -81,15 +81,12 @@ export function CreateUsersPage(): React.ReactElement {
 
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault()
-
-    console.log(formik.errors);
-
     if (formik.isValid) {
       formik.submitForm()
     }
   }
 
-  const formikFields = GetFormikFields(formik, formFields)
+  const formikFields = GetFormikFields(formik, params.id ? formUpdateFields : formCreateFields)
 
   return (
     <AdminLayout>
@@ -114,7 +111,7 @@ export function CreateUsersPage(): React.ReactElement {
             color="primary"
             className={classes.submit}
             disabled={loading}
-            onClick={(e) => handleSubmit(e)}
+            onClick={handleSubmit}
           >
             {data && params.id ? 'Actualizar' : 'Crear'}
           </Button>

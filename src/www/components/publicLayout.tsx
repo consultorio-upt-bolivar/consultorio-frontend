@@ -71,7 +71,7 @@ export const PublicLayout = ({
               href="/login"
             >Iniciar sesion</Button>
             :
-            <UserAvatarMenu profileUrl="/profile" name={userData?.name ?? ''}></UserAvatarMenu>}
+            <UserAvatarMenu name={userData?.name ?? ''}></UserAvatarMenu>}
         </Toolbar>
       </AppBar>
       <Container className={classes.container}>

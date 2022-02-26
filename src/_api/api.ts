@@ -120,18 +120,6 @@ export interface CreateModalDTO {
      * @type {string}
      * @memberof CreateModalDTO
      */
-    title: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateModalDTO
-     */
-    description: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateModalDTO
-     */
     image: string;
     /**
      * 
@@ -145,12 +133,6 @@ export interface CreateModalDTO {
      * @memberof CreateModalDTO
      */
     isActive: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CreateModalDTO
-     */
-    order: number;
 }
 /**
  * 
@@ -2433,16 +2415,19 @@ export const SchedulesApiAxiosParamCreator = function (configuration?: Configura
          * @param {string} dateFrom 
          * @param {string} dateEnd 
          * @param {string} specialityId 
+         * @param {string} specialistId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAvaliableDatesSchedules: async (dateFrom: string, dateEnd: string, specialityId: string, options: any = {}): Promise<RequestArgs> => {
+        getAvaliableDatesSchedules: async (dateFrom: string, dateEnd: string, specialityId: string, specialistId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'dateFrom' is not null or undefined
             assertParamExists('getAvaliableDatesSchedules', 'dateFrom', dateFrom)
             // verify required parameter 'dateEnd' is not null or undefined
             assertParamExists('getAvaliableDatesSchedules', 'dateEnd', dateEnd)
             // verify required parameter 'specialityId' is not null or undefined
             assertParamExists('getAvaliableDatesSchedules', 'specialityId', specialityId)
+            // verify required parameter 'specialistId' is not null or undefined
+            assertParamExists('getAvaliableDatesSchedules', 'specialistId', specialistId)
             const localVarPath = `/schedules/avaliable`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2465,6 +2450,10 @@ export const SchedulesApiAxiosParamCreator = function (configuration?: Configura
 
             if (specialityId !== undefined) {
                 localVarQueryParameter['specialityId'] = specialityId;
+            }
+
+            if (specialistId !== undefined) {
+                localVarQueryParameter['specialistId'] = specialistId;
             }
 
 
@@ -2632,11 +2621,12 @@ export const SchedulesApiFp = function(configuration?: Configuration) {
          * @param {string} dateFrom 
          * @param {string} dateEnd 
          * @param {string} specialityId 
+         * @param {string} specialistId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAvaliableDatesSchedules(dateFrom: string, dateEnd: string, specialityId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AvaliableDatesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAvaliableDatesSchedules(dateFrom, dateEnd, specialityId, options);
+        async getAvaliableDatesSchedules(dateFrom: string, dateEnd: string, specialityId: string, specialistId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AvaliableDatesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAvaliableDatesSchedules(dateFrom, dateEnd, specialityId, specialistId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2705,11 +2695,12 @@ export const SchedulesApiFactory = function (configuration?: Configuration, base
          * @param {string} dateFrom 
          * @param {string} dateEnd 
          * @param {string} specialityId 
+         * @param {string} specialistId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAvaliableDatesSchedules(dateFrom: string, dateEnd: string, specialityId: string, options?: any): AxiosPromise<AvaliableDatesResponse> {
-            return localVarFp.getAvaliableDatesSchedules(dateFrom, dateEnd, specialityId, options).then((request) => request(axios, basePath));
+        getAvaliableDatesSchedules(dateFrom: string, dateEnd: string, specialityId: string, specialistId: string, options?: any): AxiosPromise<AvaliableDatesResponse> {
+            return localVarFp.getAvaliableDatesSchedules(dateFrom, dateEnd, specialityId, specialistId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2778,12 +2769,13 @@ export class SchedulesApi extends BaseAPI {
      * @param {string} dateFrom 
      * @param {string} dateEnd 
      * @param {string} specialityId 
+     * @param {string} specialistId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SchedulesApi
      */
-    public getAvaliableDatesSchedules(dateFrom: string, dateEnd: string, specialityId: string, options?: any) {
-        return SchedulesApiFp(this.configuration).getAvaliableDatesSchedules(dateFrom, dateEnd, specialityId, options).then((request) => request(this.axios, this.basePath));
+    public getAvaliableDatesSchedules(dateFrom: string, dateEnd: string, specialityId: string, specialistId: string, options?: any) {
+        return SchedulesApiFp(this.configuration).getAvaliableDatesSchedules(dateFrom, dateEnd, specialityId, specialistId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3883,6 +3875,35 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSpecialistsUsers: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/users/specialists`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4188,6 +4209,15 @@ export const UsersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSpecialistsUsers(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSpecialistsUsers(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4312,6 +4342,14 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          */
         getPendingAuthorizationUsers(options?: any): AxiosPromise<object> {
             return localVarFp.getPendingAuthorizationUsers(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSpecialistsUsers(options?: any): AxiosPromise<void> {
+            return localVarFp.getSpecialistsUsers(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4444,6 +4482,16 @@ export class UsersApi extends BaseAPI {
      */
     public getPendingAuthorizationUsers(options?: any) {
         return UsersApiFp(this.configuration).getPendingAuthorizationUsers(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public getSpecialistsUsers(options?: any) {
+        return UsersApiFp(this.configuration).getSpecialistsUsers(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

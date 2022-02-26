@@ -68,7 +68,6 @@ function login(email: string, password: string): unknown {
       })
       .catch((error) => {
         const errMessage = handleError(error, false)
-
         dispatch(failure(errMessage))
         dispatch(toastActions.error(errMessage))
       })

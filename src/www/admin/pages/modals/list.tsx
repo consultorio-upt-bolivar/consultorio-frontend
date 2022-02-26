@@ -18,7 +18,7 @@ export function ListModalPage(): React.ReactElement {
   useEffect(() => {
     dispatch(
       actions.getAll({
-        limit: 1000,
+        limit: 25000,
         offset: 0,
       })
     )
@@ -47,18 +47,6 @@ export function ListModalPage(): React.ReactElement {
         flex: 1,
       },
       {
-        field: 'title',
-        headerName: 'Titulo',
-        description: 'Titulo del modal',
-        flex: 1,
-      },
-      {
-        field: 'description',
-        headerName: 'Descripción',
-        description: 'Descripción del modal',
-        flex: 2,
-      },
-      {
         field: 'isActive',
         headerName: 'Activo',
         description: 'Esta activo?',
@@ -71,14 +59,6 @@ export function ListModalPage(): React.ReactElement {
         description: 'Este modal se descata sobre otros',
         type: 'boolean',
         flex: 1,
-      },
-      {
-        field: 'order',
-        headerName: 'Orden',
-        description: 'Fila por la que se ordena',
-        flex: 1,
-        type: 'number',
-        hide: true,
       },
     ],
     rows: items ?? [],

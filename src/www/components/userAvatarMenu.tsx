@@ -6,6 +6,7 @@ import { makeStyles } from '@mui/styles';
 import { Avatar, Menu, MenuItem } from '@mui/material'
 import { deepOrange } from '@mui/material/colors'
 import theme from '../../theme/main';
+import { Roles } from '../../_api';
 
 const useStyles = makeStyles({
   root: {
@@ -29,9 +30,8 @@ const useStyles = makeStyles({
   },
 })
 
-export default function UserAvatarMenu({ name, profileUrl }: {
+export default function UserAvatarMenu({ name }: {
   name: string
-  profileUrl: string
 }) {
   const classes = useStyles()
   const userData = useSelector((state: any) => state.authentication.user)
@@ -44,15 +44,45 @@ export default function UserAvatarMenu({ name, profileUrl }: {
     setAnchorEl(event.currentTarget)
   }
 
-  const profile = () => {
+  const goLink = (url: string) => {
     setAnchorEl(null)
-    AppHistory.push(profileUrl)
+    AppHistory.push(url)
   }
 
   const logout = () => {
     setAnchorEl(null)
     dispatch(authActions.logout())
     AppHistory.push('/')
+  }
+
+  const redirectUrls: any = {
+    [Roles.Admin]: {
+      dashboard: "/admin",
+      profile: "/admin/profile"
+    },
+    [Roles.Admin2]: {
+      dashboard: "/admin",
+      profile: "/admin/profile"
+    },
+    [Roles.MedicalSpecialist]: {
+      dashboard: "/especialista-dashboard",
+      profile: "/profile"
+    },
+    [Roles.Student]: {
+      dashboard: "/dashboard",
+      dashboardLinkName: "Solicitar cita",
+      profile: "/profile"
+    },
+    [Roles.Family]: {
+      dashboard: "/dashboard",
+      dashboardLinkName: "Solicitar cita",
+      profile: "/profile"
+    },
+    [Roles.Employee]: {
+      dashboard: "/dashboard",
+      dashboardLinkName: "Solicitar cita",
+      profile: "/profile"
+    }
   }
 
   return (
@@ -79,7 +109,8 @@ export default function UserAvatarMenu({ name, profileUrl }: {
               setAnchorEl(null)
             }}
           >
-            <MenuItem onClick={profile}>Perfil usuario</MenuItem>
+            <MenuItem onClick={() => goLink(redirectUrls[userData?.profile?.id].dashboard)}>{redirectUrls[userData?.profile?.id].dashboardLinkName ?? 'Admin'}</MenuItem>
+            <MenuItem onClick={() => goLink(redirectUrls[userData?.profile?.id].profile)}>Perfil usuario</MenuItem>
             <MenuItem onClick={logout}>Salir de sesion</MenuItem>
           </Menu>
         </div>

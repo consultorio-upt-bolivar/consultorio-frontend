@@ -19,7 +19,7 @@ export function ListSpecialistsPage(): React.ReactElement {
   useEffect(() => {
     dispatch(
       actions.getAll({
-        limit: 1000,
+        limit: 25000,
         offset: 0,
         where: `profile.id==${PublicRoles.MedicalSpecialist}`
       })

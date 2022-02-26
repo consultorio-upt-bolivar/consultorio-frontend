@@ -11,6 +11,7 @@ export const validationSchema = Yup.object({
   startHour: Yup.string().required(validationMessages.required),
   endHour: Yup.string().required(validationMessages.required),
   appointmentInterval: Yup.number().min(15).max(60).required(validationMessages.required),
+  officeId: Yup.string().required(validationMessages.required),
   specialityId: Yup.string().required(validationMessages.required),
   specialistId: Yup.string().required(validationMessages.required)
 })
@@ -21,6 +22,7 @@ export const initialValues = ({
   startHour: today,
   endHour: today,
   appointmentInterval: 15,
+  officeId: '',
   specialityId: '',
   specialistId: '',
   isActive: 0
@@ -53,7 +55,7 @@ export const formFields = ({
   },
   appointmentInterval: {
     type: 'number',
-    label: 'Duración cita',
+    label: 'Duración cita medica (Minuntos)',
     required: true
   },
   isActive: {

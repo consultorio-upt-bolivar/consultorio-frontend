@@ -27,7 +27,7 @@ export function ListUsersPage(): React.ReactElement {
 
     dispatch(
       actions.getAll({
-        limit: 1000,
+        limit: 25000,
         offset: 0,
         where: conditions
       })

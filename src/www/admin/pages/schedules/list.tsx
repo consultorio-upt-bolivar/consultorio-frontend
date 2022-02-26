@@ -18,7 +18,7 @@ export function ListSchedulesPage(): React.ReactElement {
   useEffect(() => {
     dispatch(
       actions.getAll({
-        limit: 1000,
+        limit: 25000,
         offset: 0,
       })
     )
@@ -67,6 +67,12 @@ export function ListSchedulesPage(): React.ReactElement {
         flex: 1,
       },
       {
+        field: 'officeName',
+        headerName: 'Consultorio',
+        description: 'Consultorio de la jornada',
+        flex: 1,
+      },
+      {
         field: 'specialityName',
         headerName: 'Especialidad',
         description: 'Especialidad de la jornada',
@@ -89,6 +95,7 @@ export function ListSchedulesPage(): React.ReactElement {
     rows: items?.map((el: any) => {
       el.specialityName = el.speciality.name
       el.specialistName = el.specialist.name
+      el.officeName = el.speciality.office.name
 
       return el
     }) ?? [],

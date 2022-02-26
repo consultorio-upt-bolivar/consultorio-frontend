@@ -20,7 +20,7 @@ interface GenericActionParams {
     createOne: string
     updateOne: string
     deleteOne: string
-    toggleActive: string
+    toggleActive?: string
   }
 }
 
@@ -235,7 +235,7 @@ export const GenericActions = ({
       api[`logicDisable${model}`](id).then(
         () => {
           dispatch(success(id))
-          handleOptions(dispatch, successMessages.toggleActive, options)
+          handleOptions(dispatch, "Accion realizada!", options)
         },
         (error: Error) => {
           const errMessage = handleError(error)

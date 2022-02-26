@@ -109,12 +109,15 @@ const ApiMessages: ApiError[] = [
   },
   {
     error: 'user not authorized',
-    message: 'El usuario esta pendiente de autorización.',
-    redirect: '/'
+    message: 'El usuario esta pendiente de autorización.'
   },
   {
     error: 'user inactive',
     message: 'El usuario ha sido deshabilitado por el administrador.',
+  },
+  {
+    error: "family head do not exists!",
+    message: 'El familiar ingresado no fue encontrado.',
   }
 ]
 
@@ -147,27 +150,32 @@ export const handleError = ({
   message,
   response: responseAxios
 }: any, noredirect = false): string => {
-  const apiMessage = responseAxios?.data?.response?.message ?? responseAxios?.data?.response ?? message;
+  try {
+    const apiMessage = responseAxios?.data?.response?.message ?? responseAxios?.data?.response ?? message;
 
-  // Find custom message
-  let responseMsg: any = ApiMessages.find((el) => el.error == apiMessage)
-
-  // Bad request
-  if (!responseMsg && responseAxios.status == 400) {
-    responseMsg = {
-      message: Array.isArray(apiMessage) ? apiMessage.join(', ') : apiMessage
+    // Find custom message
+    let responseMsg: any = ApiMessages.find((el) => el.error == apiMessage)
+  
+    // Bad request
+    if (!responseMsg && responseAxios?.status == 400) {
+      responseMsg = {
+        message: Array.isArray(apiMessage) ? apiMessage.join(', ') : apiMessage
+      }
     }
+  
+    // Find backup message
+    if (!responseMsg) {
+      responseMsg = NotFoundApiMessages.find((el) => el.error == message)
+    }
+  
+    // Redirect to another view
+    if (!noredirect && responseMsg?.redirect) {
+      AppHistory.push(responseMsg?.redirect)
+    }
+  
+    return responseMsg?.message ?? "Error: Not found error message"
+  } catch (error: any) {
+    console.log(error)
+    return error.message
   }
-
-  // Find backup message
-  if (!responseMsg) {
-    responseMsg = NotFoundApiMessages.find((el) => el.error == message)
-  }
-
-  // Redirect to another view
-  if (!noredirect && responseMsg?.redirect) {
-    AppHistory.push(responseMsg?.redirect)
-  }
-
-  return responseMsg?.message ?? "Error: Not found error message"
 }

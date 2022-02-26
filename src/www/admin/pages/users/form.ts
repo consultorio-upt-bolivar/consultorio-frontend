@@ -25,7 +25,7 @@ export const initialValues = {
   password: '',
 }
 
-export const formFields = {
+export const formCreateFields = {
   name: 'Nombre',
   legalId: "Identificación",
   phone: "Telefono",
@@ -38,6 +38,39 @@ export const formFields = {
     required: true
   },
   email: 'Correo',
+  password: {
+    type: 'password',
+    label: 'Contrasena',
+    required: false
+  },
+}
+
+export const formUpdateFields = {
+  name: 'Nombre',
+  legalId: {
+    type: "text",
+    name: "legalId",
+    label: "Identificación",
+    readonly: true
+  },
+  phone: "Telefono",
+  profile: {
+    label: 'Tipo de usuario',
+    id: 'name',
+    values: PublicRoles,
+    default: 'Estudiante',
+    type: 'select',
+    required: true
+  },
+  email: {
+    type: "text",
+    name: "email",
+    label: "Correo",
+    readonly: true
+  },
+  divider: {
+      type: 'divider'
+  },
   password: {
     type: 'password',
     label: 'Contrasena',

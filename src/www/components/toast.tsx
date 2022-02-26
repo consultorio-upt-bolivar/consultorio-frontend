@@ -22,27 +22,19 @@ const useStyles = makeStyles({
 export default function ToastMessage() {
   const toast = useSelector((state: any) => state.toast)
   const dispatch = useDispatch()
-  const [open, setOpen] = useState(false)
   const classes = useStyles()
-
-  useEffect(() => {
-    if (toast.message) {
-      setOpen(true)
-    }
-  }, [toast.message])
 
   const handleClose = (_?: any, reason?: string) => {
     if (reason === 'clickaway') {
       return
     }
 
-    setOpen(false)
-    setTimeout(() => dispatch(toastActions.clear()), 1000)
+    setTimeout(() => dispatch(toastActions.clear()), 3000)
   }
 
   return (
     <div className={classes.root}>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={toast.show} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={toast.type}>
           {toast.message}
         </Alert>

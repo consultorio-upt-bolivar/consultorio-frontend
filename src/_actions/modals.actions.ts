@@ -10,6 +10,5 @@ export const modalsActions = GenericActions({
     createOne: 'Modal creado!',
     updateOne: 'Modal actualizado!',
     deleteOne: 'Modal eliminado!',
-    toggleActive : 'Modal eliminado!',
   }
 })

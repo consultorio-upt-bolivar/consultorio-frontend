@@ -10,12 +10,6 @@ export const PrivateRoute = ({
   component: Component,
   routes = [],
 }: any) => {
-  console.log({
-    path,
-    exact,
-    routes,
-  })
-
   const auth = getToken()
   const userData = getUserData()
   const isOkStorage = auth && userData

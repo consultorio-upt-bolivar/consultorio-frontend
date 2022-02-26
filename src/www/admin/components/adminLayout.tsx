@@ -95,11 +95,11 @@ export const AdminLayout = ({
             </div>
 
             <Breadcrumbs aria-label="breadcrumb" style={{ flexGrow: 1 }}>
-              <Typography noWrap className={classes.appBarTitleText} onClick={() => AppHistory.replace('/admin')}>Dashboard</Typography>
+              <Typography noWrap className={classes.appBarTitleText} onClick={() => AppHistory.replace('/admin')}>Inicio</Typography>
               {state?.title ? <Typography noWrap className={classes.appBarTitleText}>{state?.title}</Typography> : null}
             </Breadcrumbs>
 
-            <UserAvatarMenu profileUrl="/admin/profile" name={userData?.name ?? ''}></UserAvatarMenu>
+            <UserAvatarMenu name={userData?.name ?? ''}></UserAvatarMenu>
           </Toolbar>
         </AppBar>
         <Box
@@ -132,7 +132,7 @@ export const AdminLayout = ({
             open
           >
             <DrawerHeader>
-              Consultorio UPT
+              Administrador de sistema
             </DrawerHeader>
             <Divider />
             <SidemenuList />

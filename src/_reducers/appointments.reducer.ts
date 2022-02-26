@@ -14,12 +14,9 @@ export function appointments(
                 params: action.params,
             }
         case constants.GET_AVALIABLE_DATES_SUCCESS: {
-            const { results: items, ...params } = action.data
-
             return {
                 loading: false,
-                params,
-                items,
+                items: action.data,
             }
         }
         case constants.GET_AVALIABLE_DATES_FAILURE:

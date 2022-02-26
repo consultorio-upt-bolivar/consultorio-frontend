@@ -100,7 +100,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
 
       case 'text':
         input = (
-          <DivContainer width={options.width} key={name}>
+          <DivContainer width={options.width}>
             <TextField
               variant="outlined"
               margin="dense"
@@ -111,6 +111,9 @@ export const GetFormikFields = (formik: any, fields: any) => {
               label={options.label}
               autoComplete={name}
               {...formik.getFieldProps(name)}
+              key={name} style={{
+                marginTop: "24px"
+              }}
             />
             <FormHelperText className={classes.errorText} error>
               {formik.touched[name] && formik.errors[name]

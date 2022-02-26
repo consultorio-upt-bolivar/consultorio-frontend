@@ -49,8 +49,9 @@ export default function ModalsCarousel() {
 
     useEffect(() => {
         dispatch(modalsActions.getAll({
-            limit: 1000,
-            offset: 0
+            limit: 25000,
+            offset: 0,
+            where: 'isActive==1'
         }, {
             toast: false
         }))
