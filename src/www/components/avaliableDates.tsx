@@ -106,7 +106,7 @@ export const AvaliableDates = (params: {
 
     // Loading circle
     useEffect(() => {
-        if(loading) {
+        if (loading) {
             dispatch(loadingActions.show())
         } else {
             dispatch(loadingActions.hide())
@@ -157,12 +157,10 @@ export const AvaliableDates = (params: {
 
             return (
                 <Box style={{
-                    border: "1px solid silver",
-                    borderRadius: "3px",
                     marginBottom: "20px"
                 }} key={`${user.id}-${user.name}-box`}>
                     <div style={{
-                        borderBottom: "1px solid silver",
+                        borderRadius: "3px",
                         padding: "8px",
                         backgroundColor: "#5eaab1",
                         color: "white"
@@ -203,31 +201,45 @@ export const AvaliableDates = (params: {
 
         if (!hours.length) return (<Box>
             <Item style={{
-                marginBottom: "20px"
+                marginBottom: "20px",
+                border: "none"
             }}>Fecha elegida: {selectedDate.date}</Item>
             <Alert severity="info">No horarios disponibles para la fecha seleccionada.</Alert>
         </Box>);
 
         return (
             <Box>
-                <Item style={{
-                     backgroundColor: "#5eaab1",
-                     color: "white"
-                }}>Fecha elegida: {selectedDate.date}</Item>
+                <div 
+                    onClick={(e) => {
+                        setSelectedDate({})
+                        getAvaliableDates()
+                        setStep('findAvaliableDates')
+                    }}
+                    style={{
+                        padding: "8px",
+                        backgroundColor: "#5eaab1",
+                        color: "white",
+                        borderRadius: "3px",
+                        cursor: "pointer"
+                    }}
+                >
+                    <Typography sx={{ fontSize: 16, textAlign: "center" }} margin="0">
+                        Fecha seleccionada: {selectedDate.date}
+                    </Typography>
+                </div>
 
                 <Box style={{
-                    border: "1px solid silver",
                     borderRadius: "3px",
                     marginTop: "20px",
                     marginBottom: "20px"
                 }}>
                     <div style={{
-                        borderBottom: "1px solid silver",
                         padding: "8px",
                         backgroundColor: "#5eaab1",
-                        color: "white"
+                        color: "white",
+                        borderRadius: "3px"
                     }}>
-                        <Typography sx={{ fontSize: 16, textAlign: "center"}} margin="0">
+                        <Typography sx={{ fontSize: 16, textAlign: "center" }} margin="0">
                             Selecciona alguno de los horarios disponibles:
                         </Typography>
                     </div>
@@ -252,25 +264,26 @@ export const AvaliableDates = (params: {
                 {step == 'confirm' && selectedDate.hours ? (
                     <>
                         <Box style={{
-                            border: "1px solid silver",
                             borderRadius: "3px",
                             marginBottom: "20px"
                         }}>
                             <div style={{
-                                borderBottom: "1px solid silver",
                                 padding: "8px",
                                 backgroundColor: "#5eaab1",
-                                color: "white"
+                                color: "white",
+                                borderRadius: "3px"
                             }}>
                                 <Typography sx={{ fontSize: 18, textAlign: "center" }} margin="0">
                                     Confirmación de cita médica
                                 </Typography>
                             </div>
                             <div style={{
-                                padding: "20px 30px"
+                                padding: "20px 30px",
+                                border: "1px solid silver",
+                                borderRadius: "3px"
                             }}>
                                 <Typography component="div">
-                                    Fecha: {selectedDate.date} a las {selectedDate.hour}
+                                    Fecha: {selectedDate.date} a las {selectedDate.hour}.
                                 </Typography>
                                 <Typography mt={'20px'} component="div">
                                     Consultorio médico: {selectedDate.office.name}
