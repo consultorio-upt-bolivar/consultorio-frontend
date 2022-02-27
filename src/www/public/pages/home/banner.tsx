@@ -6,8 +6,13 @@ import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { AppHistory } from '../../../../helpers';
 import { styled } from '@mui/material/styles';
 import { ArrowDownwardOutlined } from '@material-ui/icons';
+import theme from '../../../../theme/main';
 
 const backgroundImage = '/images/img_home.png';
+
+import {
+    makeStyles,
+} from '@mui/styles';
 
 const LayoutRoot = styled('section')(({ theme }) => ({
     width: "100%",
@@ -21,9 +26,18 @@ const LayoutRoot = styled('section')(({ theme }) => ({
     },
 }));
 
+const useStyles = makeStyles({
+    hideMobile: {
+        [theme.breakpoints.down('sm')]: {
+            display: "none"
+        },
+    }
+})
+
 export default function BannerHome() {
     const userData = useSelector((state: any) => state.authentication.user)
     const classes = formStyles()
+    const styles = useStyles()
 
     const redirectUrls: any = {
         [Roles.Admin]: "/admin",
@@ -78,7 +92,7 @@ export default function BannerHome() {
                         </Button>
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={6} className={styles.hideMobile}>
                         <svg width={"100%"} style={{
                             backgroundImage: `url(${backgroundImage})`,
                             height: "450px",
