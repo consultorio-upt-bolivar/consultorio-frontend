@@ -25,19 +25,19 @@ const Div = styled('div')(() => ({
 const useStyles = makeStyles({
   home: {
     backgroundImage: "url(/images/fondo4.png)",
-    backgroundSize: "70%",
+    backgroundSize: "900px",
     backgroundPosition: "bottom left",
     backgroundRepeat: "no-repeat",
   },
   services: {
     backgroundImage: "url(/images/fondo3.png), url(/images/fondo2.png)",
-    backgroundSize: "70%",
+    backgroundSize: "900px",
     backgroundPosition: "top left, bottom right",
     backgroundRepeat: "no-repeat",
   },
   about: {
     backgroundImage: "url(/images/fondo5.png)",
-    backgroundSize: "70%",
+    backgroundSize: "900px",
     backgroundPosition: "top right",
     backgroundRepeat: "no-repeat",
   }
