@@ -58,7 +58,7 @@ export function LoginPage() {
     <PublicLayout>
       <Grid
         container
-        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 10, width: "100%", height: "100%" }}
+        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 5, width: "100%", height: "100%" }}
       >
         <Grid item xs={11} sm={10} md={5} lg={4} xl={3} className={classes.paper}>
           <Avatar className={classes.avatar}>

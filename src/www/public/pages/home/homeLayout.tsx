@@ -128,7 +128,7 @@ export const HomeLayout = ({
                             component="img"
                             src="/images/logo.png"
                             alt="suitcase"
-                            sx={{ width: "200px", mt: "15px" }}
+                            sx={{ width: "250px", mt: "15px" }}
                         />
                     </Typography>
 

@@ -28,7 +28,7 @@ const LayoutRoot = styled('section')(({ theme }) => ({
 
 const useStyles = makeStyles({
     hideMobile: {
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('md')]: {
             display: "none"
         },
     }
@@ -100,11 +100,6 @@ export default function BannerHome() {
                         }}></svg>
                     </Grid>
                 </Grid>
-                <Box
-                    sx={{ position: 'absolute', bottom: 32, width: "100%", textAlign: "center" }}
-                >
-                    <ArrowDownwardOutlined style={{ width: "50px", height: "50px" }}></ArrowDownwardOutlined>
-                </Box>
             </Container>
         </LayoutRoot>
     );

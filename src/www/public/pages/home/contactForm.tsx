@@ -22,7 +22,7 @@ export const validationSchema = Yup.object({
     .required(validationMessages.required)
     .min(5, validationMessages.minLength.replace('$', '5')),
   email: Yup.string()
-    .email()
+    .email(validationMessages.email)
     .required(validationMessages.required),
   subject: Yup.string()
     .required(validationMessages.required)
@@ -67,6 +67,7 @@ export function ContactForm(): React.ReactElement {
       try {
         await auth.contactFormMailUsers(values)
         dispatch(toastActions.success("Consulta enviada!"))
+        formik.resetForm(undefined)
       } catch (error) {
         dispatch(toastActions.error("No se ha podido enviar la consulta, intente nuevamente!"))
       }
@@ -120,7 +121,7 @@ export function ContactForm(): React.ReactElement {
         </Grid>
         <Grid item xs={12} md={6}>
 
-          <div>
+          <div style={{marginTop: "32px"}}>
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1660.6031332382947!2d-63.55193962374905!3d8.141924059249678!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5a78554099f377b2!2sInstituto%20Universitario%20de%20Tecnolog%C3%ADa%20del%20Estado%20Bol%C3%ADvar%20(IUTEB)!5e0!3m2!1ses!2sar!4v1642366528821!5m2!1ses!2sar" width="100%" height="400" style={{ border: "0" }} allowFullScreen={false} loading="lazy"></iframe>
           </div>
         </Grid>

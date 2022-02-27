@@ -18,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
   justifyContent: "center",
   fontSize: '16px',
   cursor: 'pointer',
-  width: '400px',
+  width: '100%',
   padding: '20px 20px',
   height: '200px'
 }));
@@ -116,15 +116,15 @@ export const DatabasesPage = (): React.ReactElement => {
         </Typography>
 
         <Grid container spacing={2} style={{ marginTop: '50px', marginBottom: '50px' }} justifyContent="center">
-          <Grid item onClick={() => handleBackupDatabase()}>
-            <Item elevation={2}>
+          <Grid item xs={12} md={6} onClick={() => handleBackupDatabase()}>
+            <Item elevation={2} >
               <Typography component="p" variant="h5" mb={0} mt={0} align='center' gutterBottom>
                 Respaldar Base de Datos
               </Typography>
             </Item>
           </Grid>
 
-          <Grid item>
+          <Grid item xs={12} md={6}>
             <Item elevation={2} style={{ flexWrap: 'wrap' }}>
               <Typography component="p" variant="h5" mb={0} mt={0} align='center' onClick={() => handleClickButton()}>
                 Restaurar Base de Datos
