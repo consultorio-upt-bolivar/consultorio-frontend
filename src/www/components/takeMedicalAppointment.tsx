@@ -30,7 +30,7 @@ const ReportInfo = ({ data }: any) => {
                 alignItems: "center"
             }}>
                 <Typography sx={{ fontSize: 16 }} margin="0">
-                    Especialidad médica: {data.schedule.speciality.name}
+                    Especialidad: {data.schedule.speciality.name}
                 </Typography>
 
                 <Typography sx={{ fontSize: 14 }} margin="0">

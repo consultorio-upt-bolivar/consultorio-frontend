@@ -29,7 +29,7 @@ const AppointmentInfo = ({ data, cancel }: any) => <Box>
     borderRadius: "3px"
   }}>
     <Typography sx={{ fontSize: 16 }} margin="0">
-      Especialidad médica: {data.schedule.speciality.name}
+      Especialidad: {data.schedule.speciality.name}
     </Typography>
   </div>
 
@@ -44,7 +44,7 @@ const AppointmentInfo = ({ data, cancel }: any) => <Box>
       Consultorio médico: {data.schedule.speciality.office.name}
     </Typography>
     <Typography sx={{ fontSize: 16 }} margin="0">
-      Lugar: {data.schedule.speciality.office.place}
+       Dirección: {data.schedule.speciality.office.place}
     </Typography>
   </Box>
 
