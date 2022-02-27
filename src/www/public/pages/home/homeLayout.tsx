@@ -49,12 +49,27 @@ const useStyles = makeStyles({
     },
     appBarTitle: {
         cursor: 'pointer',
-        color: theme.palette.primary.main
+        color: theme.palette.primary.main,
+        [theme.breakpoints.down('sm')]: {
+            flex: "100%",
+            textAlign: "center"
+        },
     },
     menuButton: {
         textTransform: "none",
         marginLeft: "10px",
-        boxShadow: "none"
+        boxShadow: "none",
+        [theme.breakpoints.down('md')]: {
+            display: "none"
+        },
+    },
+    loginButton: {
+        textTransform: "none",
+        marginLeft: "10px",
+        boxShadow: "none",
+        [theme.breakpoints.down('sm')]: {
+            display: "none"
+        },
     }
 })
 
@@ -118,7 +133,10 @@ export const HomeLayout = ({
                     </Typography>
 
                     <span style={{
-                        flex: "1"
+                        flex: "1",
+                        [theme.breakpoints.down('sm')]: {
+                            display: "none"
+                        },
                     }}></span>
 
                     <Button
@@ -155,7 +173,7 @@ export const HomeLayout = ({
                             variant="contained"
                             component="a"
                             href="/login"
-                            className={classes.menuButton}
+                            className={classes.loginButton}
                         >Iniciar sesión</Button> :
                         <div style={{
                             marginLeft: "15px"

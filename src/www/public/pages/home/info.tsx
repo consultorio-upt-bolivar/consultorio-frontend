@@ -27,7 +27,7 @@ function HomeInfo() {
             </Typography>
 
             <Container sx={{ display: 'flex', position: 'relative' }}>
-                <Grid container >
+                <Grid container spacing={5}>
                     <Grid item xs={12} md={4}>
                         <Box sx={item}>
                             <Box

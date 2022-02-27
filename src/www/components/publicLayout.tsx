@@ -40,15 +40,27 @@ const useStyles = makeStyles({
     position: "fixed",
     top: "0",
     boxShadow: "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)"
-},
+  },
   appBarTitle: {
     color: 'white',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    [theme.breakpoints.down('sm')]: {
+      flex: "100%",
+      textAlign: "center"
+    },
   },
   menuButton: {
     textTransform: "none",
     marginLeft: "10px",
     boxShadow: "none"
+  },
+  loginButton: {
+    textTransform: "none",
+    marginLeft: "10px",
+    boxShadow: "none",
+    [theme.breakpoints.down('sm')]: {
+      display: "none"
+    },
   }
 })
 
@@ -84,7 +96,10 @@ export const PublicLayout = ({
           </Typography>
 
           <span style={{
-            flex: "1"
+            flex: "1",
+            [theme.breakpoints.down('sm')]: {
+              display: "none"
+            },
           }}></span>
 
           {location.pathname != "/login" && !userData?.name ?
@@ -92,7 +107,7 @@ export const PublicLayout = ({
               color="inherit"
               component="a"
               href="/login"
-              className={classes.menuButton}
+              className={classes.loginButton}
             >Iniciar sesión</Button>
             :
             <UserAvatarMenu name={userData?.name ?? ''}></UserAvatarMenu>}
