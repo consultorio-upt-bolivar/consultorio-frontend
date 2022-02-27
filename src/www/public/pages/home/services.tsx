@@ -34,9 +34,9 @@ function HomeServices() {
                                 component="img"
                                 src="/images/general.png"
                                 alt="suitcase"
-                                sx={{ height: 55 }}
+                                sx={{ height: 80 }}
                             />
-                            <Typography variant="h6" color="black" sx={{ my: 5, textAlign: "center", fontSize: "18" }}>
+                            <Typography variant="h6" color="#3a3a3a" sx={{ my: 5, textAlign: "center", fontSize: "18" }}>
                                 Medicina general
                             </Typography>
                         </Box>
@@ -47,9 +47,9 @@ function HomeServices() {
                                 component="img"
                                 src="/images/internist.png"
                                 alt="graph"
-                                sx={{ height: 55 }}
+                                sx={{ height: 80 }}
                             />
-                            <Typography variant="h6" color="black" sx={{ my: 5, textAlign: "center", fontSize: "18" }}>
+                            <Typography variant="h6" color="#3a3a3a" sx={{ my: 5, textAlign: "center", fontSize: "18" }}>
                                 Medicina Interna
                             </Typography>
                         </Box>
@@ -63,12 +63,12 @@ function HomeServices() {
                                 <img
                                     src="/images/gynecologist.png"
                                     alt="clock"
-                                    style={{ height: 55 }}
+                                    style={{ height: 80 }}
                                 >
                                 </img>
                             </Box>
 
-                            <Typography variant="h6" color="black" sx={{ my: 5, textAlign: "center", fontSize: "18" }}>
+                            <Typography variant="h6" color="#3a3a3a" sx={{ my: 5, textAlign: "center", fontSize: "18" }}>
                                 Ginecología
                             </Typography>
                         </Box>
@@ -79,9 +79,9 @@ function HomeServices() {
                                 component="img"
                                 src="/images/cardiology.png"
                                 alt="clock"
-                                sx={{ height: 55 }}
+                                sx={{ height: 80 }}
                             />
-                            <Typography variant="h6" color="black" sx={{ my: 5, textAlign: "center", fontSize: "18" }}>
+                            <Typography variant="h6" color="#3a3a3as" sx={{ my: 5, textAlign: "center", fontSize: "18" }}>
                                 Cardiología
                             </Typography>
                         </Box>

@@ -7,6 +7,10 @@ import HomeInfo from './info'
 import { styled } from '@mui/material/styles';
 import HomeServices from './services'
 
+import {
+  makeStyles,
+} from '@mui/styles';
+
 const Div = styled('div')(() => ({
   width: '100%',
   display: "flex",
@@ -18,22 +22,45 @@ const Div = styled('div')(() => ({
   }
 }));
 
+const useStyles = makeStyles({
+  home: {
+    backgroundImage: "url(/images/fondo4.png)",
+    backgroundSize: "70%",
+    backgroundPosition: "bottom left",
+    backgroundRepeat: "no-repeat",
+  },
+  services: {
+    backgroundImage: "url(/images/fondo3.png), url(/images/fondo2.png)",
+    backgroundSize: "70%",
+    backgroundPosition: "top left, bottom right",
+    backgroundRepeat: "no-repeat",
+  },
+  about: {
+    backgroundImage: "url(/images/fondo5.png)",
+    backgroundSize: "70%",
+    backgroundPosition: "top right",
+    backgroundRepeat: "no-repeat",
+  }
+})
+
 export const HomePage = (): React.ReactElement => {
+  const styles = useStyles();
+
   return (
     <>
       <HomeLayout showFooter={true}>
         <>
           <ModalsCarousel></ModalsCarousel>
 
-          <Div id='home'>
+          <Div id='home' className={styles.home}>
             <BannerHome></BannerHome>
           </Div>
 
-          <Div id='services' className='alternative'>
+          <Div id='services' className={styles.services}>
             <HomeServices></HomeServices>
           </Div>
 
-          <Div id='about-us'>
+          <Div id='about-us' className={styles.about}>
             <HomeInfo></HomeInfo>
           </Div>
 

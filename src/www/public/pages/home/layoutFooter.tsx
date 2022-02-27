@@ -1,25 +1,41 @@
 import * as React from 'react';
-import { Container, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 
 function Copyright() {
     return (
         <>
             {'© '}
-            {'Consultorio Médico Universitario Dr. José Gregorio Hernández UPT Bolívar '}
             {new Date().getFullYear()}
+            {'. Consultorio Médico Universitario Dr. José Gregorio Hernández'}
+            
         </>
     );
 }
 
 export default function LayoutFooter() {
     return (
-        <Typography
+        <Box
             component="footer"
-            sx={{ display: 'flex', bgcolor: 'primary.main' }}
+            sx={{ display: 'block', bgcolor: 'primary.main' }}
         >
+            <Grid container spacing={2} justifyContent="center" alignItems="center" style={{ padding: '20px 30px 0' }}>
+                <Grid item xs={12} md={6}>
+                    <Box
+                    component="img"
+                    src="/images/logo_white.png"
+                    alt="suitcase"
+                    sx={{ width: "250px"}}
+                />
+                </Grid>
+                <Grid item xs={12} md={6} style={{ color: 'white', textAlign: "center" }}>
+                    <Copyright></Copyright>
+                </Grid>
+                
+            </Grid>
             <Container sx={{ my: 3, display: 'flex', color: 'primary.contrastText', justifyContent: 'center', bgcolor: 'primary.main' }}>
-                <Copyright></Copyright>
+                
+                
             </Container>
-        </Typography>
+        </Box>
     );
 }
