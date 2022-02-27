@@ -5,6 +5,7 @@ import { alertActions, appointmentsActions, medicalAppointmentsActions } from '.
 import { format, isFuture, isPast } from 'date-fns'
 import { Alert } from '@material-ui/lab'
 import { Delete } from '@material-ui/icons'
+import theme from '../../theme/main'
 
 const Item = styled(Box)(_ => {
   return ({
@@ -23,7 +24,7 @@ const renderAlert = (message: string) => {
 const AppointmentInfo = ({ data, cancel }: any) => <Box>
   <div style={{
     padding: "10px 15px",
-    backgroundColor: "#5eaab1",
+    backgroundColor: theme.palette.primary.main,
     color: "white",
     borderRadius: "3px"
   }}>
@@ -93,7 +94,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
     if (!filteredAppointments.length) return renderAlert(notFoundNextAppointments)
 
     return filteredAppointments.map((el: any) => {
-      return <Grid item width="100%" padding={0} key={'d-' + el.date}>
+      return <Grid item width="100%" padding={0} key={`${showPast ? "past" : 'future'}d-${el.date}-${el.id}`}>
         <Item>
           <AppointmentInfo data={el} cancel={<Stack direction="row">
             <Button
@@ -121,7 +122,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
     if (!filteredAppointments.length) return renderAlert(notFoundPastAppointments)
 
     return filteredAppointments.map((el: any) => {
-      return <Grid item width="100%" padding={0} key={'d-' + el.date}>
+      return <Grid item width="100%" padding={0} key={`${showPast ? "past" : 'future'}d-${el.date}-${el.id}`}>
         <Item>
           <AppointmentInfo data={el} />
         </Item>

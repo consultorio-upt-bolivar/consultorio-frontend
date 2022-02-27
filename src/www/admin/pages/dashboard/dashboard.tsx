@@ -139,7 +139,7 @@ export const DashboardPage = (): React.ReactElement => {
                   <Tooltip />
                   <Legend />
                   <CartesianGrid strokeDasharray="3 3" />
-                  <Bar dataKey="total" fill="#8884d8" background={{ fill: '#eee' }} />
+                  <Bar dataKey="total" fill="#004aad" background={{ fill: '#eee' }} />
                 </BarChart>
               </ResponsiveContainer>
             </Paper>
@@ -175,7 +175,7 @@ export const DashboardPage = (): React.ReactElement => {
                   <Tooltip />
                   <Legend />
                   <CartesianGrid strokeDasharray="3 3" />
-                  <Bar dataKey="total" fill="#8884d8" background={{ fill: '#eee' }} />
+                  <Bar dataKey="total" fill="#004aad" background={{ fill: '#eee' }} />
                 </BarChart>
               </ResponsiveContainer>
             </Paper>
@@ -293,7 +293,7 @@ export const DashboardPage = (): React.ReactElement => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="total" fill="#8884d8" />
+                  <Bar dataKey="total" fill="#004aad" />
                 </BarChart>
               </ResponsiveContainer>
             </Paper>
@@ -333,7 +333,7 @@ export const DashboardPage = (): React.ReactElement => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="total" fill="#82ca9d" />
+                  <Bar dataKey="total" fill="#004aad" />
                 </BarChart>
               </ResponsiveContainer>
             </Paper>

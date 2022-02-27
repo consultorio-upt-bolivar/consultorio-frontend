@@ -64,6 +64,12 @@ export interface ContactFormDTO {
      * @type {string}
      * @memberof ContactFormDTO
      */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContactFormDTO
+     */
     email: string;
     /**
      * 
@@ -4136,6 +4142,49 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} userType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateUserExistsUsers: async (id: string, userType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('validateUserExistsUsers', 'id', id)
+            // verify required parameter 'userType' is not null or undefined
+            assertParamExists('validateUserExistsUsers', 'userType', userType)
+            const localVarPath = `/users/user-exists`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (userType !== undefined) {
+                localVarQueryParameter['userType'] = userType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -4278,6 +4327,17 @@ export const UsersApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateUsers(id, updateUserDTO, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} userType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async validateUserExistsUsers(id: string, userType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateUserExistsUsers(id, userType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -4406,6 +4466,16 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          */
         updateUsers(id: number, updateUserDTO: UpdateUserDTO, options?: any): AxiosPromise<CreateUserResponse> {
             return localVarFp.updateUsers(id, updateUserDTO, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} userType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateUserExistsUsers(id: string, userType: string, options?: any): AxiosPromise<void> {
+            return localVarFp.validateUserExistsUsers(id, userType, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4560,6 +4630,18 @@ export class UsersApi extends BaseAPI {
      */
     public updateUsers(id: number, updateUserDTO: UpdateUserDTO, options?: any) {
         return UsersApiFp(this.configuration).updateUsers(id, updateUserDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {string} userType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public validateUserExistsUsers(id: string, userType: string, options?: any) {
+        return UsersApiFp(this.configuration).validateUserExistsUsers(id, userType, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

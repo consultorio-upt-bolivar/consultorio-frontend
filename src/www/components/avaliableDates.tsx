@@ -1,13 +1,14 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { alertActions, appointmentsActions, medicalAppointmentsActions } from '../../_actions'
+import { alertActions, appointmentsActions, medicalAppointmentsActions, toastActions } from '../../_actions'
 import { format, parse, isFuture } from 'date-fns'
 import { formStyles } from './formik'
 import Typography from '@mui/material/Typography'
 import { Alert, Box, Button, Card, CardContent, Grid, Paper, styled } from '@mui/material'
 import { ActionOptions } from '../../_actions/generic.actions'
 import { loadingActions } from '../../_actions/loading.actions'
+import theme from '../../theme/main'
 
 const Item = styled(Box)(() => ({
     textAlign: 'center',
@@ -162,7 +163,7 @@ export const AvaliableDates = (params: {
                     <div style={{
                         borderRadius: "3px",
                         padding: "8px",
-                        backgroundColor: "#5eaab1",
+                        backgroundColor: theme.palette.primary.main,
                         color: "white"
                     }}>
                         <Typography sx={{ fontSize: 18, textAlign: "center" }} margin="0">
@@ -217,7 +218,7 @@ export const AvaliableDates = (params: {
                     }}
                     style={{
                         padding: "8px",
-                        backgroundColor: "#5eaab1",
+                        backgroundColor: theme.palette.primary.main,
                         color: "white",
                         borderRadius: "3px",
                         cursor: "pointer"
@@ -235,7 +236,7 @@ export const AvaliableDates = (params: {
                 }}>
                     <div style={{
                         padding: "8px",
-                        backgroundColor: "#5eaab1",
+                        backgroundColor: theme.palette.primary.main,
                         color: "white",
                         borderRadius: "3px"
                     }}>
@@ -269,7 +270,7 @@ export const AvaliableDates = (params: {
                         }}>
                             <div style={{
                                 padding: "8px",
-                                backgroundColor: "#5eaab1",
+                                backgroundColor: theme.palette.primary.main,
                                 color: "white",
                                 borderRadius: "3px"
                             }}>

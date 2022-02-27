@@ -1,17 +1,18 @@
 import { createTheme as createThemeV4 } from '@material-ui/core/styles';
 import { createTheme as createThemeV5 } from '@mui/material/styles';
 import { grey } from "@mui/material/colors";
+import { BloodtypeOutlined } from '@mui/icons-material';
 
 const rawTheme = createThemeV5({
   palette: {
     primary: {
-      main: '#5eaab1',
+      main: '#4f99fc',
       light: '#E2E4E4',
-      dark: '#2d7979',
+      dark: '#1e5399de',
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#4cc7ea',
+      main: '#9fa8ba',
       contrastText: 'rgba(255,255,255,0.87)',
     },
     error: {
@@ -72,7 +73,7 @@ const theme = {
     h5: {
       ...rawTheme.typography.h5,
       fontSize: 20,
-      fontWeight: rawTheme.typography.fontWeightLight,
+      fontWeight: rawTheme.typography.fontWeightMedium,
     },
     h6: {
       ...rawTheme.typography.h6,
@@ -102,13 +103,13 @@ const theme = {
 export const themeV4 = createThemeV4({
   palette: {
     primary: {
-      main: '#5eaab1',
+      main: '#4f99fc',
       light: '#E2E4E4',
-      dark: '#2d7979',
+      dark: '#1e5399de',
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#4cc7ea',
+      main: '#9fa8ba',
       contrastText: 'rgba(255,255,255,0.87)',
     },
   },
@@ -118,7 +119,7 @@ export const themeV4 = createThemeV4({
     fontWeightLight: 300, // Work Sans
     fontWeightRegular: 400, // Work Sans
     fontWeightMedium: 700, // Roboto Condensed
-  },
+  }
 });
 
 

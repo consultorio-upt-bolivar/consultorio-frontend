@@ -49,7 +49,7 @@ export function CreateSpecialitiesPage(): React.ReactElement {
 
   // Edit form listener
   useEffect(() => {
-    if (data) {
+    if (data && params.id) {
       formik.setValues({ ...data, officeId: data.office.id })
     }
   }, [data])

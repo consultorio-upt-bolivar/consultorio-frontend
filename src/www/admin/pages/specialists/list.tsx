@@ -33,7 +33,7 @@ export function ListSpecialistsPage(): React.ReactElement {
   }
 
   const editAction = (id: number) => {
-    AppHistory.push('/admin/especialistas/' + id)
+    AppHistory.push('/admin/especialistas/editar/' + id)
   }
 
   const params: DataTablaParams = {
@@ -42,37 +42,37 @@ export function ListSpecialistsPage(): React.ReactElement {
         field: 'id',
         headerName: 'ID',
         description: 'Id único en la BD',
-        flex: 200,
+        flex: 1,
       },
       {
         field: 'name',
         headerName: 'Nombre',
         description: 'Nombre del especialista',
-        flex: 200,
+        flex: 1,
       },
       {
         field: 'email',
         headerName: 'Correo electrónico',
         description: 'Correo del especialista',
-        flex: 200,
+        flex: 1,
       },
       {
         field: 'phone',
         headerName: 'Teléfono',
         description: 'Teléfono del especialista',
-        flex: 200,
+        flex: 1,
       },
       {
         field: 'legalId',
         headerName: 'Identificación',
         description: 'Identificación del especialista',
-        flex: 200,
+        flex: 1,
       },
       {
         field: 'type',
         headerName: 'Tipo de usuario',
         description: 'Tipo de especialistas',
-        flex: 200,
+        flex: 1,
         hide: true,
       },
       {
@@ -80,7 +80,7 @@ export function ListSpecialistsPage(): React.ReactElement {
         headerName: 'Activo',
         description: '¿Está habilitado?',
         type: 'boolean',
-        flex: 200,
+        flex: 1,
       },
     ],
     rows: items?.map((el: any) => {

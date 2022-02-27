@@ -31,7 +31,7 @@ export function ListOfficesPage(): React.ReactElement {
   }
 
   const editAction = (id: number) => {
-    AppHistory.push('/admin/oficinas/' + id)
+    AppHistory.push('/admin/oficinas/editar/' + id)
   }
 
   const params: DataTablaParams = {

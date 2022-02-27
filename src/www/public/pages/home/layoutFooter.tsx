@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { Container, Box, Grid, Link, Typography, TextField } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 function Copyright() {
     return (
-        <React.Fragment>
+        <>
             {'© '}
             {'Consultorio Médico Universitario Dr. José Gregorio Hernández UPT Bolívar '}
             {new Date().getFullYear()}
-        </React.Fragment>
+        </>
     );
 }
 

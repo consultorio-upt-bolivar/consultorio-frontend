@@ -68,7 +68,7 @@ export function CreateSchedulesPage(): React.ReactElement {
 
   // Edit form listener
   useEffect(() => {
-    if (data) {
+    if (data && params.id) {
       const options = {
         specialityId: data.speciality.id,
         specialistId: data.specialist.id,

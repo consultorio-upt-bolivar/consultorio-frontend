@@ -27,6 +27,15 @@ export function AppointmentDialog({
     const { items: specialitiesList } = useSelector((store: any) => store.specialities)
     const [specialistList, setSpecialistList] = useState([])
     const [filteredSpecialities, setFilteredSpecialities] = useState([]);
+    const initialValues = {
+        dateFrom: new Date(),
+        dateEnd: add(today, {
+            days: 5
+        }),
+        officeId: '',
+        specialityId: '',
+        specialistId: ''
+    }
 
     const classes = formStyles()
     const dispatch = useDispatch()
@@ -44,10 +53,13 @@ export function AppointmentDialog({
     }
 
     const handleClose = () => {
-        formik.resetForm(undefined);
+        formik.setValues(initialValues);
 
         const options = {
-            callback: () => setOpen(false)
+            callback: () => {
+                dispatch(toastActions.success("Cita médica programada!"));
+                setOpen(false)
+            }
         }
 
         dispatch(medicalAppointmentsActions.getAll({
@@ -74,15 +86,7 @@ export function AppointmentDialog({
     }, [])
 
     const formik = useFormik({
-        initialValues: {
-            dateFrom: new Date(),
-            dateEnd: add(today, {
-                days: 5
-            }),
-            officeId: '',
-            specialityId: '',
-            specialistId: ''
-        },
+        initialValues,
         validationSchema: Yup.object({
             date: Yup.string().required(validationMessages.required),
             dateEnd: Yup.string().required(validationMessages.required),

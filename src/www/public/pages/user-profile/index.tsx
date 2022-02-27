@@ -69,7 +69,10 @@ export function UserProfilePage(): React.ReactElement {
                     options.password = password
                 }
 
-                dispatch(actions.updateOne(+user.id, options))
+                dispatch(actions.updateOne(+user.id, options, {
+                    toast: "Perfil actualizado!",
+                    redirect: "/dashboard"
+                }))
             }
         },
     })
@@ -111,7 +114,7 @@ export function UserProfilePage(): React.ReactElement {
                         disabled={loading || !formik.isValid}
                         onClick={(e) => handleSubmit(e)}
                     >
-                        {data ? 'Actualizar' : 'Crear'}
+                        Actualizar
                     </Button>
                 </form>
             </Container>

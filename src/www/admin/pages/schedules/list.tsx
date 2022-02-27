@@ -31,7 +31,7 @@ export function ListSchedulesPage(): React.ReactElement {
   }
 
   const editAction = (id: number) => {
-    AppHistory.push('/admin/jornadas/' + id)
+    AppHistory.push('/admin/jornadas/editar/' + id)
   }
 
   const params: DataTablaParams = {
@@ -40,56 +40,56 @@ export function ListSchedulesPage(): React.ReactElement {
         field: 'id',
         headerName: 'ID',
         description: 'Id único en la BD',
-        flex: 1,
+        width: 100,
       },
       {
         field: 'date',
         headerName: 'Fecha inicio',
         description: 'Fecha inicio de la jornada',
-        flex: 1,
+        width: 200,
       },
       {
         field: 'dateEnd',
         headerName: 'Fecha final',
         description: 'Fecha final de la jornada',
-        flex: 1,
+        width: 200,
       },
       {
         field: 'startHour',
         headerName: 'Hora inicio (24 hrs)',
         description: 'Hora inicio de la jornada',
-        flex: 1,
+        width: 200,
       },
       {
         field: 'endHour',
         headerName: 'Hora final (24 hrs)',
         description: 'Hora final de la jornada',
-        flex: 1,
+        width: 200,
       },
       {
         field: 'officeName',
         headerName: 'Consultorio',
         description: 'Consultorio de la jornada',
-        flex: 1,
+        width: 200,
       },
       {
         field: 'specialityName',
         headerName: 'Especialidad médica',
         description: 'Especialidad de la jornada',
-        flex: 1,
+        width: 200,
       },
       {
         field: 'specialistName',
         headerName: 'Nombre del especialista',
         description: 'Nombre del especialista',
-        flex: 1,
+        width: 200,
       },
       {
         field: 'isActive',
         headerName: 'Activo',
         description: '¿Está habilitada?',
         type: 'boolean',
-        flex: 1,
+        width: 100,
       },
     ],
     rows: items?.map((el: any) => {

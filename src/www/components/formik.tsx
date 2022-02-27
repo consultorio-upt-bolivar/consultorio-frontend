@@ -63,11 +63,15 @@ export const GetFormikFields = (formik: any, fields: any) => {
     const options: any = fields[name]
     const isSimple = typeof options === 'string'
 
+    const labelId = isSimple ? options : options?.label ?? "no-label";
+
+    const key = `${isSimple ? 'text' : options.type}-${labelId.replace(/ /g, '-').toLowerCase()}-${name}`
+
     let input: any
 
     if (isSimple) {
       input = (
-        <DivContainer key={name}>
+        <DivContainer key={key}>
           <TextField
             required
             variant="outlined"
@@ -95,7 +99,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
         input = (
           <div style={{
             width: "100%"
-          }} key={options.type + name}>
+          }} key={key}>
             <br /><Divider /><br />
           </div>
         )
@@ -103,7 +107,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
 
       case 'text':
         input = (
-          <DivContainer width={options.width}>
+          <DivContainer width={options.width} key={key}>
             <TextField
               variant="outlined"
               margin="dense"
@@ -114,7 +118,6 @@ export const GetFormikFields = (formik: any, fields: any) => {
               label={options.label}
               autoComplete={name}
               {...formik.getFieldProps(name)}
-              key={name} 
               style={{
                 marginTop: "24px"
               }}
@@ -129,7 +132,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
         break
       case 'number':
         input = (
-          <DivContainer width={options.width} key={name}>
+          <DivContainer width={options.width} key={key}>
             <TextField
               InputLabelProps={{ shrink: true }}
               variant="outlined"
@@ -156,7 +159,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
         break
       case 'select':
         input = (
-          <DivContainer width={options.width} key={name}>
+          <DivContainer width={options.width} key={key}>
             <FormControl
               sx={{ mt: 1 }}
               variant="outlined"
@@ -195,7 +198,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
 
       case 'multiline':
         input = (
-          <DivContainer width={options.width} key={name}>
+          <DivContainer width={options.width} key={key}>
             <TextField
               variant="outlined"
               margin="dense"
@@ -218,7 +221,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
         break
       case 'password':
         input = (
-          <DivContainer width={options.width} key={name}>
+          <DivContainer width={options.width} key={key}>
             <TextField
               variant="outlined"
               margin="dense"
@@ -229,6 +232,9 @@ export const GetFormikFields = (formik: any, fields: any) => {
               required={options.required}
               disabled={options.readonly}
               {...formik.getFieldProps(name)}
+              style={{
+                marginTop: "24px"
+              }}
             />
             <FormHelperText className={classes.errorText} error>
               {formik.touched[name] && formik.errors[name]
@@ -240,7 +246,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
         break
       case 'checkbox':
         input = (
-          <DivContainer width={options.width} key={name}>
+          <DivContainer width={options.width} key={key}>
             <FormControlLabel
               className={classes.formControl}
               control={
@@ -264,7 +270,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
         break
       case 'date':
         input = (
-          <DivContainer width={options.width} key={name}>
+          <DivContainer width={options.width} key={key}>
             <LocalizationProvider dateAdapter={AdapterDateFns} locale={esLocale} >
               <DesktopDatePicker
                 label={options.label}
@@ -294,7 +300,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
         break
       case 'hour':
         input = (
-          <DivContainer width={options.width} key={name}>
+          <DivContainer width={options.width} key={key}>
             <LocalizationProvider dateAdapter={AdapterDateFns} locale={esLocale}>
               <TimePicker
                 disableOpenPicker={options.readonly}

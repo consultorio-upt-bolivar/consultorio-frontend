@@ -18,7 +18,7 @@ import {
   GetFormikFields,
 } from '../../../components/formik'
 import { PublicLayout } from '../../../components/publicLayout';
-import { UptApi } from '../../../../_api';
+import { UptApi, UsersApi } from '../../../../_api';
 import { getConfiguration } from '../../../../config/api.config';
 import { handleError } from '../../../../helpers/handleApiError';
 import { Roles } from '../../../../constants/roles';
@@ -34,7 +34,7 @@ export function SigninPage() {
 
   useEffect(() => {
     if(error) {
-      formik.resetForm(undefined);
+      formik.setValues(initialValues, false);
     }
   }, [error])
 
@@ -60,13 +60,14 @@ export function SigninPage() {
       return;
     }
 
+    const api = new UptApi(getConfiguration())
+
     try {
       if (isNaN(+formik.values.legalId)) {
         dispatch(toastActions.error("Identificación inválida."))
         return;
       }
 
-      const api = new UptApi(getConfiguration())
       await api.validateLegalIdUPT(formik.values.legalId, formik.values.profile)
     } catch (error) {
       const msg = handleError(error);
@@ -75,16 +76,23 @@ export function SigninPage() {
     }
 
     if (formik.values["profile"] === Roles.Family) {
-      try {
-        if (isNaN(+formik.values.familyLegalId)) {
-          dispatch(toastActions.error("Identificación de familiar inválida."))
-          return;
-        }
+      if (isNaN(+formik.values.familyLegalId)) {
+        dispatch(toastActions.error("Identificación de familiar inválida."))
+        return;
+      }
 
-        const api = new UptApi(getConfiguration())
+      try {
         await api.validateLegalIdUPT(formik.values.familyLegalId, Roles.Employee)
       } catch (error) {
         dispatch(toastActions.error("Identificación de familiar inválida."))
+        return
+      }
+
+      try {
+        const api = new UsersApi(getConfiguration())
+        await api.validateUserExistsUsers(formik.values.familyLegalId, Roles.Employee)
+      } catch (error) {
+        dispatch(toastActions.error("El usuario familiar no existe!"))
         return
       }
     }
@@ -98,7 +106,7 @@ export function SigninPage() {
     <PublicLayout>
       <Grid
         container
-        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 10, width: "100%", height: "100%" }}
+        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', width: "100%", height: "100%" }}
       >
         <Grid item xs={11} sm={10} md={5} lg={4} xl={3} className={classes.paper}>
           <Avatar className={classes.avatar}>

@@ -137,7 +137,12 @@ export const AdminLayout = ({
             open
           >
             <DrawerHeader>
-              Administrador
+              <Box
+                component="img"
+                src="/images/logo.png"
+                alt="suitcase"
+                sx={{ width: "200px"}}
+              />
             </DrawerHeader>
             <Divider />
             <SidemenuList />

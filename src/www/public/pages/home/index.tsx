@@ -1,21 +1,47 @@
 import React from 'react'
 import ModalsCarousel from '../../../components/modalsCarousel'
-import { PublicLayout } from '../../../components/publicLayout'
 import BannerHome from './banner'
 import { ContactForm } from './contactForm'
+import { HomeLayout } from './homeLayout'
 import HomeInfo from './info'
+import { styled } from '@mui/material/styles';
+import HomeServices from './services'
+
+const Div = styled('div')(() => ({
+  width: '100%',
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "120px 0",
+  '&.alternative': {
+    background: "#c0c0c00f"
+  }
+}));
 
 export const HomePage = (): React.ReactElement => {
   return (
     <>
-      <PublicLayout showFooter={true}>
+      <HomeLayout showFooter={true}>
         <>
           <ModalsCarousel></ModalsCarousel>
-          <BannerHome></BannerHome>
-          <HomeInfo></HomeInfo>
-          <ContactForm></ContactForm>
+
+          <Div id='home'>
+            <BannerHome></BannerHome>
+          </Div>
+
+          <Div id='services' className='alternative'>
+            <HomeServices></HomeServices>
+          </Div>
+
+          <Div id='about-us'>
+            <HomeInfo></HomeInfo>
+          </Div>
+
+          <Div id='contact' className='alternative'>
+            <ContactForm></ContactForm>
+          </Div>
         </>
-      </PublicLayout>
+      </HomeLayout>
     </>
   )
 }

@@ -11,6 +11,7 @@ import { MedicalAppointmentsApi } from '../../_api';
 import { getConfiguration } from '../../config/api.config';
 import { validationMessages } from '../../constants/formik';
 import { loadingActions } from '../../_actions/loading.actions';
+import theme from '../../theme/main';
 
 const ReportInfo = ({ data }: any) => {
     return <Grid item width="100%" padding={0}>
@@ -22,7 +23,7 @@ const ReportInfo = ({ data }: any) => {
             <div className='d-flex justify-content-between' style={{
                 borderBottom: "1px solid silver",
                 padding: "10px 15px",
-                background: "#5eaab1",
+                background: theme.palette.primary.main,
                 color: "white",
                 display: "flex",
                 justifyContent: "space-between",

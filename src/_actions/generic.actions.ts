@@ -30,18 +30,18 @@ export interface ActionOptions {
   callback?: () => void
 }
 
-const handleOptions = (dispatch: Dispatch, defaultToastMessage: string, options?: ActionOptions) => {
-  if (!options) return dispatch(toastActions.success(defaultToastMessage));
+const handleOptions = (dispatch: Dispatch, defaultToastMessage: string | false, options?: ActionOptions) => {
+  if (!options && defaultToastMessage !== false) return dispatch(toastActions.success(defaultToastMessage));
 
   const {
     toast,
     redirect,
     callback
-  } = options;
+  } = options || {};
 
   if (toast) {
     dispatch(toastActions.success(toast))
-  } if (toast !== false) {
+  } if (toast !== false && defaultToastMessage !== false) {
     dispatch(toastActions.success(defaultToastMessage))
   }
 
@@ -75,7 +75,7 @@ export const GenericActions = ({
           }
 
           dispatch(success(res.data))
-          handleOptions(dispatch, successMessages.getAll, options)
+          handleOptions(dispatch, false, options)
         },
         (error: Error) => {
           const errMessage = handleError(error)
@@ -105,7 +105,7 @@ export const GenericActions = ({
       api[`getOne${model}`](id).then(
         (res: any) => {
           dispatch(success(res.data))
-          handleOptions(dispatch, successMessages.getOne, options)
+          handleOptions(dispatch, false, options)
         },
         (error: Error) => {
           const errMessage = handleError(error)

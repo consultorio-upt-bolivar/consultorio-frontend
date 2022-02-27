@@ -29,7 +29,7 @@ export function ListModalPage(): React.ReactElement {
   }
 
   const editAction = (id: number) => {
-    AppHistory.push('/admin/modales/' + id)
+    AppHistory.push('/admin/modales/editar/' + id)
   }
 
   const params: DataTablaParams = {
@@ -38,27 +38,27 @@ export function ListModalPage(): React.ReactElement {
         field: 'id',
         headerName: 'ID',
         description: 'Id único en la BD',
-        flex: 200,
+        flex: 1,
       },
       {
         field: 'name',
         headerName: 'Nombre',
         description: 'Nombre del modal',
-        flex: 200,
+        flex: 1,
       },
       {
         field: 'isActive',
         headerName: 'Activo',
         description: 'Estado del modal',
         type: 'boolean',
-        flex: 200,
+        flex: 1,
       },
       {
         field: 'isMain',
         headerName: 'Destacado',
         description: 'Este modal se descata sobre otros',
         type: 'boolean',
-        flex: 200,
+        flex: 1,
       },
     ],
     rows: items ?? [],

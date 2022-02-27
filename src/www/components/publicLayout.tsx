@@ -4,7 +4,8 @@ import {
   Container,
   Toolbar,
   AppBar,
-  Typography
+  Typography,
+  Box
 } from '@mui/material'
 
 import {
@@ -14,7 +15,8 @@ import {
 import UserAvatarMenu from './userAvatarMenu'
 import { useSelector } from 'react-redux'
 import theme from '../../theme/main';
-import LayoutFooter from './layoutFooter';
+import LayoutFooter from '../public/pages/home/layoutFooter';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
   rootLayout: {
@@ -32,12 +34,21 @@ const useStyles = makeStyles({
     padding: "0px !important"
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1
-  },
+    zIndex: theme.zIndex.drawer + 1,
+    background: "transparent",
+    color: theme.palette.primary.main,
+    position: "fixed",
+    top: "0",
+    boxShadow: "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)"
+},
   appBarTitle: {
-    flexGrow: 1,
     color: 'white',
     cursor: 'pointer'
+  },
+  menuButton: {
+    textTransform: "none",
+    marginLeft: "10px",
+    boxShadow: "none"
   }
 })
 
@@ -48,6 +59,7 @@ export const PublicLayout = ({
   children: React.ReactElement,
   showFooter?: boolean
 }): React.ReactElement => {
+  const location = useLocation()
   const userData = useSelector((state: any) => state.authentication.user)
   const classes = useStyles()
 
@@ -62,13 +74,25 @@ export const PublicLayout = ({
             className={classes.appBarTitle}
             component="a"
             href="/" sx={{ textDecoration: "none" }}
-          >Consultorio Médico Universitario Dr. José Gregorio Hernández UPT Bolívar</Typography>
+          >
+            <Box
+              component="img"
+              src="/images/logo.png"
+              alt="suitcase"
+              sx={{ width: "200px", mt: "15px" }}
+            />
+          </Typography>
 
-          {!userData?.name ?
+          <span style={{
+            flex: "1"
+          }}></span>
+
+          {location.pathname != "/login" && !userData?.name ?
             <Button
               color="inherit"
               component="a"
               href="/login"
+              className={classes.menuButton}
             >Iniciar sesión</Button>
             :
             <UserAvatarMenu name={userData?.name ?? ''}></UserAvatarMenu>}

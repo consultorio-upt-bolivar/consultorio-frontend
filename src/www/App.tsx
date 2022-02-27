@@ -15,6 +15,8 @@ import { Roles } from '../_api'
 import { Backdrop, CircularProgress, Theme } from '@mui/material'
 import { authActions } from '../_actions'
 
+import './App.css'
+
 export function App(): React.ReactElement {
   const { show = false } = useSelector((state: any) => state.loading)
   const dispatch = useDispatch()

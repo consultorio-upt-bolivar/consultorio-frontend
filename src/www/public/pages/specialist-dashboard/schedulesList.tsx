@@ -5,6 +5,7 @@ import { schedulesActions } from '../../../../_actions'
 import { Alert } from '@material-ui/lab'
 import { getUserData } from '../../../../helpers/userStorage'
 import { format, parse, isFuture } from 'date-fns'
+import theme from '../../../../theme/main'
 
 const Item = styled(Box)(_ => {
   return ({
@@ -34,7 +35,7 @@ const ScheduleInfo = ({ data }: any) => {
     <div style={{
       borderBottom: "1px solid silver",
       padding: "10px 15px",
-      backgroundColor: "#5eaab1",
+      backgroundColor: theme.palette.primary.main,
       color: "white"
     }}>
       <Typography sx={{ fontSize: 16 }} margin="0">

@@ -75,12 +75,6 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
         width: 100,
       },
       {
-        field: 'cancelled',
-        headerName: 'Cita cancelada',
-        description: 'Estado de cancelación de la cita médica',
-        width: 200,
-      },
-      {
         field: 'specialityName',
         headerName: 'Especialidad médica',
         description: 'Especialidad de la jornada',
@@ -105,18 +99,17 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
         width: 150,
       },
       {
-        field: 'cancelled',
-        headerName: 'Cancelada',
-        description: 'Cancelada',
-        type: "boolean",
-        width: 100,
-      },
-      {
         field: 'attended',
         headerName: 'Atendida',
         description: 'Atendida por el especialista',
         type: "boolean",
         width: 100,
+      },
+      {
+        field: 'cancelled',
+        headerName: 'Razón de cancelación',
+        description: 'Razón de cancelación de la cita médica',
+        flex: 1,
       },
       {
         field: 'actions',
@@ -161,7 +154,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
       el.specialityName = el.schedule.speciality.name
       el.userName = el.user.name + " | " + el.user.email
       el.userType = el.user.profile.name
-      el.cancelled = !!el.cancellationDate && el.cancellationReason
+      el.cancelled = el.cancellationReason ? el.cancellationReason : 'No ha sido cancelada.'
       el.date = format(new Date(el.date), 'yyyy-MM-dd HH:mm')
       el.attended = el.report && el.report.length > 0;
 

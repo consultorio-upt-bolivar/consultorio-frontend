@@ -40,7 +40,7 @@ export function CreateSpecialistPage(): React.ReactElement {
 
   // Edit form listener
   useEffect(() => {
-    if (data) {
+    if (data && params.id) {
       const { profile, ...rest } = data;
 
       const options: any = {

@@ -31,7 +31,7 @@ export function ListSpecialitiesPage(): React.ReactElement {
   }
 
   const editAction = (id: number) => {
-    AppHistory.push('/admin/especialidades/' + id)
+    AppHistory.push('/admin/especialidades/editar/' + id)
   }
 
   const params: DataTablaParams = {

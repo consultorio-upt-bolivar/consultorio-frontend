@@ -15,18 +15,19 @@ const item: SxProps<Theme> = {
 
 function HomeInfo() {
     return (
-        <Box
-            component="section"
-            sx={{ display: 'flex', overflow: 'hidden' }}
-        >
-            <Container sx={{ mt: 15, mb: 15, display: 'flex', position: 'relative' }}>
-                <Box
-                    component="img"
-                    src="/images/waves.png"
-                    alt="lines"
-                    sx={{ pointerEvents: 'none', position: 'absolute', top: -180 }}
-                />
-                <Grid container spacing={5}>
+        <Box>
+            <Typography
+                component="div"
+                color="primary"
+                align="center"
+                variant="h4"
+                sx={{ mb: 15, display: "block", fontSize: "36px", fontWeight: "500" }}
+            >
+                SOBRE NOSOTROS
+            </Typography>
+
+            <Container sx={{ display: 'flex', position: 'relative' }}>
+                <Grid container >
                     <Grid item xs={12} md={4}>
                         <Box sx={item}>
                             <Box

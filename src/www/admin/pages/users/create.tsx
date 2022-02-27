@@ -36,12 +36,14 @@ export function CreateUsersPage(): React.ReactElement {
   useEffect(() => {
     if (params.id) {
       dispatch(actions.getOne(+params.id))
+    } else {
+      formik.setValues(initialValues);
     }
   }, [params.id])
 
   // Edit form listener
   useEffect(() => {
-    if (data) {
+    if (data && params.id) {
       const { profile, ...rest } = data;
 
       const options: any = {

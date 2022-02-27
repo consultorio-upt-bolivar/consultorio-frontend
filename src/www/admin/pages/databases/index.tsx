@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { alertActions, databasesActions } from '../../../../_actions';
+import { alertActions, databasesActions, toastActions } from '../../../../_actions';
 import { format } from 'date-fns'
 import { loadingActions } from '../../../../_actions/loading.actions';
 
@@ -82,6 +82,7 @@ export const DatabasesPage = (): React.ReactElement => {
           }
 
           dispatch(loadingActions.hide())
+          dispatch(toastActions.success("Base de datos restaurada."));
         }))
       }
     }));
@@ -124,7 +125,7 @@ export const DatabasesPage = (): React.ReactElement => {
           </Grid>
 
           <Grid item>
-            <Item elevation={1} style={{ flexWrap: 'wrap' }}>
+            <Item elevation={2} style={{ flexWrap: 'wrap' }}>
               <Typography component="p" variant="h5" mb={0} mt={0} align='center' onClick={() => handleClickButton()}>
                 Restaurar Base de Datos
               </Typography>

@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
   lightBlue: {
     color: 'white',
-    backgroundColor: "#00a0b2",
+    backgroundColor: theme.palette.primary.main,
     border: '0.1px solid white'
   },
   menu: {

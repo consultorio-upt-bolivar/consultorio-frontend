@@ -240,7 +240,7 @@ export const AdminRoutes: RoutesConfig[] = [
     id: 'crear-modales'
   },
   {
-    path: '/admin/modales/:id',
+    path: '/admin/modales/editar/:id',
     component: CreateModalPage,
     id: 'actualizar-modales'
   },
@@ -264,7 +264,7 @@ export const AdminRoutes: RoutesConfig[] = [
     id: 'autorizar-familiar',
   },
   {
-    path: '/admin/usuarios/:id',
+    path: '/admin/usuarios/editar/:id',
     component: CreateUsersPage,
     id: 'actualizar-usuarios'
   },
@@ -282,7 +282,7 @@ export const AdminRoutes: RoutesConfig[] = [
     id: 'crear-especialistas'
   },
   {
-    path: '/admin/especialistas/:id',
+    path: '/admin/especialistas/editar/:id',
     component: CreateSpecialistPage,
     id: 'actualizar-especialistas'
   },
@@ -300,7 +300,7 @@ export const AdminRoutes: RoutesConfig[] = [
     id: 'crear-oficinas'
   },
   {
-    path: '/admin/oficinas/:id',
+    path: '/admin/oficinas/editar/:id',
     component: CreateOfficePage,
     id: 'actualizar-oficinas'
   },
@@ -318,7 +318,7 @@ export const AdminRoutes: RoutesConfig[] = [
     id: 'crear-especialidades'
   },
   {
-    path: '/admin/especialidades/:id',
+    path: '/admin/especialidades/editar/:id',
     component: CreateSpecialitiesPage,
     id: 'actualizar-especialidades'
   },
@@ -336,7 +336,7 @@ export const AdminRoutes: RoutesConfig[] = [
     id: 'crear-jornadas'
   },
   {
-    path: '/admin/jornadas/:id',
+    path: '/admin/jornadas/editar/:id',
     component: CreateSchedulesPage,
     id: 'actualizar-jornadas'
   },

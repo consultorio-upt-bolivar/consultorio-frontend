@@ -40,7 +40,7 @@ export function CreateOfficePage(): React.ReactElement {
 
   // Edit form listener
   useEffect(() => {
-    if (data) {
+    if (data && params.id) {
       formik.setValues(data)
     }
   }, [data])

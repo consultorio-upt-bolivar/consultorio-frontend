@@ -41,7 +41,7 @@ export function ListUsersPage(): React.ReactElement {
   }
 
   const editAction = (id: number) => {
-    AppHistory.push('/admin/usuarios/' + id)
+    AppHistory.push('/admin/usuarios/editar/' + id)
   }
 
   const params: DataTablaParams = {
@@ -50,7 +50,7 @@ export function ListUsersPage(): React.ReactElement {
         field: 'id',
         headerName: 'ID',
         description: 'Id único en la BD',
-        flex: 1,
+        flex: 0.5,
       },
       {
         field: 'name',
@@ -87,7 +87,7 @@ export function ListUsersPage(): React.ReactElement {
         headerName: 'Activo',
         description: '¿Está habilitado?',
         type: 'boolean',
-        flex: 1,
+        flex: 0.5,
       },
     ],
     rows: items?.map((el: any) => {

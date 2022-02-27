@@ -69,7 +69,10 @@ export function ProfileAdminPage(): React.ReactElement {
                     options.password = password
                 }
 
-                dispatch(actions.updateOne(+user.id, options))
+                dispatch(actions.updateOne(+user.id, options, {
+                    toast: "Datos actualizados!",
+                    redirect: "/admin"
+                }))
             }
         },
     })

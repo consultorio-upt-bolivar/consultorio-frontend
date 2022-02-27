@@ -63,7 +63,7 @@ export function CreateModalPage(): React.ReactElement {
 
   // Edit form listener
   useEffect(() => {
-    if (data) {
+    if (data && params.id) {
       formik.setValues(data)
     }
   }, [data])
@@ -139,7 +139,7 @@ export function CreateModalPage(): React.ReactElement {
           <Grid container spacing={2} justifyContent="center">
             <Grid item sm={12} md={4} >
               <div>
-                <Item elevation={1} style={{ flexWrap: 'wrap', marginBottom: '10px' }}>
+                <Item elevation={2} style={{ flexWrap: 'wrap', marginBottom: '10px', marginTop: '20px' }}>
                   <input style={{ visibility: 'hidden', position: 'absolute', width: 0, height: 0 }} accept=".jpg,.png" type="file" ref={inputRef} onChange={(e) => validateFile(e)}></input>
 
 

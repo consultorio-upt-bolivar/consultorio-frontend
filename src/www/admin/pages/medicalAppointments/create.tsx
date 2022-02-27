@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { add } from 'date-fns'
 import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
-import { Divider, Typography, Container, FormControl, InputLabel, MenuItem, Select, FormHelperText } from '@mui/material';
+import { Divider, Typography, Container, FormControl, InputLabel, MenuItem, Select, FormHelperText, Autocomplete, TextField } from '@mui/material';
 
 import {
     formStyles,
@@ -25,9 +25,9 @@ import { AppHistory } from '../../../../helpers'
 export function CreateMedicalAppointmentPage(): React.ReactElement {
     const today = new Date()
 
-    const { items: officesList } = useSelector((store: any) => store.offices)
-    const { items: specialitiesList } = useSelector((store: any) => store.specialities)
-    const { items: usersList } = useSelector((store: any) => store.users);
+    const { items: officesList = [] } = useSelector((store: any) => store.offices)
+    const { items: specialitiesList = [] } = useSelector((store: any) => store.specialities)
+    const { items: usersList = [] } = useSelector((store: any) => store.users);
     const [specialistList, setSpecialistList] = useState([]);
     const [filteredSpecialities, setFilteredSpecialities] = useState([])
 
@@ -138,6 +138,16 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
     useEffect(() => {
         formik.setFieldValue("specialistId", "")
     }, [formik.values.specialityId])
+
+    const onChangeAutocompete = (_:any, value: any) => {
+        formik.setFieldTouched("user");
+
+        if(!value) {
+            formik.setFieldError("user", "* Requerido")
+        }
+
+        formik.setFieldValue("user", value.id)
+    }
 
     return (
         <AdminLayout>
@@ -252,25 +262,25 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                         className={classes.formControl}
                         sx={{ mt: 2 }}
                     >
-                        <InputLabel className={classes.selectLabel} id='select-users'>
-                            Paciente a solicitar la cita médica
-                        </InputLabel>
-                        <Select
-                            labelId='select-users'
-                            label="user"
-                            {...formik.getFieldProps("user")}
-                        >
-                            <MenuItem value="">
-                                Seleccionar
-                            </MenuItem>
-                            {usersList?.map((el: any) => {
-                                return (
-                                    <MenuItem key={el.name} value={el}>
-                                        {el.id} - {el.name} - {el.email}
-                                    </MenuItem>
-                                )
+                        <Autocomplete
+                            disablePortal
+                            id="select-users"
+                            options={usersList?.map((el: any) => {
+                                return {
+                                    id: el.id,
+                                    label: `${el.legalId} - ${el.name}`
+                                }
                             })}
-                        </Select>
+                            onInputChange={onChangeAutocompete}
+                            onChange={onChangeAutocompete}
+                            sx={{ width: "100%" }}
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            renderInput={(params) => <TextField
+                                {...params}
+                                label="Paciente a solicitar la cita médica"
+                            />}
+                        />
+
                         <FormHelperText className={classes.errorText} error>
                             {formik.touched.user && formik.errors.user
                                 ? formik.errors.user
@@ -291,7 +301,7 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
                     dateEnd={formik.values.dateEnd}
                     specialityId={formik.values.specialityId}
                     specialistId={formik.values.specialistId}
-                    user={formik.values.user}
+                    user={usersList?.find((el: any) => el.id == formik.values.user) ?? false}
                     submitCallback={submitCallback}
                 />
             </Container>
