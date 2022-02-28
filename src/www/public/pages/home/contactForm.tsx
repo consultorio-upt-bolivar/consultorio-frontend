@@ -95,12 +95,12 @@ export function ContactForm(): React.ReactElement {
         color="primary"
         align="center"
         variant="h4"
-        sx={{ mb: 10, mt: 0, display: "block", fontSize: "36px", fontWeight: "500" }}
+        sx={{ mb: 5, mt: 0, display: "block", fontSize: "36px", fontWeight: "500" }}
       >
         CONTACTO
       </Typography>
 
-      <Grid container spacing={10}>
+      <Grid container columnSpacing={10}>
         <Grid item xs={12} md={6}>
 
           <form className={classes.form} noValidate>

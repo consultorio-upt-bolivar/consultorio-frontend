@@ -10,7 +10,7 @@ import { useFormik } from 'formik'
 import { authActions } from '../../../../_actions'
 
 // Material
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import PersonIcon from '@mui/icons-material/Person';
 import { initialValues, validationSchema } from './loginForm'
 
 import {
@@ -59,13 +59,13 @@ export function LoginPage() {
     <PublicLayout>
       <Grid
         container
-        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 5, width: "100%", height: "100%" }}
+        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', width: "100%", height: "100%" }}
       >
         <Grid item xs={11} sm={10} md={6} lg={4} style={{
            maxWidth: "450px"
          }} className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <PersonIcon />
           </Avatar>
           <Typography variant="h5">
             {loading ? formOptions.loadingText : formOptions.title}

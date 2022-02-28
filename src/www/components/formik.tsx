@@ -12,6 +12,7 @@ import theme from '../../theme/main';
 export const formStyles = makeStyles({
   paper: {
     marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

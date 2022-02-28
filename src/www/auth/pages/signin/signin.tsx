@@ -10,7 +10,7 @@ import { useFormik } from 'formik'
 import { authActions, toastActions } from '../../../../_actions'
 
 // Material
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { formFields, initialValues, validationSchema } from './signinForm'
 
 import {
@@ -113,7 +113,7 @@ export function SigninPage() {
            maxWidth: "450px"
          }} className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <PersonAddAltIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             {loading ? formOptions.loadingText : formOptions.title}

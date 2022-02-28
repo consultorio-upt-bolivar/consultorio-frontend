@@ -36,7 +36,7 @@ const useStyles = makeStyles({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    background: "transparent",
+    background: "white",
     color: theme.palette.primary.main,
     position: "fixed",
     top: "0",
@@ -90,7 +90,7 @@ export const PublicLayout = ({
               component="img"
               src="/images/logo.png"
               alt="suitcase"
-              sx={{ width: "200px", mt: "15px" }}
+              sx={{ width: "250px", mt: "15px" }}
             />
           </Typography>
 

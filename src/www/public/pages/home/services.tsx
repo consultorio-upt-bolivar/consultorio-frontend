@@ -21,7 +21,7 @@ function HomeServices() {
                 color="primary"
                 align="center"
                 variant="h4"
-                sx={{ mb: 15, mt: 0, display: "block", fontSize: "36px", fontWeight: "500" }}
+                sx={{ mb: 15, mt: 10, display: "block", fontSize: "36px", fontWeight: "500" }}
             >
                 SERVICIOS
             </Typography>

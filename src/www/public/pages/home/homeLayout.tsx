@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        background: "transparent",
+        background: "white",
         color: theme.palette.primary.main,
         position: "fixed",
         top: "0",

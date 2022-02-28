@@ -55,7 +55,7 @@ export function ForgotPasswordPage() {
     <PublicLayout>
       <Grid
         container
-        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 5, width: "100%", height: "100%" }}
+        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', width: "100%", height: "100%" }}
       >
          <Grid item xs={11} sm={10} md={6} lg={4} style={{
            maxWidth: "450px"
