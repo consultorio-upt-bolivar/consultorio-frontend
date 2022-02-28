@@ -112,7 +112,7 @@ export function ContactForm(): React.ReactElement {
               variant="contained"
               color="primary"
               className={classes.submit}
-              disabled={loading || !formik.isValid}
+              disabled={loading}
               onClick={(e) => handleSubmit(e)}
             >
               Enviar consulta

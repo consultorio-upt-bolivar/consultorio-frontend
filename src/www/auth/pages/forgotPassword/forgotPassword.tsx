@@ -29,8 +29,14 @@ export function ForgotPasswordPage() {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (data) => {
-      dispatch(authActions.changePassword(data))
+    onSubmit: ({
+      token,
+      ...data
+    }) => {
+      dispatch(authActions.changePassword({
+        token: String(token),
+        ...data
+      }))
     },
   })
 

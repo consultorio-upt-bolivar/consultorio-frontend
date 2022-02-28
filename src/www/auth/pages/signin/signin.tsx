@@ -57,7 +57,13 @@ export function SigninPage() {
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault()
 
+    console.log(formik)
     if (!formik.isValid) {
+      return;
+    }
+
+    if(!formik.values.profile || formik.values.profile == "") {
+      formik.setFieldError("profile", "* Requerido.")
       return;
     }
 
@@ -65,7 +71,7 @@ export function SigninPage() {
 
     try {
       if (isNaN(+formik.values.legalId)) {
-        dispatch(toastActions.error("Identificación inválida."))
+        dispatch(toastActions.error("Cédula inválida."))
         return;
       }
 
@@ -78,14 +84,14 @@ export function SigninPage() {
 
     if (formik.values["profile"] === Roles.Family) {
       if (isNaN(+formik.values.familyLegalId)) {
-        dispatch(toastActions.error("Identificación de familiar inválida."))
+        dispatch(toastActions.error("Cédula de familiar inválida."))
         return;
       }
 
       try {
         await api.validateLegalIdUPT(formik.values.familyLegalId, Roles.Employee)
       } catch (error) {
-        dispatch(toastActions.error("Identificación de familiar inválida."))
+        dispatch(toastActions.error("Cédula de familiar inválida."))
         return
       }
 
@@ -134,7 +140,7 @@ export function SigninPage() {
                     margin="dense"
                     fullWidth
                     id="familyLegalId"
-                    label="Identificación de familiar"
+                    label="Cédula de familiar"
                     {...formik.getFieldProps("familyLegalId")}
                   />
                   <FormHelperText className={classes.errorText} error>
@@ -152,7 +158,7 @@ export function SigninPage() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              disabled={loading || !formik.isValid}
+              disabled={loading}
               onClick={(e) => handleSubmit(e)}
             >
               Registrarme

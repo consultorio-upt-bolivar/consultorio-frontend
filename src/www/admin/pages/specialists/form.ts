@@ -33,7 +33,7 @@ export const formFields = {
   },
   legalId: {
     type: 'text',
-    label: 'Identificación',
+    label: 'Cédula',
     required: true
   },
   email: 'Correo electrónico',
