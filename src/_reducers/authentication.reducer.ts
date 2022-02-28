@@ -6,6 +6,7 @@ const user = getUserData()
 const initialState = user ? { loggedIn: true, user } : {}
 
 interface AuthAction {
+  mailSent?: boolean
   loading?: boolean
   error?: boolean
   loggedIn?: boolean
@@ -60,6 +61,7 @@ export function authentication(
     case authConstants.SEND_MAIL_SUCCESS:
       return {
         loading: false,
+        mailSent: true,
       }
     case authConstants.SEND_MAIL_FAILURE:
       return {

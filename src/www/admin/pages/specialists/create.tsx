@@ -78,12 +78,18 @@ export function CreateSpecialistPage(): React.ReactElement {
     },
   })
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault()
 
-    if (formik.isValid) {
-      formik.submitForm()
+    const errors = await formik.validateForm();
+
+    formik.setErrors(errors);
+
+    if (!formik.isValid || Object.keys(errors).length > 0) {
+      return;
     }
+
+    formik.submitForm()
   }
 
   const formikFields = GetFormikFields(formik, formFields)

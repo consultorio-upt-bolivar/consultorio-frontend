@@ -55,10 +55,18 @@ export function CancelMedicalAppointmentDialog({
         setLoading(false)
     };
 
-    const handleCancel = (e: React.MouseEvent) => {
+    const handleCancel = async (e: React.MouseEvent) => {
         e.preventDefault()
 
-        if (!formik.isValid || !medicalAppointmentId) return;
+        const errors = await formik.validateForm();
+    
+        formik.setErrors(errors);
+    
+        if (!formik.isValid || Object.keys(errors).length > 0) {
+            return;
+        }
+
+        if (!medicalAppointmentId) return;
 
         formik.submitForm().then(values => {
             dispatch(alertActions.show({

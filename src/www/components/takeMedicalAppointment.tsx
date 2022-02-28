@@ -131,10 +131,18 @@ export function TakeMedicalAppointmentDialog({
         setLoading(false)
     };
 
-    const handleSubmit = (e: React.MouseEvent) => {
+    const handleSubmit = async (e: React.MouseEvent) => {
         e.preventDefault()
 
-        if (!formik.isValid || !medicalAppointment) return;
+        const errors = await formik.validateForm();
+    
+        formik.setErrors(errors);
+    
+        if (!formik.isValid || Object.keys(errors).length > 0) {
+            return;
+        }
+        
+        if (!medicalAppointment) return;
 
         formik.submitForm().then(values => {
             const options: any = {

@@ -24,11 +24,11 @@ export function toast(state: ToastAction = { show: false }, action: ToastAction)
       return {
         show: false,
         type: state.type,
-        message: state.message
+        message: ""
       }
     default:
       return {
-        show: false,
+        show: true,
         type: state.type,
         message: state.message
       }

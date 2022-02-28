@@ -33,7 +33,7 @@ export default function ToastMessage() {
 
   return (
     <div className={classes.root}>
-      <Snackbar open={toast.show} autoHideDuration={6000} resumeHideDuration={3000} onClose={handleClose}>
+      <Snackbar open={!!toast.show && toast.message && toast.message.length} autoHideDuration={6000} resumeHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={toast.type}>
           {toast.message}
         </Alert>

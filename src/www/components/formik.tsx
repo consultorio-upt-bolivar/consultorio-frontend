@@ -87,7 +87,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
               }}
           />
           <FormHelperText className={classes.errorText} error>
-            {formik.errors[name]
+            {(formik.touched[name] && formik.errors[name]) || formik.errors[name]
               ? formik.errors[name]
               : null}
           </FormHelperText>
@@ -124,7 +124,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
               }}
             />
             <FormHelperText className={classes.errorText} error>
-              {formik.errors[name]
+              {(formik.touched[name] && formik.errors[name]) || formik.errors[name]
                 ? formik.errors[name]
                 : null}
             </FormHelperText>
@@ -151,7 +151,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
               }}
             />
             <FormHelperText className={classes.errorText} error>
-              {formik.errors[name]
+              {(formik.touched[name] && formik.errors[name]) || formik.errors[name]
                 ? formik.errors[name]
                 : null}
             </FormHelperText>
@@ -190,7 +190,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
                 })}
               </Select>
               <FormHelperText className={classes.errorText} error>
-              {formik.errors[name]
+              {(formik.touched[name] && formik.errors[name]) || formik.errors[name]
                 ? formik.errors[name]
                 : null}
               </FormHelperText>
@@ -215,7 +215,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
               {...formik.getFieldProps(name)}
             />
             <FormHelperText className={classes.errorText} error>
-              {formik.errors[name]
+              {(formik.touched[name] && formik.errors[name]) || formik.errors[name]
                 ? formik.errors[name]
                 : null}
             </FormHelperText>
@@ -240,7 +240,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
               }}
             />
             <FormHelperText className={classes.errorText} error>
-              {formik.errors[name]
+              {(formik.touched[name] && formik.errors[name]) || formik.errors[name]
                 ? formik.errors[name]
                 : null}
             </FormHelperText>
@@ -266,7 +266,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
               label={options.label}
             />
             <FormHelperText className={classes.errorText} error>
-              {formik.errors[name] ? formik.errors[name] : null}
+              {(formik.touched[name] && formik.errors[name]) || formik.errors[name] ? formik.errors[name] : null}
             </FormHelperText>
           </DivContainer>
         )

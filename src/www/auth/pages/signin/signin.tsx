@@ -23,6 +23,7 @@ import { getConfiguration } from '../../../../config/api.config';
 import { handleError } from '../../../../helpers/handleApiError';
 import { Roles } from '../../../../constants/roles';
 import { AppHistory } from '../../../../helpers';
+import { IsEmpty, IsNotEmptyObject, IsObject } from 'class-validator';
 
 export function SigninPage() {
   const formOptions = {
@@ -57,13 +58,11 @@ export function SigninPage() {
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault()
 
-    console.log(formik)
-    if (!formik.isValid) {
-      return;
-    }
+    const errors = await formik.validateForm();
 
-    if(!formik.values.profile || formik.values.profile == "") {
-      formik.setFieldError("profile", "* Requerido.")
+    formik.setErrors(errors);
+
+    if (!formik.isValid || Object.keys(errors).length > 0) {
       return;
     }
 

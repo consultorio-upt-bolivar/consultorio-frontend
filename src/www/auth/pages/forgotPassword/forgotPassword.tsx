@@ -23,7 +23,7 @@ import { AppHistory } from '../../../../helpers';
 export function ForgotPasswordPage() {
   const dispatch = useDispatch()
   const classes = formStyles()
-  const { loading } = useSelector((store: any) => store.authentication)
+  const { mailSent, loading } = useSelector((store: any) => store.authentication)
 
   // Form
   const formik = useFormik({
@@ -40,12 +40,18 @@ export function ForgotPasswordPage() {
     },
   })
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault()
 
-    if (formik.isValid) {
-      formik.submitForm()
+    const errors = await formik.validateForm();
+
+    formik.setErrors(errors);
+
+    if (!formik.isValid || Object.keys(errors).length > 0) {
+      return;
     }
+
+    formik.submitForm()
   }
 
   const handleSendCode = (e: React.MouseEvent) => {
@@ -95,7 +101,7 @@ export function ForgotPasswordPage() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              disabled={!!loading}
+              disabled={!!loading || !!mailSent}
               onClick={(e) => handleSendCode(e)}
             >
               Enviar código de seguridad

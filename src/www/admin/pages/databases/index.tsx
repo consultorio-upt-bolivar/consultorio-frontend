@@ -3,24 +3,34 @@ import { Box, Button, Container, IconButton } from '@mui/material';
 import { AdminLayout } from '../../components/adminLayout'
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { alertActions, databasesActions, toastActions } from '../../../../_actions';
 import { format } from 'date-fns'
 import { loadingActions } from '../../../../_actions/loading.actions';
 import { DataTablaParams, DataTable, RowMenuProps, useRowMenuStyles } from '../../../components/table';
 
 import DeleteIcon from '@material-ui/icons/DeleteOutlined'
-import { DatabasesApi } from '../../../../_api';
+import { DatabasesApi, Roles } from '../../../../_api';
 import { getConfiguration } from '../../../../config/api.config';
 import theme from '../../../../theme/main';
 import RestoreIcon from '@mui/icons-material/Restore';
+import DownloadIcon from '@mui/icons-material/Download';
+import { getUserData } from '../../../../helpers/userStorage';
 
 export const DatabasesPage = (): React.ReactElement => {
   const inputRef = useRef(null)
   const [items, setItems] = useState<any>([])
+  const [isSubAdmin, setIsSubAdmin] = useState<any>(false)
   const [sqlFile, setSqlFile] = useState<any>(false)
-  const { sql } = useSelector((state: any) => state.databases)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const userData = getUserData()
+
+    if (userData.profile.id == Roles.Admin2) {
+      setIsSubAdmin(true)
+    }
+  })
 
   const getBackups = async () => {
     const api = new DatabasesApi(getConfiguration())
@@ -30,10 +40,9 @@ export const DatabasesPage = (): React.ReactElement => {
     try {
       const { data } = await api.getAllFilesDatabaseApi();
       setItems(data)
+      dispatch(loadingActions.hide());
     } catch (error) {
       dispatch(toastActions.error("No se han encontrado respaldos!"))
-    }
-    finally {
       dispatch(loadingActions.hide());
     }
   }
@@ -49,27 +58,14 @@ export const DatabasesPage = (): React.ReactElement => {
 
     try {
       await api.restoreFileDatabaseApi(fileName);
+      dispatch(loadingActions.hide());
       dispatch(toastActions.success("Respaldo restaurado!"))
       getBackups()
     } catch (error) {
       console.log(error)
+      dispatch(loadingActions.hide());
       dispatch(toastActions.error("No se pudo restaurar el respaldo de la base de datos!"))
     }
-    finally {
-      dispatch(loadingActions.hide());
-    }
-  }
-
-  const handleClick = (event: any, row: any) => {
-    event.stopPropagation();
-
-    dispatch(alertActions.show({
-      title: `Restaurar base de datos`,
-      description: `Quieres restaurar este respaldo de base de datos?`,
-      callback: async () => {
-        restoreDatabase(row.fileName)
-      }
-    }));
   }
 
   const deleteBackup = async (fileName: string) => {
@@ -89,8 +85,37 @@ export const DatabasesPage = (): React.ReactElement => {
       dispatch(loadingActions.hide());
     }
   }
+  
+  const downloadBackup = async (fileName: string) => {
+    const api = new DatabasesApi(getConfiguration())
+    dispatch(loadingActions.show());
 
-  const handleCancel = (event: any, row: any) => {
+    try {
+      const { data }: any = api.downloadBackupDatabaseApi(fileName);
+      downloadSql(data);
+      getBackups()
+    } catch (error) {
+      console.log(error)
+      dispatch(toastActions.error("No se pudo descargar el respaldo de la base de datos!"))
+    }
+    finally {
+      dispatch(loadingActions.hide());
+    }
+  }
+
+  const handleRestoreIcon = (event: any, row: any) => {
+    event.stopPropagation();
+
+    dispatch(alertActions.show({
+      title: `Restaurar base de datos`,
+      description: `Quieres restaurar este respaldo de base de datos?`,
+      callback: async () => {
+        restoreDatabase(row.fileName)
+      }
+    }));
+  }
+
+  const handleCancelIcon = (event: any, row: any) => {
     event.stopPropagation();
 
     dispatch(alertActions.show({
@@ -98,6 +123,18 @@ export const DatabasesPage = (): React.ReactElement => {
       description: `Quieres eliminar este respaldo de base de datos?`,
       callback: async () => {
         deleteBackup(row.fileName)
+      }
+    }));
+  }
+
+  const handleDownloadIcon = (event: any, row: any) => {
+    event.stopPropagation();
+
+    dispatch(alertActions.show({
+      title: `Descargar`,
+      description: `Quieres descargar este respaldo de base de datos?`,
+      callback: async () => {
+        downloadBackup(row.fileName)
       }
     }));
   }
@@ -124,7 +161,9 @@ export const DatabasesPage = (): React.ReactElement => {
         headerName: 'Acciones',
         renderCell: (props: RowMenuProps) => {
           const { row } = props;
-
+          
+          if(isSubAdmin) return null;
+          
           return (
             <div className={rowMenuClasses.root}>
               <IconButton
@@ -132,7 +171,7 @@ export const DatabasesPage = (): React.ReactElement => {
                 className={rowMenuClasses.textPrimary}
                 size="small"
                 aria-label="toggle"
-                onClick={(e) => handleClick(e, row)}
+                onClick={(e) => handleRestoreIcon(e, row)}
               >
                 <RestoreIcon fontSize="small" />
               </IconButton>
@@ -142,20 +181,31 @@ export const DatabasesPage = (): React.ReactElement => {
                 className={rowMenuClasses.textPrimary}
                 size="small"
                 aria-label="toggle"
-                onClick={(e) => handleCancel(e, row)}
+                onClick={(e) => handleCancelIcon(e, row)}
               >
                 <DeleteIcon fontSize="small" />
+              </IconButton>
+
+              <IconButton
+                color="inherit"
+                className={rowMenuClasses.textPrimary}
+                size="small"
+                aria-label="toggle"
+                onClick={(e) => handleDownloadIcon(e, row)}
+              >
+                <DownloadIcon fontSize="small" />
               </IconButton>
             </div>
           )
         },
         sortable: false,
-        width: 100,
+        width: 200,
         headerAlign: 'center',
         filterable: false,
         align: 'center',
         disableColumnMenu: true,
-        disableReorder: true
+        disableReorder: true,
+        hide: isSubAdmin
       }
     ],
     rows: items?.map((el: any, i: number) => {
@@ -167,47 +217,56 @@ export const DatabasesPage = (): React.ReactElement => {
   }
 
   // Listen backup restore
-  useEffect(() => {
-    if (sql) {
-      const url = window.URL.createObjectURL(new Blob([sql], {
-        type: 'text/plain'
-      }));
+  const downloadSql = (sql: string) => {
+    const url = window.URL.createObjectURL(new Blob([sql], {
+      type: 'text/plain'
+    }));
 
-      const link = document.createElement('a');
+    const link = document.createElement('a');
 
-      link.href = url;
-      link.setAttribute('download', `backup-database-${format(new Date(), 'yyyy-MM-dd')}.sql`);
-      // 3. Append to html page
-      document.body.appendChild(link);
-      // 4. Force download
-      link.click();
-      // 5. Clean up and remove the link
-      if (link && link.parentNode) {
-        link.parentNode.removeChild(link);
-      }
-
-      dispatch(databasesActions.clearState())
+    link.href = url;
+    link.setAttribute('download', `backup-database-${format(new Date(), 'yyyy-MM-dd')}.sql`);
+    // 3. Append to html page
+    document.body.appendChild(link);
+    // 4. Force download
+    link.click();
+    // 5. Clean up and remove the link
+    if (link && link.parentNode) {
+      link.parentNode.removeChild(link);
     }
-  }, [sql])
 
-  const handleBackupDatabase = () => {
+    dispatch(databasesActions.clearState())
+  }
+
+  const handleBackupDatabase = async () => {
     dispatch(loadingActions.show())
 
-    dispatch(databasesActions.backupDatabase(false, () => {
-      dispatch(loadingActions.hide())
+    const api = new DatabasesApi(getConfiguration())
+
+    try {
+      const { data }: any = await api.backupDatabaseApi();
+
+      downloadSql(data);
+
+      dispatch(toastActions.success("Base de datos respaldada."));
       getBackups();
-    }))
+    } catch (error) {
+      console.log(error)
+      dispatch(toastActions.error("No se pudo respaldar la base de datos!"))
+    } finally {
+      dispatch(loadingActions.hide());
+    }
   }
 
   const handleRestoreDatabase = () => {
     if (!sqlFile) return
 
-    dispatch(loadingActions.show())
-
     dispatch(alertActions.show({
       title: "Restaurar Base de Datos",
       description: "¿Está seguro de restaurar la Base de Datos? Los datos actuales seran remplazados.",
       callback: () => {
+        dispatch(loadingActions.show())
+
         dispatch(databasesActions.restoreDatabase(sqlFile, true, () => {
 
           dispatch(databasesActions.clearState())
@@ -255,7 +314,7 @@ export const DatabasesPage = (): React.ReactElement => {
         </Typography>
 
         <Grid container spacing={2} style={{ marginTop: '20px', marginBottom: '20px' }} justifyContent="center">
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={!isSubAdmin ? 12 : 6}>
             <Button
               fullWidth
               variant="contained"
@@ -266,7 +325,7 @@ export const DatabasesPage = (): React.ReactElement => {
             </Button>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          {!isSubAdmin ? <Grid item xs={12} md={6}>
             <Button
               fullWidth
               variant="contained"
@@ -289,7 +348,7 @@ export const DatabasesPage = (): React.ReactElement => {
               </Button> : null}
 
             <input style={{ visibility: 'hidden', position: 'absolute', width: 0, height: 0 }} accept=".sql,application/sql" type="file" ref={inputRef} onChange={(e) => validateSqlFile(e)}></input>
-          </Grid>
+          </Grid> : null}
         </Grid>
 
         <Box
