@@ -40,7 +40,7 @@ export default function LayoutFooter() {
                 <Grid item xs={12} md={6} className={classes.logo} >
                     <Box
                         component="img"
-                        src="/images/logo_white.png"
+                        src={process.env.PUBLIC_URL + "/images/logo_white.png"}
                         alt="suitcase"
                         sx={{ width: "250px" }}
                     />

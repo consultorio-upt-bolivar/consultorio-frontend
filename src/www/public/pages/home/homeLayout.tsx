@@ -67,10 +67,7 @@ const useStyles = makeStyles({
     loginButton: {
         textTransform: "none",
         marginLeft: "10px",
-        boxShadow: "none",
-        [theme.breakpoints.down('sm')]: {
-            display: "none"
-        },
+        boxShadow: "none"
     }
 })
 
@@ -123,13 +120,13 @@ export const HomeLayout = ({
                         noWrap
                         className={classes.appBarTitle}
                         onClick={() => {
-                            AppHistory.push("/login")
+                            AppHistory.push("/")
                         }}
                         sx={{ textDecoration: "none" }}
                     >
                         <Box
                             component="img"
-                            src="/images/logo.png"
+                            src={process.env.PUBLIC_URL + "/images/logo.png"}
                             alt="suitcase"
                             sx={{ width: "250px", mt: "15px" }}
                         />
@@ -178,7 +175,7 @@ export const HomeLayout = ({
                                 AppHistory.push("/login")
                             }}
                             className={classes.loginButton}
-                        >Iniciar sesión</Button> :
+                        >Ingresar</Button> :
                         <div style={{
                             marginLeft: "15px"
                         }}>

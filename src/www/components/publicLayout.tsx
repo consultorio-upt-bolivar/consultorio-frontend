@@ -88,7 +88,7 @@ export const PublicLayout = ({
           >
             <Box
               component="img"
-              src="/images/logo.png"
+              src={process.env.PUBLIC_URL + "/images/logo.png"}
               alt="suitcase"
               sx={{ width: "250px", mt: "15px" }}
             />
