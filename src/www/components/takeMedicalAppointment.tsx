@@ -16,16 +16,15 @@ import theme from '../../theme/main';
 const ReportInfo = ({ data }: any) => {
     return <Grid item width="100%" padding={0}>
         <Box style={{
-            border: "1px solid silver",
             borderRadius: "3px",
             marginBottom: "10px"
         }}>
             <div className='d-flex justify-content-between' style={{
-                borderBottom: "1px solid silver",
                 padding: "10px 15px",
                 background: theme.palette.primary.main,
                 color: "white",
                 display: "flex",
+                borderRadius: "3px",
                 justifyContent: "space-between",
                 alignItems: "center"
             }}>
@@ -38,24 +37,29 @@ const ReportInfo = ({ data }: any) => {
                 </Typography>
             </div>
 
-            <Box style={{ padding: "10px 15px", overflow: 'hidden' }}>
-                <Typography sx={{ fontSize: 16 }} margin="0">
-                    Especialista: {data.schedule.specialist.name}
-                </Typography>
-
-                <Typography sx={{ fontSize: 16 }} margin="0">
-                    Reporte médico: {data.report}
-                </Typography>
-            </Box>
-
-            {data.refferedSpeciality ? <div style={{
-                borderTop: "1px solid silver",
-                padding: "10px 15px"
+            <div style={{
+                border: "1px solid silver",
+                borderRadius: "3px"
             }}>
-                <Typography sx={{ fontSize: 14 }} margin="0">
-                    Referido a: {data.refferedSpeciality.name}
-                </Typography>
-            </div> : null}
+                <Box style={{ padding: "10px 15px", overflow: 'hidden' }}>
+                    <Typography sx={{ fontSize: 16 }} margin="0">
+                        Especialista: {data.schedule.specialist.name}
+                    </Typography>
+
+                    <Typography sx={{ fontSize: 16 }} margin="0">
+                        Reporte médico: {data.report}
+                    </Typography>
+                </Box>
+
+                {data.refferedSpeciality ? <div style={{
+                    borderTop: "1px solid silver",
+                    padding: "10px 15px"
+                }}>
+                    <Typography sx={{ fontSize: 14 }} margin="0">
+                        Referido a: {data.refferedSpeciality.name}
+                    </Typography>
+                </div> : null}
+            </div>
         </Box>
     </Grid >
 }
@@ -157,7 +161,7 @@ export function TakeMedicalAppointmentDialog({
 
     // Loading circle
     useEffect(() => {
-        if(loading) {
+        if (loading) {
             dispatch(loadingActions.show())
         } else {
             dispatch(loadingActions.hide())

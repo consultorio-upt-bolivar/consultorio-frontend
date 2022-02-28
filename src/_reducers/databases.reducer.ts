@@ -31,7 +31,6 @@ export function databases(
             return {
                 loading: true,
             }
-
         case constants.RESTORE_SUCCESS:
             return {
                 loading: false,
@@ -42,8 +41,7 @@ export function databases(
                 loading: false,
                 error: action.error
             }
-
         default:
-            return state
+            return {}
     }
 }

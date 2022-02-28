@@ -7,7 +7,7 @@ import theme from '../../theme/main'
 import { Snackbar } from '@material-ui/core';
 
 function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />
+  return <MuiAlert elevation={0} variant="filled" {...props} />
 }
 
 const useStyles = makeStyles({

@@ -41,9 +41,11 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
   const handleClick = (event: any, row: any) => {
     event.stopPropagation();
 
+    const reported = row.report && row.report.length > 0 || row.cancellationDate;
+
     dispatch(alertActions.show({
       title: `Citas médica`,
-      description: `Quieres modificar esta cita médica?`,
+      description: reported ? `Quieres ver el historial médico?` : `Quieres modificar esta cita médica?`,
       callback: () => {
         setMedicalAppointment(row.id)
         setOpen(true);
@@ -67,11 +69,6 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
   const rowMenuClasses = useRowMenuStyles()
 
   const params: DataTablaParams = {
-    initialState: {
-      sorting: {
-        sortModel: [{ field: 'id', sort: 'desc' }],
-      },
-    },
     columns: [
       {
         field: 'id',
@@ -79,7 +76,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
         description: 'Id único en la BD',
         flex: 1,
         minWidth: 100,
-        hide: true
+        hide: false
       },
       {
         field: 'specialityName',
@@ -142,7 +139,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
                 <RemoveRedEyeOutlined fontSize="small" />
               </IconButton>
 
-              <IconButton
+              {!row.cancellationDate ? <IconButton
                 color="inherit"
                 className={rowMenuClasses.textPrimary}
                 size="small"
@@ -150,7 +147,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
                 onClick={(e) => handleCancel(e, row)}
               >
                 <DeleteIcon fontSize="small" />
-              </IconButton>
+              </IconButton> : null}
             </div>
           )
         },

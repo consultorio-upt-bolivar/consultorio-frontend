@@ -173,7 +173,7 @@ export function CancelMedicalAppointmentDialog({
                                     multiline
                                     fullWidth
                                     id="cancellationReason"
-                                    label=' de cancelación'
+                                    label='Razón de cancelación'
                                     rows={6}
                                     required={false}
                                     {...formik.getFieldProps("cancellationReason")}

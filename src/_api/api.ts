@@ -918,6 +918,68 @@ export const DatabasesApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @param {string} fileName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFileDatabaseApi: async (fileName: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'fileName' is not null or undefined
+            assertParamExists('deleteFileDatabaseApi', 'fileName', fileName)
+            const localVarPath = `/databases/{fileName}`
+                .replace(`{${"fileName"}}`, encodeURIComponent(String(fileName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllFilesDatabaseApi: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/databases`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -934,9 +996,38 @@ export const DatabasesApiAxiosParamCreator = function (configuration?: Configura
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearer required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} fileName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        restoreFileDatabaseApi: async (fileName: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'fileName' is not null or undefined
+            assertParamExists('restoreFileDatabaseApi', 'fileName', fileName)
+            const localVarPath = `/databases/{fileName}`
+                .replace(`{${"fileName"}}`, encodeURIComponent(String(fileName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
 
     
@@ -970,11 +1061,40 @@ export const DatabasesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} fileName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteFileDatabaseApi(fileName: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteFileDatabaseApi(fileName, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllFilesDatabaseApi(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllFilesDatabaseApi(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async restoreDatabaseApi(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.restoreDatabaseApi(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} fileName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async restoreFileDatabaseApi(fileName: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.restoreFileDatabaseApi(fileName, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -997,11 +1117,37 @@ export const DatabasesApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @param {string} fileName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFileDatabaseApi(fileName: string, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteFileDatabaseApi(fileName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllFilesDatabaseApi(options?: any): AxiosPromise<void> {
+            return localVarFp.getAllFilesDatabaseApi(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         restoreDatabaseApi(options?: any): AxiosPromise<void> {
             return localVarFp.restoreDatabaseApi(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} fileName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        restoreFileDatabaseApi(fileName: string, options?: any): AxiosPromise<void> {
+            return localVarFp.restoreFileDatabaseApi(fileName, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1025,12 +1171,44 @@ export class DatabasesApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} fileName 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabasesApi
+     */
+    public deleteFileDatabaseApi(fileName: string, options?: any) {
+        return DatabasesApiFp(this.configuration).deleteFileDatabaseApi(fileName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabasesApi
+     */
+    public getAllFilesDatabaseApi(options?: any) {
+        return DatabasesApiFp(this.configuration).getAllFilesDatabaseApi(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabasesApi
      */
     public restoreDatabaseApi(options?: any) {
         return DatabasesApiFp(this.configuration).restoreDatabaseApi(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} fileName 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabasesApi
+     */
+    public restoreFileDatabaseApi(fileName: string, options?: any) {
+        return DatabasesApiFp(this.configuration).restoreFileDatabaseApi(fileName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
