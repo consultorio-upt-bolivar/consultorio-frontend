@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 import LayoutFooter from './layoutFooter';
 import theme from '../../../../theme/main';
 import UserAvatarMenu from '../../../components/userAvatarMenu';
+import { AppHistory } from '../../../../helpers';
 
 const useStyles = makeStyles({
     rootLayout: {
@@ -121,8 +122,10 @@ export const HomeLayout = ({
                     <Typography
                         noWrap
                         className={classes.appBarTitle}
-                        component="a"
-                        href="/" sx={{ textDecoration: "none" }}
+                        onClick={() => {
+                            AppHistory.push("/login")
+                        }}
+                        sx={{ textDecoration: "none" }}
                     >
                         <Box
                             component="img"
@@ -171,8 +174,9 @@ export const HomeLayout = ({
                         <Button
                             color="primary"
                             variant="contained"
-                            component="a"
-                            href="/login"
+                            onClick={() => {
+                                AppHistory.push("/login")
+                            }}
                             className={classes.loginButton}
                         >Iniciar sesión</Button> :
                         <div style={{

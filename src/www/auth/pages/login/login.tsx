@@ -18,6 +18,7 @@ import {
   GetFormikFields,
 } from '../../../components/formik'
 import { PublicLayout } from '../../../components/publicLayout';
+import { AppHistory } from '../../../../helpers';
 
 export function LoginPage() {
   const formOptions = {
@@ -60,7 +61,9 @@ export function LoginPage() {
         container
         sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 5, width: "100%", height: "100%" }}
       >
-        <Grid item xs={11} sm={10} md={5} lg={4} xl={3} className={classes.paper}>
+        <Grid item xs={11} sm={10} md={6} lg={4} style={{
+           maxWidth: "450px"
+         }} className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -91,8 +94,9 @@ export function LoginPage() {
                   fontSize: "12",
                   textTransform: "none"
                 }}
-                component="a"
-                href="/forgot-password"
+                onClick={() => {
+                  AppHistory.push("/forgot-password")
+                }}
               >¿Olvidaste tu contraseña?</Button>
             </Grid>
             <Grid item>
@@ -102,8 +106,9 @@ export function LoginPage() {
                   fontSize: "12",
                   textTransform: "none"
                 }}
-                component="a"
-                href="/signin"
+                onClick={() => {
+                  AppHistory.push("/signin")
+                }}
               >¿No tienes cuenta? Registrate!</Button>
             </Grid>
           </Grid>

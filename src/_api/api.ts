@@ -645,6 +645,12 @@ export interface UpdateUserDTO {
      * @memberof UpdateUserDTO
      */
     familyUserId: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateUserDTO
+     */
+    profile: string;
 }
 
 /**
@@ -3539,6 +3545,72 @@ export const UptApiAxiosParamCreator = function (configuration?: Configuration) 
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllStudentsUPT: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/upt/students`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllWorkersUPT: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/upt/workers`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {string} userType 
          * @param {*} [options] Override http request option.
@@ -3592,6 +3664,24 @@ export const UptApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllStudentsUPT(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllStudentsUPT(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllWorkersUPT(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllWorkersUPT(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {string} userType 
          * @param {*} [options] Override http request option.
@@ -3613,6 +3703,22 @@ export const UptApiFactory = function (configuration?: Configuration, basePath?:
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllStudentsUPT(options?: any): AxiosPromise<void> {
+            return localVarFp.getAllStudentsUPT(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllWorkersUPT(options?: any): AxiosPromise<void> {
+            return localVarFp.getAllWorkersUPT(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {string} userType 
          * @param {*} [options] Override http request option.
@@ -3631,6 +3737,26 @@ export const UptApiFactory = function (configuration?: Configuration, basePath?:
  * @extends {BaseAPI}
  */
 export class UptApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UptApi
+     */
+    public getAllStudentsUPT(options?: any) {
+        return UptApiFp(this.configuration).getAllStudentsUPT(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UptApi
+     */
+    public getAllWorkersUPT(options?: any) {
+        return UptApiFp(this.configuration).getAllWorkersUPT(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {string} id 
@@ -4144,14 +4270,14 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
-         * @param {string} id 
+         * @param {string} legalId 
          * @param {string} userType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateUserExistsUsers: async (id: string, userType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('validateUserExistsUsers', 'id', id)
+        validateUserExistsUsers: async (legalId: string, userType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'legalId' is not null or undefined
+            assertParamExists('validateUserExistsUsers', 'legalId', legalId)
             // verify required parameter 'userType' is not null or undefined
             assertParamExists('validateUserExistsUsers', 'userType', userType)
             const localVarPath = `/users/user-exists`;
@@ -4166,8 +4292,8 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (id !== undefined) {
-                localVarQueryParameter['id'] = id;
+            if (legalId !== undefined) {
+                localVarQueryParameter['legalId'] = legalId;
             }
 
             if (userType !== undefined) {
@@ -4329,13 +4455,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} id 
+         * @param {string} legalId 
          * @param {string} userType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async validateUserExistsUsers(id: string, userType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.validateUserExistsUsers(id, userType, options);
+        async validateUserExistsUsers(legalId: string, userType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateUserExistsUsers(legalId, userType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -4469,13 +4595,13 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
-         * @param {string} id 
+         * @param {string} legalId 
          * @param {string} userType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateUserExistsUsers(id: string, userType: string, options?: any): AxiosPromise<void> {
-            return localVarFp.validateUserExistsUsers(id, userType, options).then((request) => request(axios, basePath));
+        validateUserExistsUsers(legalId: string, userType: string, options?: any): AxiosPromise<void> {
+            return localVarFp.validateUserExistsUsers(legalId, userType, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4634,14 +4760,14 @@ export class UsersApi extends BaseAPI {
 
     /**
      * 
-     * @param {string} id 
+     * @param {string} legalId 
      * @param {string} userType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public validateUserExistsUsers(id: string, userType: string, options?: any) {
-        return UsersApiFp(this.configuration).validateUserExistsUsers(id, userType, options).then((request) => request(this.axios, this.basePath));
+    public validateUserExistsUsers(legalId: string, userType: string, options?: any) {
+        return UsersApiFp(this.configuration).validateUserExistsUsers(legalId, userType, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

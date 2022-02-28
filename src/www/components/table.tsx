@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch } from 'react'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/DeleteOutlined'
 import { IconButton, makeStyles } from '@material-ui/core'
@@ -16,6 +16,7 @@ import {
 import theme from '../../theme/main';
 import { alertActions } from '../../_actions'
 import { useDispatch } from 'react-redux'
+import { ClassNameMap } from '@mui/material'
 
 export interface DataTablaParams {
   columns: GridColDef[]
@@ -34,11 +35,14 @@ export function DataTable({
   editAction,
   onRowClick
 }: DataTablaParams): React.ReactElement {
+  const classes = useRowMenuStyles()
+  const dispatch = useDispatch()
+
   if(editAction || toggleAction || deleteAction) {
     columns.push({
       field: 'actions',
       headerName: 'Acciones',
-      renderCell: RowMenuCell({ editAction, toggleAction, deleteAction }),
+      renderCell: RowMenuCell({ editAction, toggleAction, deleteAction, classes, dispatch }),
       sortable: false,
       width: 100,
       headerAlign: 'center',
@@ -81,16 +85,17 @@ function RowMenuCell({
   deleteAction,
   toggleAction,
   editAction,
+  classes,
+  dispatch
 }: {
   editAction?: (id: number) => void,
   toggleAction?: (id: number) => void,
-  deleteAction?: (id: number) => void
+  deleteAction?: (id: number) => void,
+  classes: ClassNameMap<"root" | "textPrimary">,
+  dispatch: Dispatch<any>
 }): (props: RowMenuProps) => React.ReactNode {
   const node = (props: RowMenuProps) => {
     const { id, row: { isActive, name } } = props
-
-    const classes = useRowMenuStyles()
-    const dispatch = useDispatch()
 
     const handleClick = ({
       event,

@@ -18,6 +18,7 @@ import {
   GetFormikFields,
 } from '../../../components/formik'
 import { PublicLayout } from '../../../components/publicLayout';
+import { AppHistory } from '../../../../helpers';
 
 export function ForgotPasswordPage() {
   const dispatch = useDispatch()
@@ -52,13 +53,17 @@ export function ForgotPasswordPage() {
 
   return (
     <PublicLayout>
-      <Box
-        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 10, width: "100%", height: "100%" }}
+      <Grid
+        container
+        sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', my: 5, width: "100%", height: "100%" }}
       >
-        <div className={classes.paper}>
+         <Grid item xs={11} sm={10} md={6} lg={4} style={{
+           maxWidth: "450px"
+         }} className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
+
           <Typography component="h1" variant="h5">
             Olvido de contraseña
           </Typography>
@@ -112,8 +117,9 @@ export function ForgotPasswordPage() {
                     fontSize: "12",
                     textTransform: "none"
                   }}
-                  component="a"
-                  href="/signin"
+                  onClick={() => {
+                    AppHistory.push("/signin")
+                  }}
                 >¿No tienes cuenta? Registrate!</Button>
               </Grid>
               <Grid item>
@@ -123,14 +129,15 @@ export function ForgotPasswordPage() {
                     fontSize: "12",
                     textTransform: "none"
                   }}
-                  component="a"
-                  href="/login"
+                  onClick={() => {
+                    AppHistory.push("/login")
+                  }}
                 >¿Ya tienes cuenta? Ingresar</Button>
               </Grid>
             </Grid>
           </form>
-        </div>
-      </Box>
+        </Grid>
+      </Grid>
     </PublicLayout>
   )
 }

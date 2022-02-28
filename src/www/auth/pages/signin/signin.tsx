@@ -22,6 +22,7 @@ import { UptApi, UsersApi } from '../../../../_api';
 import { getConfiguration } from '../../../../config/api.config';
 import { handleError } from '../../../../helpers/handleApiError';
 import { Roles } from '../../../../constants/roles';
+import { AppHistory } from '../../../../helpers';
 
 export function SigninPage() {
   const formOptions = {
@@ -108,7 +109,9 @@ export function SigninPage() {
         container
         sx={{ display: 'flex', justifyContent: "center", alignItems: "center", overflow: 'hidden', width: "100%", height: "100%" }}
       >
-        <Grid item xs={11} sm={10} md={5} lg={4} xl={3} className={classes.paper}>
+        <Grid item xs={11} sm={10} md={6} lg={4} style={{
+           maxWidth: "450px"
+         }} className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -164,8 +167,9 @@ export function SigninPage() {
                   fontSize: "12",
                   textTransform: "none"
                 }}
-                component="a"
-                href="/forgot-password"
+                onClick={() => {
+                  AppHistory.push("/forgot-password")
+                }}
               >¿Olvidaste tu contraseña?</Button>
             </Grid>
             <Grid item>
@@ -175,8 +179,9 @@ export function SigninPage() {
                   fontSize: "12",
                   textTransform: "none"
                 }}
-                component="a"
-                href="/login"
+                onClick={() => {
+                  AppHistory.push("/login")
+                }}
               >¿Ya tienes cuenta? Ingresar</Button>
             </Grid>
           </Grid>

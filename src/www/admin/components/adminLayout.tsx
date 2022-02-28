@@ -25,7 +25,7 @@ const DrawerHeader = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: "20px",
+  padding: "20px"
 }));
 
 const BreadcrumbsStyled = styled(Breadcrumbs)(() => ({
@@ -121,9 +121,8 @@ export const AdminLayout = ({
               keepMounted: true, // Better open performance on mobile.
             }}
             sx={{
-              mt: 5,
               display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, mt: 6 },
             }}
           >
             <SidemenuList />
@@ -136,12 +135,14 @@ export const AdminLayout = ({
             }}
             open
           >
-            <DrawerHeader>
+            <DrawerHeader onClick={() => {
+              AppHistory.push("/admin")
+            }}>
               <Box
                 component="img"
                 src="/images/logo.png"
                 alt="suitcase"
-                sx={{ width: "200px"}}
+                sx={{ width: "200px" }}
               />
             </DrawerHeader>
             <Divider />
@@ -150,7 +151,7 @@ export const AdminLayout = ({
         </Box>
         <Box
           component="main"
-          sx={{ flexGrow: 1, pt: 12, pb: 3, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+          sx={{ flexGrow: 1, pt: 12, pb: 3, px: 5, width: { sm: "100%" } }}
         >
           {children}
         </Box>

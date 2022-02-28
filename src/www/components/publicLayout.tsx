@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 import theme from '../../theme/main';
 import LayoutFooter from '../public/pages/home/layoutFooter';
 import { useLocation } from 'react-router-dom';
+import { AppHistory } from '../../helpers';
 
 const useStyles = makeStyles({
   rootLayout: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    marginTop: '60px',
+    marginTop: '100px',
     padding: "0px !important"
   },
   appBar: {
@@ -43,11 +44,7 @@ const useStyles = makeStyles({
   },
   appBarTitle: {
     color: 'white',
-    cursor: 'pointer',
-    [theme.breakpoints.down('sm')]: {
-      flex: "100%",
-      textAlign: "center"
-    },
+    cursor: 'pointer'
   },
   menuButton: {
     textTransform: "none",
@@ -58,9 +55,9 @@ const useStyles = makeStyles({
     textTransform: "none",
     marginLeft: "10px",
     boxShadow: "none",
-    [theme.breakpoints.down('sm')]: {
+    /* [theme.breakpoints.down('sm')]: {
       display: "none"
-    },
+    }, */
   }
 })
 
@@ -84,8 +81,10 @@ export const PublicLayout = ({
           <Typography
             noWrap
             className={classes.appBarTitle}
-            component="a"
-            href="/" sx={{ textDecoration: "none" }}
+            onClick={() => {
+              AppHistory.push("/")
+            }} 
+            sx={{ textDecoration: "none" }}
           >
             <Box
               component="img"
@@ -102,13 +101,15 @@ export const PublicLayout = ({
             },
           }}></span>
 
-          {location.pathname != "/login" && !userData?.name ?
+          {(location.pathname != "/login" && location.pathname != "/signin" && location.pathname != "/forgot-password") && !userData?.name ?
             <Button
               color="inherit"
-              component="a"
-              href="/login"
+              variant="outlined"
+              onClick={() => {
+                AppHistory.push("/login")
+              }}
               className={classes.loginButton}
-            >Iniciar sesión</Button>
+            >Ingresar</Button>
             :
             <UserAvatarMenu name={userData?.name ?? ''}></UserAvatarMenu>}
         </Toolbar>
