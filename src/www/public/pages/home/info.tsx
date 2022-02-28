@@ -32,7 +32,7 @@ function HomeInfo() {
                         <Box sx={item}>
                             <Box
                                 component="img"
-                                src="/images/goal.png"
+                                src={process.env.PUBLIC_URL + "/images/goal.png"}
                                 alt="suitcase"
                                 sx={{ height: 80 }}
                             />
@@ -48,7 +48,7 @@ function HomeInfo() {
                         <Box sx={item}>
                             <Box
                                 component="img"
-                                src="/images/flag.png"
+                                src={process.env.PUBLIC_URL + "/images/flag.png"}
                                 alt="graph"
                                 sx={{ height: 80 }}
                             />
@@ -64,7 +64,7 @@ function HomeInfo() {
                         <Box sx={item}>
                             <Box
                                 component="img"
-                                src="/images/mission.png"
+                                src={process.env.PUBLIC_URL + "/images/mission.png"}
                                 alt="clock"
                                 sx={{ height: 80 }}
                             />

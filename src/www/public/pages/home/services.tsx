@@ -32,7 +32,7 @@ function HomeServices() {
                         <Box sx={item}>
                             <Box
                                 component="img"
-                                src="/images/general.png"
+                                src={process.env.PUBLIC_URL + "/images/general.png"}
                                 alt="suitcase"
                                 sx={{ height: 80 }}
                             />
@@ -45,7 +45,7 @@ function HomeServices() {
                         <Box sx={item}>
                             <Box
                                 component="img"
-                                src="/images/internist.png"
+                                src={process.env.PUBLIC_URL + "/images/internist.png"}
                                 alt="graph"
                                 sx={{ height: 80 }}
                             />
@@ -61,7 +61,7 @@ function HomeServices() {
                                 height: "70px"
                             }}>
                                 <img
-                                    src="/images/gynecologist.png"
+                                    src={process.env.PUBLIC_URL + "/images/gynecologist.png"}
                                     alt="clock"
                                     style={{ height: 80 }}
                                 >
@@ -77,7 +77,7 @@ function HomeServices() {
                         <Box sx={item}>
                             <Box
                                 component="img"
-                                src="/images/cardiology.png"
+                                src={process.env.PUBLIC_URL + "/images/cardiology.png"}
                                 alt="clock"
                                 sx={{ height: 80 }}
                             />
