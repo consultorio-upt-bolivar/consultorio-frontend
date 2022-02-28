@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import { validationMessages } from '../../../../constants/formik'
 
 export const validationSchema = Yup.object({
-  email: Yup.string().email().required(validationMessages.required),
+  email: Yup.string().email(validationMessages.email).required(validationMessages.required),
   token: Yup.number().required(validationMessages.required),
   password: Yup.string()
     .min(5, validationMessages.minLength.replace('$', '5'))
@@ -20,9 +20,14 @@ export const formFields = {
   divider: {
     type: "divider"
   },
-  token: 'Código de seguridad',
+  token: {
+    label: 'Código de seguridad',
+    type: "number",
+    required: true
+  },
   password: {
     type: 'password',
     label: 'Contraseña',
+    required: true
   },
 }

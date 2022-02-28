@@ -25,8 +25,9 @@ const useStyles = makeStyles({
             background: "rgba(0,0,0,0.2)"
         },
         '& .control-dots .dot': {
-            width: "20px !important",
-            height: "20px !important",
+            width: "10px !important",
+            height: "10px !important",
+            background: "#4f99fc !important"
         }
     },
     backdrop: {
@@ -83,6 +84,8 @@ export default function ModalsCarousel() {
                     showStatus={false}
                     showArrows={false}
                     showIndicators={true}
+                    autoPlay={true}
+                    interval={8000}
                     dynamicHeight={false}
                     swipeable={true}
                 >

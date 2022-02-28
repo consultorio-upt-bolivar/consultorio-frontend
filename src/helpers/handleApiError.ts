@@ -101,11 +101,11 @@ const ApiMessages: ApiError[] = [
   },
   {
     error: 'Send mail ok!',
-    message: 'Correo enviado existosamente.',
+    message: 'Correo electrónico enviado existosamente.',
   },
   {
     error: 'Invalid legal id.',
-    message: 'Cédula inválida.',
+    message: 'La cédula es inválida para el tipo de usuario que intenta registrar.',
   },
   {
     error: 'user not authorized',

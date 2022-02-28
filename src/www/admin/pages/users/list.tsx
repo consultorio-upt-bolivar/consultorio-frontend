@@ -77,8 +77,8 @@ export function ListUsersPage(): React.ReactElement {
       },
       {
         field: 'legalId',
-        headerName: 'Identificación',
-        description: 'Identificación del usuario',
+        headerName: 'Cédula',
+        description: 'Cédula del usuario',
         flex: 1,
         minWidth: 200
       },

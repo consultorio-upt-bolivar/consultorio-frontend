@@ -92,7 +92,7 @@ export function CreateModalPage(): React.ReactElement {
     const file = (e as any).target?.files[0] ?? false
 
     if (!validateImageSize(file)) {
-      formik.setFieldError("image", "El tamaño maximo de la imagen es 1 Mib")
+      formik.setFieldError("image", "El tamaño máximo de la imagen es de 1MB.")
       return;
     }
 
@@ -154,7 +154,7 @@ export function CreateModalPage(): React.ReactElement {
                       </small>
                     </Button>
                   </div>
-
+                
                 </Item>
 
                 <FormHelperText className={classes.errorText} error>
@@ -182,7 +182,7 @@ export function CreateModalPage(): React.ReactElement {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={loading || !formik.isValid}
+            disabled={loading}
             onClick={(e) => handleSubmit(e)}
           >
             {data && params.id ? 'Actualizar' : 'Crear'}

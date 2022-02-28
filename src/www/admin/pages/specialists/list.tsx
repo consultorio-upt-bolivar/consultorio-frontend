@@ -68,8 +68,8 @@ export function ListSpecialistsPage(): React.ReactElement {
       },
       {
         field: 'legalId',
-        headerName: 'Identificación',
-        description: 'Identificación del especialista',
+        headerName: 'Cédula',
+        description: 'Cédula del especialista',
         flex: 1,
         minWidth: 200,
       },

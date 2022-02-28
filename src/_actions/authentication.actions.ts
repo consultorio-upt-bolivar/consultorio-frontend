@@ -197,7 +197,7 @@ function forgotPasswordMail(email: string): unknown {
 
     try {
       await auth.changePasswordMailUsers(email)
-      dispatch(toastActions.success("Correo enviado!"))
+      dispatch(toastActions.success("Correo electrónico enviado!"))
       dispatch(success())
     } catch (error) {
       const errMessage = handleError(error)

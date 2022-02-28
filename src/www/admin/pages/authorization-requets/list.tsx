@@ -110,8 +110,8 @@ export function AuthorizationRequestPage(): React.ReactElement {
       },
       {
         field: 'legalId',
-        headerName: 'Identificación del solicitante',
-        description: 'Identificación del usuario',
+        headerName: 'Cédula del solicitante',
+        description: 'Cédula del usuario',
         flex: 2,
         minWidth: 250
       },
@@ -124,8 +124,8 @@ export function AuthorizationRequestPage(): React.ReactElement {
       },
       {
         field: 'userFamilyLegalId',
-        headerName: 'Identificación del familiar',
-        description: 'Identificación del usuario',
+        headerName: 'Cédula del familiar',
+        description: 'Cédula del usuario',
         flex: 1,
         minWidth: 200
       },

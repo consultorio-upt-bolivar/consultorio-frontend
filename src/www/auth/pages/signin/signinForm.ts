@@ -4,7 +4,7 @@ import { validationMessages } from '../../../../constants/formik'
 export const validationSchema = Yup.object({
   name: Yup.string().required(validationMessages.required),
   email: Yup.string()
-    .email(validationMessages.invalid.replace('$', 'Email'))
+    .email(validationMessages.invalid.replace('$', 'Correo electrónico'))
     .required(validationMessages.required),
   phone: Yup.string().required(validationMessages.required),
   legalId: Yup.string().max(20, validationMessages.maxLength.replace('$', '20')).required(validationMessages.required),
@@ -27,7 +27,7 @@ export const initialValues = {
 
 export const formFields = {
   name: 'Nombre',
-  legalId: "Identificación",
+  legalId: "Cédula",
   phone: "Teléfono",
   profile: {
     label: 'Tipo de usuario',
