@@ -39,12 +39,14 @@ export function ListModalPage(): React.ReactElement {
         headerName: 'ID',
         description: 'Id único en la BD',
         flex: 1,
+        minWidth: 100
       },
       {
         field: 'name',
         headerName: 'Nombre',
         description: 'Nombre del modal',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'isActive',
@@ -52,6 +54,7 @@ export function ListModalPage(): React.ReactElement {
         description: 'Estado del modal',
         type: 'boolean',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'isMain',
@@ -59,6 +62,7 @@ export function ListModalPage(): React.ReactElement {
         description: 'Este modal se descata sobre otros',
         type: 'boolean',
         flex: 1,
+        minWidth: 200
       },
     ],
     rows: items ?? [],

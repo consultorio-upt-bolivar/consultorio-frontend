@@ -41,18 +41,21 @@ export function ListSpecialitiesPage(): React.ReactElement {
         headerName: 'ID',
         description: 'Id único en la BD',
         flex: 1,
+        minWidth: 100
       },
       {
         field: 'name',
         headerName: 'Nombre',
         description: 'Nombre de la oficina',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'officeName',
         headerName: 'Consultorio médico',
         description: 'Consultorio médico de la especialidad',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'isActive',
@@ -60,6 +63,7 @@ export function ListSpecialitiesPage(): React.ReactElement {
         description: '¿Está habilitado?',
         type: 'boolean',
         flex: 1,
+        minWidth: 200
       },
     ],
     rows: items?.map((el: any) => {

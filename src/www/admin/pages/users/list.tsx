@@ -50,44 +50,52 @@ export function ListUsersPage(): React.ReactElement {
         field: 'id',
         headerName: 'ID',
         description: 'Id único en la BD',
-        flex: 0.5,
+        flex: 1,
+        minWidth: 100
       },
       {
         field: 'name',
         headerName: 'Nombre',
         description: 'Nombre del usuario',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'email',
         headerName: 'Correo electrónico',
         description: 'Correo del usuario',
-        flex: 1,
+        flex: 2,
+        minWidth: 200,
+        resizable: true
       },
       {
         field: 'phone',
         headerName: 'Teléfono',
         description: 'Teléfono del usuario',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'legalId',
         headerName: 'Identificación',
         description: 'Identificación del usuario',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'type',
         headerName: 'Tipo de usuario',
         description: 'Tipo de usuario',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'isActive',
         headerName: 'Activo',
         description: '¿Está habilitado?',
+        flex: 1,
         type: 'boolean',
-        flex: 0.5,
+        minWidth: 100
       },
     ],
     rows: items?.map((el: any) => {

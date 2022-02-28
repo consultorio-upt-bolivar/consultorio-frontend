@@ -160,7 +160,7 @@ export function SigninPage() {
           </form>
 
           <Grid container sx={{ mt: 2 }}>
-            <Grid item xs>
+            <Grid item xs={12} md={6}>
               <Button
                 sx={{
                   color: "secondary",
@@ -172,7 +172,7 @@ export function SigninPage() {
                 }}
               >¿Olvidaste tu contraseña?</Button>
             </Grid>
-            <Grid item>
+            <Grid item xs={12} md={6}>
               <Button
                 sx={{
                   color: "secondary",

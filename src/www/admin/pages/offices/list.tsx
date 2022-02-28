@@ -41,24 +41,28 @@ export function ListOfficesPage(): React.ReactElement {
         headerName: 'ID',
         description: 'Id único en la BD',
         flex: 1,
+        minWidth: 100
       },
       {
         field: 'name',
         headerName: 'Nombre',
         description: 'Nombre del consultorio',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'phone',
         headerName: 'Teléfono',
         description: 'Teléfono del consultorio',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'place',
         headerName: 'Dirección',
         description: 'Dirección del consultorio',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'isActive',
@@ -66,6 +70,7 @@ export function ListOfficesPage(): React.ReactElement {
         description: 'Estado del consultorio',
         type: 'boolean',
         flex: 1,
+        minWidth: 200
       },
     ],
     rows: items ?? [],

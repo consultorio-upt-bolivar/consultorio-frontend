@@ -20,7 +20,7 @@ export const initialValues = {
   email: '',
   phone: '',
   legalId: '',
-  profile: 'student',
+  profile: '',
   familyLegalId: '',
   password: '',
 }

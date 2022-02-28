@@ -92,50 +92,57 @@ export function AuthorizationRequestPage(): React.ReactElement {
         headerName: 'ID',
         description: 'Id único en la BD',
         flex: 1,
-        hide: true
+        minWidth: 100
       },
       {
         field: 'name',
         headerName: 'Nombre del solicitante',
         description: 'Nombre del usuario',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'email',
         headerName: 'Correo electrónico del solicitante',
         description: 'Correo electrónico del usuario',
-        flex: 1,
+        flex: 2,
+        minWidth: 250
       },
       {
         field: 'legalId',
         headerName: 'Identificación del solicitante',
         description: 'Identificación del usuario',
-        flex: 1,
+        flex: 2,
+        minWidth: 250
       },
       {
         field: 'userFamilyName',
         headerName: 'Nombre del familiar',
         description: 'Nombre del usuario',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'userFamilyLegalId',
         headerName: 'Identificación del familiar',
         description: 'Identificación del usuario',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'userFamilyEmail',
         headerName: 'Correo electrónico del familiar',
         description: 'Correo electrónico del usuario',
-        flex: 1,
+        flex: 2,
+        minWidth: 250
       },
       {
         field: 'requestVerified',
         headerName: 'Aprobado',
         description: '¿Está aprobado?',
         type: 'boolean',
-        width: 100,
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'actions',

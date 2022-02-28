@@ -110,7 +110,7 @@ export function ForgotPasswordPage() {
             </Button>
 
             <Grid container sx={{ mt: 2 }}>
-              <Grid item xs>
+              <Grid item xs={12} md={6}>
                 <Button
                   sx={{
                     color: "secondary",
@@ -122,7 +122,7 @@ export function ForgotPasswordPage() {
                   }}
                 >¿No tienes cuenta? Registrate!</Button>
               </Grid>
-              <Grid item>
+              <Grid item xs={12} md={6}>
                 <Button
                   sx={{
                     color: "secondary",

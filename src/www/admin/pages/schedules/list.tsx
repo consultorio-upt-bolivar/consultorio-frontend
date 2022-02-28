@@ -40,56 +40,65 @@ export function ListSchedulesPage(): React.ReactElement {
         field: 'id',
         headerName: 'ID',
         description: 'Id único en la BD',
-        width: 100,
+        flex: 1,
+        minWidth: 100
       },
       {
         field: 'date',
         headerName: 'Fecha inicio',
         description: 'Fecha inicio de la jornada',
-        width: 200,
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'dateEnd',
         headerName: 'Fecha final',
         description: 'Fecha final de la jornada',
-        width: 200,
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'startHour',
         headerName: 'Hora inicio (24 hrs)',
         description: 'Hora inicio de la jornada',
-        width: 200,
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'endHour',
         headerName: 'Hora final (24 hrs)',
         description: 'Hora final de la jornada',
-        width: 200,
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'officeName',
         headerName: 'Consultorio',
         description: 'Consultorio de la jornada',
-        width: 200,
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'specialityName',
         headerName: 'Especialidad médica',
         description: 'Especialidad de la jornada',
-        width: 200,
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'specialistName',
         headerName: 'Nombre del especialista',
         description: 'Nombre del especialista',
-        width: 200,
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'isActive',
         headerName: 'Activo',
         description: '¿Está habilitada?',
         type: 'boolean',
-        width: 100,
+        flex: 1,
+        minWidth: 100
       },
     ],
     rows: items?.map((el: any) => {

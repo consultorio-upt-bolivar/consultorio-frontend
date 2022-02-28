@@ -87,7 +87,7 @@ export function LoginPage() {
           </form>
 
           <Grid container sx={{ mt: 2 }}>
-            <Grid item xs>
+            <Grid item xs={12} md={6}>
               <Button
                 sx={{
                   color: "secondary",
@@ -99,7 +99,7 @@ export function LoginPage() {
                 }}
               >¿Olvidaste tu contraseña?</Button>
             </Grid>
-            <Grid item>
+            <Grid item xs={12} md={6}>
               <Button
                 sx={{
                   color: "secondary",

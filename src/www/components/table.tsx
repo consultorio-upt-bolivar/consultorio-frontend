@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux'
 import { ClassNameMap } from '@mui/material'
 
 export interface DataTablaParams {
+  initialState?: Record<string, unknown>
   columns: GridColDef[]
   rows: GridRowModel[]
   deleteAction?: (id: number) => void
@@ -28,6 +29,7 @@ export interface DataTablaParams {
 }
 
 export function DataTable({
+  initialState,
   columns,
   rows,
   deleteAction,
@@ -54,6 +56,7 @@ export function DataTable({
   }
 
   return <DataGrid
+    initialState={initialState ? {...initialState} : undefined}
     sx={{
       mt: 3
     }}

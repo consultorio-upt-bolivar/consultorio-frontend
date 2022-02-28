@@ -67,49 +67,62 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
   const rowMenuClasses = useRowMenuStyles()
 
   const params: DataTablaParams = {
+    initialState: {
+      sorting: {
+        sortModel: [{ field: 'id', sort: 'desc' }],
+      },
+    },
     columns: [
       {
         field: 'id',
         headerName: 'ID',
         description: 'Id único en la BD',
-        width: 100,
+        flex: 1,
+        minWidth: 100,
+        hide: true
       },
       {
         field: 'specialityName',
         headerName: 'Especialidad médica',
         description: 'Especialidad de la jornada',
-        width: 200
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'date',
         headerName: 'Fecha',
         description: 'Fecha',
-        width: 150
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'userName',
         headerName: 'Nombre del paciente',
         description: 'Nombre del usuario',
         flex: 1,
+        minWidth: 200
       },
       {
         field: 'userType',
         headerName: 'Tipo de usuario',
         description: 'Tipo de usuario',
-        width: 150,
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'attended',
         headerName: 'Atendida',
         description: 'Atendida por el especialista',
         type: "boolean",
-        width: 100,
+        flex: 1,
+        minWidth: 200
       },
       {
         field: 'cancelled',
         headerName: 'Razón de cancelación',
         description: 'Razón de cancelación de la cita médica',
-        flex: 1,
+        flex: 2,
+        minWidth: 200
       },
       {
         field: 'actions',
