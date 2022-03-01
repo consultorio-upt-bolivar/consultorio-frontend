@@ -295,8 +295,10 @@ export const DatabasesPage = (): React.ReactElement => {
   const validateSqlFile = (e: React.SyntheticEvent) => {
     const file = (e as any).target?.files[0] ?? false
 
-    if (file) {
+    if (file && file.name.includes(".sql")) {
       setSqlFile(file)
+    } else {
+      setSqlFile(false)
     }
   }
 
@@ -332,7 +334,7 @@ export const DatabasesPage = (): React.ReactElement => {
               color="primary"
               onClick={handleClickButton}
             >
-              {sqlFile?.name ? 'Elegir otro archivo' : 'Restaurar con un archivo'}
+              {sqlFile?.name ? 'Elegir otro archivo sql' : 'Restaurar con un archivo sql'}
             </Button>
             {sqlFile?.name ?
               <Button

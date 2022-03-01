@@ -23,6 +23,7 @@ export const initialValues = {
   status: 'authorized',
   profile: '',
   password: '',
+  familyLegalId: ''
 }
 
 export const formCreateFields = {
