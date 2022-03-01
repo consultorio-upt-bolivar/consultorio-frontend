@@ -13,6 +13,7 @@ import {
   setAuthToken,
   setUserDataToken,
 } from '../helpers/userStorage'
+import { loadingActions } from './loading.actions'
 
 export const authActions = {
   login,
@@ -26,51 +27,53 @@ export const authActions = {
 function login(email: string, password: string): unknown {
   const auth = new AuthApi(getConfiguration())
 
-  return (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(request(email))
 
-    auth
-      .loginAuth({
+    try {
+      dispatch(loadingActions.show());
+
+      const res = await auth.loginAuth({
         email,
         password,
       })
-      .then((res) => {
-        setAuthToken(res.data)
 
-        return setAuthData().then(() => {
-          const data = getUserData()
+      setAuthToken(res.data)
+      await setAuthData()
 
-          dispatch(success(data))
+      const data = getUserData()
 
-          switch (data.profile.id) {
-            case Roles.Admin: {
-              AppHistory.replace('/admin', {
-                activeMenu: 'Dashboard',
-              })
-              break;
-            }
-            case Roles.Admin2: {
-              AppHistory.replace('/admin', {
-                activeMenu: 'Dashboard',
-              })
-              break;
-            }
-            case Roles.MedicalSpecialist: {
-              AppHistory.replace('/especialista-dashboard')
-              break;
-            }
-            default: {
-              AppHistory.replace('/dashboard')
-              break;
-            }
-          }
-        })
-      })
-      .catch((error) => {
-        const errMessage = handleError(error, false)
-        dispatch(failure(errMessage))
-        dispatch(toastActions.error(errMessage))
-      })
+      dispatch(success(data))
+
+      switch (data.profile.id) {
+        case Roles.Admin: {
+          AppHistory.replace('/admin', {
+            activeMenu: 'Dashboard',
+          })
+          break;
+        }
+        case Roles.Admin2: {
+          AppHistory.replace('/admin', {
+            activeMenu: 'Dashboard',
+          })
+          break;
+        }
+        case Roles.MedicalSpecialist: {
+          AppHistory.replace('/especialista-dashboard')
+          break;
+        }
+        default: {
+          AppHistory.replace('/dashboard')
+          break;
+        }
+      }
+    } catch (error) {
+      const errMessage = handleError(error, false)
+      dispatch(failure(errMessage))
+      dispatch(toastActions.error(errMessage))
+    } finally {
+      dispatch(loadingActions.hide());
+    }
   }
 
   function request(user: string) {
@@ -87,48 +90,50 @@ function login(email: string, password: string): unknown {
 function signin(options: SigninDTO): unknown {
   const auth = new AuthApi(getConfiguration())
 
-  return (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(request(options))
 
-    auth
-      .signinAuth(options)
-      .then((res) => {
-        setAuthToken(res.data)
+    try {
+      dispatch(loadingActions.show());
 
-        return setAuthData().then(() => {
-          const data = getUserData()
+      const res = await auth.signinAuth(options)
 
-          dispatch(success(data))
+      setAuthToken(res.data)
+      await setAuthData()
 
-          switch (data.profile.id) {
-            case Roles.Admin: {
-              AppHistory.replace('/admin', {
-                activeMenu: 'Dashboard',
-              })
-              break;
-            }
-            case Roles.Admin2: {
-              AppHistory.replace('/admin', {
-                activeMenu: 'Dashboard',
-              })
-              break;
-            }
-            case Roles.MedicalSpecialist: {
-              AppHistory.replace('/especialista-dashboard')
-              break;
-            }
-            default: {
-              AppHistory.replace('/dashboard')
-              break;
-            }
-          }
-        })
-      })
-      .catch((error) => {
-        const errMessage = handleError(error)
-        dispatch(failure(errMessage))
-        dispatch(toastActions.error(errMessage))
-      })
+      const data = getUserData()
+
+      dispatch(success(data))
+
+      switch (data.profile.id) {
+        case Roles.Admin: {
+          AppHistory.replace('/admin', {
+            activeMenu: 'Dashboard',
+          })
+          break;
+        }
+        case Roles.Admin2: {
+          AppHistory.replace('/admin', {
+            activeMenu: 'Dashboard',
+          })
+          break;
+        }
+        case Roles.MedicalSpecialist: {
+          AppHistory.replace('/especialista-dashboard')
+          break;
+        }
+        default: {
+          AppHistory.replace('/dashboard')
+          break;
+        }
+      }
+    } catch (error) {
+      const errMessage = handleError(error)
+      dispatch(failure(errMessage))
+      dispatch(toastActions.error(errMessage))
+    } finally {
+      dispatch(loadingActions.hide());
+    }
   }
 
   function request(user: SigninDTO) {
@@ -155,22 +160,24 @@ async function setAuthData() {
 function getAuthData(noredirect = false): unknown {
   const auth = new AuthApi(getConfiguration())
 
-  return (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch(request())
 
-    auth
-      .getProfileAuth()
-      .then((res) => {
-        setUserDataToken(res.data)
-        dispatch(success(res.data))
-      })
-      .catch((error) => {
-        console.log({
-          error
-        })
-        const errMessage = handleError(error, noredirect)
-        dispatch(failure(errMessage))
-      })
+    try {
+      dispatch(loadingActions.show());
+
+      const res = await auth.getProfileAuth()
+
+      setUserDataToken(res.data)
+      dispatch(success(res.data))
+    } catch (error) {
+      const errMessage = handleError(error, noredirect)
+      console.log(error)
+
+      dispatch(failure(errMessage))
+    } finally {
+      dispatch(loadingActions.hide());
+    }
   }
 
   function request() {
@@ -196,6 +203,8 @@ function forgotPasswordMail(email: string): unknown {
     dispatch(request())
 
     try {
+      dispatch(loadingActions.show());
+
       await auth.changePasswordMailUsers(email)
       dispatch(toastActions.success("Correo electrónico enviado!"))
       dispatch(success())
@@ -204,6 +213,8 @@ function forgotPasswordMail(email: string): unknown {
 
       dispatch(failure(errMessage))
       dispatch(toastActions.error(errMessage))
+    } finally {
+      dispatch(loadingActions.hide());
     }
   }
 
