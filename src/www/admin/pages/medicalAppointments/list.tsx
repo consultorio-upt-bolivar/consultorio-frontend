@@ -139,7 +139,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
                 <RemoveRedEyeOutlined fontSize="small" />
               </IconButton>
 
-              {!row.cancellationDate ? <IconButton
+              {!row.report && !row.cancellationDate ? <IconButton
                 color="inherit"
                 className={rowMenuClasses.textPrimary}
                 size="small"

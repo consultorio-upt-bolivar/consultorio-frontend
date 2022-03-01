@@ -128,6 +128,7 @@ export function TakeMedicalAppointmentDialog({
         getMedicalAppointments()
         setMedicalAppointment(undefined)
         setOpen(false)
+        dispatch(loadingActions.hide())
         setLoading(false)
     };
 
@@ -162,12 +163,7 @@ export function TakeMedicalAppointmentDialog({
                     dispatch(loadingActions.show())
                     
                     dispatch(medicalAppointmentsActions.updateOne(+medicalAppointment, options, {
-                        callback: () => {
-                            getMedicalAppointment();
-                            setLoading(false);
-                            dispatch(loadingActions.hide())
-                            setOpen(false);
-                        }
+                        callback: handleClose
                     }))
                 }
             }));

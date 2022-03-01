@@ -51,6 +51,7 @@ export function CancelMedicalAppointmentDialog({
     const handleClose = () => {
         getMedicalAppointments()
         setMedicalAppointment(undefined)
+        dispatch(loadingActions.hide())
         setOpen(false)
         setLoading(false)
     };
@@ -79,11 +80,7 @@ export function CancelMedicalAppointmentDialog({
                     dispatch(appointmentsActions.cancelAppointment(
                         +medicalAppointmentId, 
                         values.cancellationReason,
-                        () => {
-                            setLoading(false);
-                            dispatch(loadingActions.hide())
-                            setOpen(false);
-                        }
+                        handleClose
                     ))
                 }
             }));
