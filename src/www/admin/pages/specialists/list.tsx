@@ -13,7 +13,7 @@ import { PublicRoles } from '../../../../_api'
 
 export function ListSpecialistsPage(): React.ReactElement {
   const listName = 'Especialistas';
-  const { items } = useSelector((state: any) => state.users)
+  const { items = [] } = useSelector((state: any) => state.users)
   const dispatch = useDispatch()
 
   useEffect(() => {

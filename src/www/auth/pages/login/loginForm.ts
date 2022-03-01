@@ -3,7 +3,7 @@ import { validationMessages } from '../../../../constants/formik'
 
 export const validationSchema = Yup.object({
   email: Yup.string()
-    .email(validationMessages.invalid.replace('$', 'Email'))
+    .email(validationMessages.email.replace('$', 'Email'))
     .required(validationMessages.required),
   password: Yup.string()
     .min(5, validationMessages.minLength.replace('$', '5'))

@@ -138,14 +138,14 @@ export function CreateModalPage(): React.ReactElement {
         <form className={classes.form} noValidate>
           {formikFields}
 
-          <InputLabel style={{ marginTop: '20px', marginBottom: '10px', fontWeight: 500 }} className={classes.selectLabel} id={'select-' + name} onClick={() => handleClickButton()}>
+          <InputLabel style={{ marginTop: '20px', marginBottom: '30px', fontWeight: 500 }} className={classes.selectLabel} id={'select-' + name} onClick={() => handleClickButton()}>
             Imagen
           </InputLabel>
 
           <Grid container spacing={2} justifyContent="center">
-            <Grid item sm={12} md={4} >
+            <Grid item sm={12} md={4} style={{ width: "100%"}}>
               <div>
-                <Item elevation={2} style={{ flexWrap: 'wrap', marginBottom: '10px', marginTop: '20px' }}>
+                <Item elevation={2} style={{ flexWrap: 'wrap', marginBottom: '10px',width: '100%'}}>
                   <input style={{ visibility: 'hidden', position: 'absolute', width: 0, height: 0 }} accept=".jpg,.png" type="file" ref={inputRef} onChange={(e) => validateFile(e)}></input>
 
 
@@ -176,7 +176,7 @@ export function CreateModalPage(): React.ReactElement {
                 border: '1px solid #c0c0c02e',
                 borderRadius: '5px',
               }}>
-                <img width="500px" alt="imagen" src={formik.values.image}></img>
+                <img width="100%" alt="imagen" src={formik.values.image}></img>
               </div> : null}
             </Grid>
           </Grid>

@@ -12,7 +12,7 @@ import { schedulesActions as actions } from '../../../../_actions'
 
 export function ListSchedulesPage(): React.ReactElement {
   const listName = 'Jornadas';
-  const { items } = useSelector((state: any) => state.schedules)
+  const { items = [] } = useSelector((state: any) => state.schedules)
   const dispatch = useDispatch()
 
   useEffect(() => {

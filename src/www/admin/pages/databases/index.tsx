@@ -79,7 +79,7 @@ export const DatabasesPage = (): React.ReactElement => {
       getBackups()
     } catch (error) {
       console.log(error)
-      dispatch(toastActions.error("No se pudo eliminar el respaldo de la base de datos!"))
+      dispatch(toastActions.error("No se pudo eliminar el respaldo de la Base de Datos!"))
     }
     finally {
       dispatch(loadingActions.hide());
@@ -96,7 +96,7 @@ export const DatabasesPage = (): React.ReactElement => {
       getBackups()
     } catch (error) {
       console.log(error)
-      dispatch(toastActions.error("No se pudo descargar el respaldo de la base de datos!"))
+      dispatch(toastActions.error("No se pudo descargar el respaldo de la Base de Datos!"))
     }
     finally {
       dispatch(loadingActions.hide());
@@ -108,7 +108,7 @@ export const DatabasesPage = (): React.ReactElement => {
 
     dispatch(alertActions.show({
       title: `Restaurar base de datos`,
-      description: `Quieres restaurar este respaldo de base de datos?`,
+      description: `¿Está seguro de restaurar este respaldo de Base de Datos?`,
       callback: async () => {
         restoreDatabase(row.fileName)
       }
@@ -120,7 +120,7 @@ export const DatabasesPage = (): React.ReactElement => {
 
     dispatch(alertActions.show({
       title: `Eliminar respaldo base de datos`,
-      description: `Quieres eliminar este respaldo de base de datos?`,
+      description: `¿Está seguro de eliminar este respaldo de Base de Datos?`,
       callback: async () => {
         deleteBackup(row.fileName)
       }
@@ -132,7 +132,7 @@ export const DatabasesPage = (): React.ReactElement => {
 
     dispatch(alertActions.show({
       title: `Descargar`,
-      description: `Quieres descargar este respaldo de base de datos?`,
+      description: `¿Quiere descargar este respaldo de Base de Datos?`,
       callback: async () => {
         downloadBackup(row.fileName)
       }
@@ -248,11 +248,11 @@ export const DatabasesPage = (): React.ReactElement => {
 
       downloadSql(data);
 
-      dispatch(toastActions.success("Base de datos respaldada."));
+      dispatch(toastActions.success("Base de Datos respaldada."));
       getBackups();
     } catch (error) {
       console.log(error)
-      dispatch(toastActions.error("No se pudo respaldar la base de datos!"))
+      dispatch(toastActions.error("No se pudo respaldar la Base de Datos!"))
     } finally {
       dispatch(loadingActions.hide());
     }
@@ -263,7 +263,7 @@ export const DatabasesPage = (): React.ReactElement => {
 
     dispatch(alertActions.show({
       title: "Restaurar Base de Datos",
-      description: "¿Está seguro de restaurar la Base de Datos? Los datos actuales seran remplazados.",
+      description: "¿Está seguro de restaurar la Base de Datos? Los datos actuales serán remplazados.",
       callback: () => {
         dispatch(loadingActions.show())
 
@@ -314,7 +314,7 @@ export const DatabasesPage = (): React.ReactElement => {
         </Typography>
 
         <Grid container spacing={2} style={{ marginTop: '20px', marginBottom: '20px' }} justifyContent="center">
-          <Grid item xs={12} md={!isSubAdmin ? 12 : 6}>
+          <Grid item xs={12} md={isSubAdmin ? 12 : 6}>
             <Button
               fullWidth
               variant="contained"

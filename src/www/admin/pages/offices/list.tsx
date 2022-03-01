@@ -12,7 +12,7 @@ import { officesActions as actions } from '../../../../_actions/offices.actions'
 
 export function ListOfficesPage(): React.ReactElement {
   const listName = 'Consultorios médicos';
-  const { items } = useSelector((state: any) => state.offices)
+  const { items = [] } = useSelector((state: any) => state.offices)
   const dispatch = useDispatch()
 
   useEffect(() => {

@@ -22,7 +22,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
   const [medicalAppointment, setMedicalAppointment] = useState<number | undefined>()
   const [openCancel, setOpenCancel] = useState(false)
   const [cancelAppointmentId, setCancelAppointment] = useState<number | undefined>()
-  const { items } = useSelector((state: any) => state.medicalAppointments)
+  const { items = [] } = useSelector((state: any) => state.medicalAppointments)
   const dispatch = useDispatch()
 
   const getMedicalAppointments = () => {
@@ -45,7 +45,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
 
     dispatch(alertActions.show({
       title: `Citas médica`,
-      description: reported ? `Quieres ver el historial médico?` : `Quieres modificar esta cita médica?`,
+      description: reported ? `¿Quiere visualizar el historial médico del paciente?` : `¿Está seguro que quiere modificar esta cita médica?`,
       callback: () => {
         setMedicalAppointment(row.id)
         setOpen(true);
@@ -58,7 +58,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
 
     dispatch(alertActions.show({
       title: `Citas médica`,
-      description: `Quieres cancelar esta cita médica?`,
+      description: `¿Está seguro que quiere cancelar esta cita médica?`,
       callback: () => {
         setCancelAppointment(row.id)
         setOpenCancel(true);

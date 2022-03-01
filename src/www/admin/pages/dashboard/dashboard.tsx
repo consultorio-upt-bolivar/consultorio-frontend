@@ -114,7 +114,9 @@ export const DashboardPage = (): React.ReactElement => {
           </Button>
         </div>
 
-        <Grid container spacing={2} justifyContent="start" style={{ marginBottom: '50px' }}>
+        <Grid container spacing={{
+          xs: 0, md: 2
+        }} justifyContent="start" style={{ marginBottom: '50px' }}>
           <Grid item xs={12} md={6}>
             <Typography variant='h5' noWrap fontWeight={500} my={2} textAlign="center">Estadísticas generales</Typography>
 
@@ -123,7 +125,7 @@ export const DashboardPage = (): React.ReactElement => {
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
-                height: 240,
+                height: 240
               }}
               elevation={2}
             >
@@ -159,7 +161,7 @@ export const DashboardPage = (): React.ReactElement => {
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
-                height: 240,
+                height: 240
               }}
               elevation={2}
             >

@@ -12,7 +12,7 @@ import { specialitiesActions as actions } from '../../../../_actions'
 
 export function ListSpecialitiesPage(): React.ReactElement {
   const listName = 'Especialidades médicas';
-  const { items } = useSelector((state: any) => state.specialities)
+  const { items = [] } = useSelector((state: any) => state.specialities)
   const dispatch = useDispatch()
 
   useEffect(() => {

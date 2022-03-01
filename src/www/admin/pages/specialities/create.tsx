@@ -24,7 +24,7 @@ export function CreateSpecialitiesPage(): React.ReactElement {
   // Variable
   const formName = 'Especialidad médica';
   const { loading, data } = useSelector((store: any) => store.specialities)
-  const { items } = useSelector((store: any) => store.offices)
+  const { items = [] } = useSelector((store: any) => store.offices)
 
   const classes = formStyles()
   const dispatch = useDispatch()

@@ -88,6 +88,8 @@ export function CreateUsersPage(): React.ReactElement {
 
     formik.setErrors(errors);
 
+    console.log(errors)
+
     if (!formik.isValid || Object.keys(errors).length > 0) {
       return;
     }

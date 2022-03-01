@@ -73,6 +73,7 @@ export function CancelMedicalAppointmentDialog({
                 title: `Confirmar`,
                 description: `¿Está seguro de cancelar esta cita médica?`,
                 callback: () => {
+                    dispatch(loadingActions.show())
                     setLoading(true);
 
                     dispatch(appointmentsActions.cancelAppointment(
@@ -80,21 +81,14 @@ export function CancelMedicalAppointmentDialog({
                         values.cancellationReason,
                         () => {
                             setLoading(false);
+                            dispatch(loadingActions.hide())
+                            setOpen(false);
                         }
                     ))
                 }
             }));
         })
     }
-
-    // Loading circle
-    useEffect(() => {
-        if(loading) {
-            dispatch(loadingActions.show())
-        } else {
-            dispatch(loadingActions.hide())
-        }
-    }, [loading])
 
     // Get specialities
     useEffect(() => {

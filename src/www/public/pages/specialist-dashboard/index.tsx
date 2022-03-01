@@ -19,7 +19,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
     const [openCancel, setOpenCancel] = useState(false)
     const [cancelAppointmentId, setCancelAppointment] = useState<number | undefined>()
     const [selectedSchedule, setSelectedSchedule] = useState<number | undefined>()
-    const { items } = useSelector((state: any) => state.medicalAppointments)
+    const { items = [] } = useSelector((state: any) => state.medicalAppointments)
     const dispatch = useDispatch()
 
     const getMedicalAppointments = () => {

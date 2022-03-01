@@ -14,7 +14,7 @@ import { getUserData } from '../../../../helpers/userStorage'
 
 export function ListUsersPage(): React.ReactElement {
   const listName = 'Usuarios';
-  const { items } = useSelector((state: any) => state.users)
+  const { items = [] } = useSelector((state: any) => state.users)
   const dispatch = useDispatch()
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { PublicRoles } from '../../../../constants/roles'
 export const validationSchema = Yup.object({
   name: Yup.string().required(validationMessages.required),
   email: Yup.string()
-    .email(validationMessages.invalid.replace('$', 'Email'))
+    .email(validationMessages.email.replace('$', 'Email'))
     .required(validationMessages.required),
   phone: Yup.string().required(validationMessages.required),
   legalId: Yup.string().max(20, validationMessages.maxLength.replace('$', '20')).required(validationMessages.required),
@@ -21,7 +21,7 @@ export const initialValues = {
   phone: '',
   legalId: '',
   status: 'authorized',
-  profile: 'Estudiante',
+  profile: '',
   password: '',
 }
 
@@ -33,7 +33,7 @@ export const formCreateFields = {
     label: 'Tipo de usuario',
     id: 'name',
     values: PublicRoles,
-    default: 'Estudiante',
+    default: '',
     type: 'select',
     required: true
   },
@@ -58,7 +58,7 @@ export const formUpdateFields = {
     label: 'Tipo de usuario',
     id: 'name',
     values: PublicRoles,
-    default: 'Estudiante',
+    default: '',
     type: 'select',
     required: true
   },

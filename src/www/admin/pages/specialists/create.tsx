@@ -44,7 +44,7 @@ export function CreateSpecialistPage(): React.ReactElement {
       const { profile, ...rest } = data;
 
       const options: any = {
-        profile: data.profile.name,
+        profile: data.profile.id,
         password: "",
         ...rest,
       }

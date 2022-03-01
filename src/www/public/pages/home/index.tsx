@@ -34,12 +34,14 @@ const useStyles = makeStyles({
     backgroundSize: "900px",
     backgroundPosition: "top left, bottom right",
     backgroundRepeat: "no-repeat",
+    marginTop: "-1px",
   },
   about: {
     backgroundImage: "url(/images/fondo5.png)",
     backgroundSize: "900px",
     backgroundPosition: "top right",
     backgroundRepeat: "no-repeat",
+    marginTop: "-1px",
   }
 })
 

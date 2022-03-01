@@ -12,7 +12,7 @@ import { modalsActions as actions } from '../../../../_actions'
 
 export function ListModalPage(): React.ReactElement {
   const listName = 'Modales';
-  const { items } = useSelector((state: any) => state.modals)
+  const { items = [] } = useSelector((state: any) => state.modals)
   const dispatch = useDispatch()
 
   useEffect(() => {

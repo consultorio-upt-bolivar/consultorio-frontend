@@ -159,22 +159,20 @@ export function TakeMedicalAppointmentDialog({
                 title: `Confirmar`,
                 description: `¿Está seguro de guardar los datos?`,
                 callback: () => {
+                    dispatch(loadingActions.show())
+                    
                     dispatch(medicalAppointmentsActions.updateOne(+medicalAppointment, options, {
-                        callback: getMedicalAppointment
+                        callback: () => {
+                            getMedicalAppointment();
+                            setLoading(false);
+                            dispatch(loadingActions.hide())
+                            setOpen(false);
+                        }
                     }))
                 }
             }));
         })
     }
-
-    // Loading circle
-    useEffect(() => {
-        if (loading) {
-            dispatch(loadingActions.show())
-        } else {
-            dispatch(loadingActions.hide())
-        }
-    }, [loading])
 
     // Get specialities
     useEffect(() => {

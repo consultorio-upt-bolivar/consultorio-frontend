@@ -148,7 +148,7 @@ export const AvaliableDates = (params: {
                 if (el.hours.length == 0) return;
 
                 return (
-                    <Grid item xs={4} key={`${user.id}-${el.date}-box`} onClick={(e) => handleSelectDate(e, el)}>
+                    <Grid item xs={12} md={4} key={`${user.id}-${el.date}-box`} onClick={(e) => handleSelectDate(e, el)}>
                         <Item>
                             {el.date}
                         </Item>
@@ -194,7 +194,7 @@ export const AvaliableDates = (params: {
 
         const hours = selectedDate.hours.map((hour: string, i: number) => {
             return (
-                <Grid item xs={4} key={'h-' + selectedDate.date + '-' + hour + '-' + i} onClick={(e) => handleSelectHour(e, hour)}>
+                <Grid item xs={12} md={4} key={'h-' + selectedDate.date + '-' + hour + '-' + i} onClick={(e) => handleSelectHour(e, hour)}>
                     <Item>{hour}</Item>
                 </Grid>
             )
@@ -210,7 +210,7 @@ export const AvaliableDates = (params: {
 
         return (
             <Box>
-                <div 
+                <div
                     onClick={(e) => {
                         setSelectedDate({})
                         getAvaliableDates()
@@ -310,52 +310,59 @@ export const AvaliableDates = (params: {
                 ) : null}
             </Box>
 
-            <Box mt={2} display="flex" justifyContent="space-between">
+            <Grid container spacing={2} mt={2}>
                 {
                     step == 'selectedDate' ?
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={(e) => {
-                                setSelectedDate({})
-                                getAvaliableDates()
-                                setStep('findAvaliableDates')
-                            }}
-                            disabled={creatingAppointment}
-                        >
-                            Seleccionar fecha
-                        </Button> : null
+                        <Grid item xs={12} md={6}>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                onClick={(e) => {
+                                    setSelectedDate({})
+                                    getAvaliableDates()
+                                    setStep('findAvaliableDates')
+                                }}
+                                disabled={creatingAppointment}
+                            >
+                                Seleccionar fecha
+                            </Button>
+                        </Grid> : null
                 }
 
                 {
                     step == 'confirm' ?
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={(e) => {
-                                setStep('selectedDate')
-                            }}
-                            disabled={creatingAppointment}
-                        >
-                            Seleccionar hora
-                        </Button> : null
+                        <Grid item xs={12} md={6}>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                onClick={(e) => {
+                                    setStep('selectedDate')
+                                }}
+                                disabled={creatingAppointment}
+                            >
+                                Seleccionar hora
+                            </Button>
+                        </Grid> : null
                 }
 
                 {
                     step == 'confirm' ?
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={(e) => handleSubmit(e)}
-                            disabled={creatingAppointment}
-                        >
-                            Confirmar cita
-                        </Button> : null
+
+                        <Grid item xs={12} md={6}>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                onClick={(e) => handleSubmit(e)}
+                                disabled={creatingAppointment}
+                            >
+                                Confirmar cita
+                            </Button>
+                        </Grid> : null
                 }
-            </Box>
+            </Grid>
         </>
     )
 }
