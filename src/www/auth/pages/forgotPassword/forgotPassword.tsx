@@ -56,9 +56,14 @@ export function ForgotPasswordPage() {
 
   const handleSendCode = (e: React.MouseEvent) => {
     e.preventDefault()
-    if (formik.values.email && formik.errors.email != "") {
-      dispatch(authActions.forgotPasswordMail(formik.values.email))
+
+    if (!formik.values.email || formik.errors.email != "") {
+      formik.setFieldError("email", "* Requerido.")
+    } {
+      formik.setFieldError("email", undefined)
     }
+
+    dispatch(authActions.forgotPasswordMail(formik.values.email))
   }
 
   const formikFields = GetFormikFields(formik, formFields)
