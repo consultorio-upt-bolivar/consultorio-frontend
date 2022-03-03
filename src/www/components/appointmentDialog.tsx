@@ -53,11 +53,10 @@ export function AppointmentDialog({
     }
 
     const handleClose = () => {
-        formik.setValues(initialValues);
+        formik.setValues(initialValues, false);
 
         const options = {
             callback: () => {
-                dispatch(toastActions.success("Cita médica programada!"));
                 setOpen(false)
             }
         }

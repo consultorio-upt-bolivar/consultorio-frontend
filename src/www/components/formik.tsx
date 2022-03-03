@@ -43,7 +43,8 @@ export const formStyles = makeStyles({
     padding: 0
   },
   errorText: {
-    width: '100%'
+    width: '100%',
+    marginLeft: 0
   }
 })
 
@@ -83,8 +84,8 @@ export const GetFormikFields = (formik: any, fields: any) => {
             autoComplete={name}
             {...formik.getFieldProps(name)}
             style={{
-                marginTop: "24px"
-              }}
+              marginTop: "24px"
+            }}
           />
           <FormHelperText className={classes.errorText} error>
             {(formik.touched[name] && formik.errors[name]) || formik.errors[name]
@@ -162,11 +163,11 @@ export const GetFormikFields = (formik: any, fields: any) => {
         input = (
           <DivContainer width={options.width} key={key}>
             <FormControl
-              sx={{ mt: 1 }}
               variant="outlined"
               className={classes.formControl}
               style={{
-                marginTop: "24px"
+                marginTop: "24px",
+                marginBottom: "4px"
               }}
             >
               <InputLabel className={classes.selectLabel} id={'select-' + name}>
@@ -193,9 +194,9 @@ export const GetFormikFields = (formik: any, fields: any) => {
                 })}
               </Select>
               <FormHelperText className={classes.errorText} error>
-              {(formik.touched[name] && formik.errors[name]) || formik.errors[name]
-                ? formik.errors[name]
-                : null}
+                {(formik.touched[name] && formik.errors[name]) || formik.errors[name]
+                  ? formik.errors[name]
+                  : null}
               </FormHelperText>
             </FormControl>
           </ DivContainer>
@@ -239,7 +240,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
               disabled={options.readonly}
               {...formik.getFieldProps(name)}
               style={{
-                marginTop: "24px"
+                marginTop: "8px"
               }}
             />
             <FormHelperText className={classes.errorText} error>
@@ -286,7 +287,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
                 disablePast={options.disablePast}
                 maxDate={options.maxDate}
                 onChange={(date: Date | null) => {
-                  if(!date) return;
+                  if (!date) return;
                   formik.setFieldValue(name, date)
                 }}
                 renderInput={(params) => <TextField
@@ -315,7 +316,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
                 label={options.label}
                 value={formik.values[name]}
                 onChange={(date: Date | null) => {
-                  if(!date) return;
+                  if (!date) return;
                   formik.setFieldValue(name, date)
                 }}
                 renderInput={(params: any) => <TextField

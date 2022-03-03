@@ -40,7 +40,7 @@ export function CreateUsersPage(): React.ReactElement {
     if (params.id) {
       dispatch(actions.getOne(+params.id))
     } else {
-      formik.setValues(initialValues);
+      formik.setValues(initialValues, false);
     }
   }, [params.id])
 
@@ -94,8 +94,6 @@ export function CreateUsersPage(): React.ReactElement {
     const errors = await formik.validateForm();
 
     formik.setErrors(errors);
-
-    console.log(errors)
 
     if (!formik.isValid || Object.keys(errors).length > 0) {
       return;

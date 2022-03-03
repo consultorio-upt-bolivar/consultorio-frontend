@@ -75,7 +75,6 @@ function cancelAppointment(id: number, reason: string, callback?: () => void): A
 
         dispatch(toastActions.success(successMessages.cancelAppointment))
 
-        console.log(callback)
         if (callback) {
           callback()
         }

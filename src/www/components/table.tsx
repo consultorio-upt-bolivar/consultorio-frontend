@@ -137,6 +137,7 @@ function RowMenuCell({
 
         {deleteAction ? <IconButton
           color="inherit"
+          className={classes.textPrimary}
           size="small"
           aria-label="delete"
           onClick={(e) => handleClick({
@@ -148,6 +149,7 @@ function RowMenuCell({
 
         {toggleAction ? <IconButton
           color="inherit"
+          className={classes.textPrimary}
           size="small"
           aria-label="toggle"
           onClick={(e) => handleClick({

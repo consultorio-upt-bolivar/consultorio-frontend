@@ -96,6 +96,7 @@ export const AvaliableDates = (params: {
                     toast: false,
                     callback: () => {
                         setLoading(false)
+                        dispatch(toastActions.success("Cita médica programada!"));
                         params.submitCallback()
                     }
                 }
