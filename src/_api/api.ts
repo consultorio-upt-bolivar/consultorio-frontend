@@ -1132,7 +1132,7 @@ export const DatabasesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async downloadBackupDatabaseApi(fileName: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async downloadBackupDatabaseApi(fileName: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.downloadBackupDatabaseApi(fileName, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1197,7 +1197,7 @@ export const DatabasesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        downloadBackupDatabaseApi(fileName: string, options?: any): AxiosPromise<void> {
+        downloadBackupDatabaseApi(fileName: string, options?: any): AxiosPromise<string> {
             return localVarFp.downloadBackupDatabaseApi(fileName, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3665,7 +3665,7 @@ export const StadisticsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async downloadReportStadistics(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async downloadReportStadistics(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.downloadReportStadistics(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3715,7 +3715,7 @@ export const StadisticsApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        downloadReportStadistics(options?: any): AxiosPromise<void> {
+        downloadReportStadistics(options?: any): AxiosPromise<string> {
             return localVarFp.downloadReportStadistics(options).then((request) => request(axios, basePath));
         },
         /**

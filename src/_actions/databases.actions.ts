@@ -7,6 +7,7 @@ import { getConfiguration } from '../config/api.config'
 import { ActionFn } from '../interfaces/action.interface'
 import { DatabasesApi } from '../_api'
 import { databasesConstants } from '../_constants/databases.constants'
+import { loadingActions } from './loading.actions'
 
 const successMessages = {
   backupDatabase: 'Base de Datos respaldada!',
@@ -70,7 +71,15 @@ function restoreDatabase(file: any, showToast = true, callback: () => void): Act
   const conf = getConfiguration()
 
   return (dispatch: Dispatch) => {
+    const onError = () => {
+      dispatch(loadingActions.hide())
+      dispatch(failure("Error al restaurar la base de datos!"));
+      dispatch(toastActions.error("Error al restaurar la base de datos!"));
+    }
+
     dispatch(request())
+
+    dispatch(loadingActions.show())
 
     const formData = new FormData();
 
@@ -81,8 +90,11 @@ function restoreDatabase(file: any, showToast = true, callback: () => void): Act
       body: formData,
       headers: conf.baseOptions.headers
     })
-      .then(res => res.json())
-      .then(() => {
+      .then((res) => {
+        if (res.status != 200) {
+          throw new Error("Restore database error!")
+        }
+
         dispatch(success());
 
         if (showToast) {
@@ -92,15 +104,7 @@ function restoreDatabase(file: any, showToast = true, callback: () => void): Act
         if (callback) {
           callback();
         }
-      }).catch((error) => {
-        const errMessage = handleError(error);
-        dispatch(failure(errMessage));
-        dispatch(toastActions.error(errMessage));
-
-        if (callback) {
-          callback();
-        }
-      });
+      }, onError).catch(onError);
   }
 
   function request() {

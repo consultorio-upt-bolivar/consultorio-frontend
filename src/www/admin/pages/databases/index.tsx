@@ -91,8 +91,8 @@ export const DatabasesPage = (): React.ReactElement => {
     dispatch(loadingActions.show());
 
     try {
-      const { data }: any = api.downloadBackupDatabaseApi(fileName);
-      downloadSql(data);
+      const res: any = await api.downloadBackupDatabaseApi(fileName);
+      downloadSql(res.data);
       getBackups()
     } catch (error) {
       console.log(error)
@@ -244,10 +244,7 @@ export const DatabasesPage = (): React.ReactElement => {
     const api = new DatabasesApi(getConfiguration())
 
     try {
-      const { data }: any = await api.backupDatabaseApi();
-
-      downloadSql(data);
-
+      await api.backupDatabaseApi();
       dispatch(toastActions.success("Base de Datos respaldada."));
       getBackups();
     } catch (error) {
@@ -265,10 +262,7 @@ export const DatabasesPage = (): React.ReactElement => {
       title: "Restaurar Base de Datos",
       description: "¿Está seguro de restaurar la Base de Datos? Los datos actuales serán remplazados.",
       callback: () => {
-        dispatch(loadingActions.show())
-
         dispatch(databasesActions.restoreDatabase(sqlFile, true, () => {
-
           dispatch(databasesActions.clearState())
           setSqlFile(false)
 
@@ -278,7 +272,6 @@ export const DatabasesPage = (): React.ReactElement => {
             inputCurrent.value = "";
           }
 
-          dispatch(loadingActions.hide())
           dispatch(toastActions.success("Base de datos restaurada."));
           getBackups();
         }))
