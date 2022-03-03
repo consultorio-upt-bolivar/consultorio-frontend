@@ -205,7 +205,7 @@ export const DashboardPage = (): React.ReactElement => {
                       label="Fecha desde"
                       value={formik.values["dateFrom"]}
                       onChange={(date: Date | null) => {
-
+                        if(!date) return;
                         formik.setFieldValue("dateFrom", date)
                       }}
                       renderInput={(params) => <TextField
@@ -227,6 +227,7 @@ export const DashboardPage = (): React.ReactElement => {
                       label="Fecha hasta"
                       value={formik.values["dateEnd"]}
                       onChange={(date: Date | null) => {
+                        if(!date) return;
                         formik.setFieldValue("dateEnd", date)
                       }}
                       renderInput={(params) => <TextField

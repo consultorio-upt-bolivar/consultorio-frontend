@@ -40,7 +40,7 @@ export const initialValues = {
 }
 
 export const formFields = {
-  name: 'Nombre',
+  name: 'Nombre y apellido',
   email: 'Correo electrónico',
   subject: 'Asunto',
   description: {

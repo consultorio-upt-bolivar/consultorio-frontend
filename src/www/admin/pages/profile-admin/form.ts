@@ -22,16 +22,16 @@ export const initialValues = {
 }
 
 export const formFields = {
-  name: 'Nombre',
-  phone: {
-    type: 'number',
-    label: 'Teléfono',
-    required: true
-  },
+  name: 'Nombre y apellido',
   legalId: {
     type: 'text',
     label: 'Cédula',
     readonly: true
+  },
+  phone: {
+    type: 'number',
+    label: 'Teléfono',
+    required: true
   },
   email: {
       type: 'text',

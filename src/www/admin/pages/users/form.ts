@@ -27,7 +27,7 @@ export const initialValues = {
 }
 
 export const formCreateFields = {
-  name: 'Nombre',
+  name: 'Nombre y apellido',
   legalId: "Cédula",
   phone: "Teléfono",
   profile: {
@@ -47,7 +47,7 @@ export const formCreateFields = {
 }
 
 export const formUpdateFields = {
-  name: 'Nombre',
+  name: 'Nombre y apellido',
   legalId: {
     type: "text",
     name: "legalId",

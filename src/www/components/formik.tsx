@@ -165,6 +165,9 @@ export const GetFormikFields = (formik: any, fields: any) => {
               sx={{ mt: 1 }}
               variant="outlined"
               className={classes.formControl}
+              style={{
+                marginTop: "24px"
+              }}
             >
               <InputLabel className={classes.selectLabel} id={'select-' + name}>
                 {options.label}
@@ -283,6 +286,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
                 disablePast={options.disablePast}
                 maxDate={options.maxDate}
                 onChange={(date: Date | null) => {
+                  if(!date) return;
                   formik.setFieldValue(name, date)
                 }}
                 renderInput={(params) => <TextField
@@ -311,6 +315,7 @@ export const GetFormikFields = (formik: any, fields: any) => {
                 label={options.label}
                 value={formik.values[name]}
                 onChange={(date: Date | null) => {
+                  if(!date) return;
                   formik.setFieldValue(name, date)
                 }}
                 renderInput={(params: any) => <TextField

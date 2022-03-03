@@ -25,15 +25,15 @@ export const initialValues = {
 }
 
 export const formFields = {
-  name: 'Nombre',
-  phone: {
-    type: 'text',
-    label: 'Teléfono',
-    required: true
-  },
+  name: 'Nombre y apellido',
   legalId: {
     type: 'text',
     label: 'Cédula',
+    required: true
+  },
+  phone: {
+    type: 'text',
+    label: 'Teléfono',
     required: true
   },
   email: 'Correo electrónico',

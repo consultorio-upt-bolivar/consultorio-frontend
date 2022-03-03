@@ -120,14 +120,14 @@ export function CreateUsersPage(): React.ReactElement {
   
         if (formik.values["profile"] === Roles.Family) {
           if (isNaN(+formik.values.familyLegalId)) {
-            dispatch(toastActions.error("Cédula de familiar inválida."))
+            dispatch(toastActions.error("Cédula del familiar inválida."))
             return;
           }
   
           try {
             await api.validateLegalIdUPT(formik.values.familyLegalId, Roles.Employee)
           } catch (error) {
-            dispatch(toastActions.error("Cédula de familiar inválida."))
+            dispatch(toastActions.error("Cédula del familiar inválida."))
             return
           }
   
@@ -165,7 +165,7 @@ export function CreateUsersPage(): React.ReactElement {
           {
             formik.values["profile"] === Roles.Family ?
               <FormControl
-                sx={{ marginTop: "0px !important" }}
+                sx={{ marginTop: "16px !important" }}
                 variant="outlined"
                 className={classes.formControl}
               >
@@ -174,7 +174,7 @@ export function CreateUsersPage(): React.ReactElement {
                   margin="dense"
                   fullWidth
                   id="familyLegalId"
-                  label="Cédula de familiar"
+                  label="Cédula del familiar"
                   disabled={!!params.id}
                   {...formik.getFieldProps("familyLegalId")}
                 />

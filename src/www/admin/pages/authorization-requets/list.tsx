@@ -102,16 +102,16 @@ export function AuthorizationRequestPage(): React.ReactElement {
         minWidth: 200
       },
       {
-        field: 'email',
-        headerName: 'Correo electrónico del solicitante',
-        description: 'Correo electrónico del usuario',
+        field: 'legalId',
+        headerName: 'Cédula del solicitante',
+        description: 'Cédula del usuario',
         flex: 2,
         minWidth: 250
       },
       {
-        field: 'legalId',
-        headerName: 'Cédula del solicitante',
-        description: 'Cédula del usuario',
+        field: 'email',
+        headerName: 'Correo electrónico del solicitante',
+        description: 'Correo electrónico del usuario',
         flex: 2,
         minWidth: 250
       },

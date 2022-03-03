@@ -26,7 +26,7 @@ export const initialValues = {
 }
 
 export const formFields = {
-  name: 'Nombre',
+  name: 'Nombre y apellido',
   legalId: "Cédula",
   phone: "Teléfono",
   profile: {

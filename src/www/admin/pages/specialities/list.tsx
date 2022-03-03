@@ -46,7 +46,7 @@ export function ListSpecialitiesPage(): React.ReactElement {
       {
         field: 'name',
         headerName: 'Nombre',
-        description: 'Nombre de la oficina',
+        description: 'Nombre del consultorio médico',
         flex: 1,
         minWidth: 200
       },

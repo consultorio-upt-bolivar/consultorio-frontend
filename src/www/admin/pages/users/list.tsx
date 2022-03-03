@@ -55,8 +55,15 @@ export function ListUsersPage(): React.ReactElement {
       },
       {
         field: 'name',
-        headerName: 'Nombre',
+        headerName: 'Nombre y apellido',
         description: 'Nombre del usuario',
+        flex: 1,
+        minWidth: 200
+      },
+      {
+        field: 'legalId',
+        headerName: 'Cédula',
+        description: 'Cédula del usuario',
         flex: 1,
         minWidth: 200
       },
@@ -72,13 +79,6 @@ export function ListUsersPage(): React.ReactElement {
         field: 'phone',
         headerName: 'Teléfono',
         description: 'Teléfono del usuario',
-        flex: 1,
-        minWidth: 200
-      },
-      {
-        field: 'legalId',
-        headerName: 'Cédula',
-        description: 'Cédula del usuario',
         flex: 1,
         minWidth: 200
       },
