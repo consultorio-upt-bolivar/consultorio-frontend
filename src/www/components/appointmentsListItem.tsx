@@ -44,7 +44,7 @@ const AppointmentInfo = ({ data, cancel }: any) => <Box>
       Consultorio médico: {data.schedule.speciality.office.name}
     </Typography>
     <Typography sx={{ fontSize: 16 }} margin="0">
-       Dirección: {data.schedule.speciality.office.place}
+      Dirección: {data.schedule.speciality.office.place}
     </Typography>
   </Box>
 
@@ -55,7 +55,7 @@ const AppointmentInfo = ({ data, cancel }: any) => <Box>
   </div> : null}
 </Box>;
 
-export default function MedicalAppointmentsListItem({ showPast = false }: { showPast?: boolean }) {
+export default function MedicalAppointmentsListItem({ showPast = false, showButton = false }: { showPast?: boolean, showButton?: boolean }) {
   const { items = [] } = useSelector((state: any) => state.medicalAppointments)
   const { loading } = useSelector((state: any) => state.appointments)
   const dispatch = useDispatch()
@@ -71,11 +71,11 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
 
   const handleCancelAppointment = (appointmentId: number) => {
     dispatch(alertActions.show({
-        title: `Cita médica`,
-        description: `¿Está seguro que quiere cancelar esta cita médica?`,
-        callback: () => {
-          dispatch(appointmentsActions.cancelAppointment(appointmentId, 'Cancelado por el usuario!', getAppointments))
-        }
+      title: `Cita médica`,
+      description: `¿Está seguro de cancelar esta cita médica?`,
+      callback: () => {
+        dispatch(appointmentsActions.cancelAppointment(appointmentId, 'Cancelado por el usuario!', getAppointments))
+      }
     }));
   }
 
@@ -97,7 +97,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
       return <Grid item width="100%" padding={0} key={`${showPast ? "past" : 'future'}d-${el.date}-${el.id}`}>
         <Item>
           <AppointmentInfo data={el} cancel={<Stack direction="row">
-            <Button
+            {showButton ? <Button
               color="primary"
               startIcon={<Delete />}
               disabled={loading}
@@ -107,7 +107,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
               onClick={() => handleCancelAppointment(el.id)}
             >
               Cancelar
-            </Button>
+            </Button> : null}
           </Stack>} />
         </Item>
       </Grid>
@@ -117,7 +117,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
   const renderPastAppointments = () => {
     if (!typedItems.length) return renderAlert(notFoundPastAppointments)
 
-    const filteredAppointments = typedItems.filter(el => isPast(new Date(el.date)) || el.cancellationDate || (el.report || el.report?.length))
+    const filteredAppointments = typedItems.filter(el => isPast(new Date(el.date)) || (el.report || el.report?.length))
 
     if (!filteredAppointments.length) return renderAlert(notFoundPastAppointments)
 
@@ -131,7 +131,7 @@ export default function MedicalAppointmentsListItem({ showPast = false }: { show
   }
 
   return (
-    <Grid container overflow="auto" spacing={2} style={{ marginTop: '30px', marginBottom: '30px', maxHeight: '600px', paddingBottom: '10px', paddingRight: '20px'  }}>
+    <Grid container overflow="auto" spacing={2} style={{ marginTop: '30px', marginBottom: '30px', maxHeight: '600px', paddingBottom: '10px', paddingRight: '20px' }}>
       {showPast ? renderPastAppointments() : renderNextAppointments()}
     </Grid>
   )

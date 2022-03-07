@@ -262,7 +262,7 @@ export function TakeMedicalAppointmentDialog({
                                     multiline
                                     fullWidth
                                     id="report"
-                                    label='Reporte'
+                                    label='Reporte médico'
                                     rows={6}
                                     required={false}
                                     {...formik.getFieldProps("report")}

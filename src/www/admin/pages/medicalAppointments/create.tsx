@@ -17,7 +17,7 @@ import { AdminLayout } from '../../components/adminLayout'
 import { officesActions, specialitiesActions, toastActions, usersActions } from '../../../../_actions'
 import { AvaliableDates } from '../../../components/avaliableDates'
 import { validationMessages } from '../../../../constants/formik'
-import { UsersApi } from '../../../../_api'
+import { PublicRoles, UsersApi } from '../../../../_api'
 import { getConfiguration } from '../../../../config/api.config'
 import { handleError } from '../../../../helpers/handleApiError'
 import { AppHistory } from '../../../../helpers'
@@ -70,7 +70,7 @@ export function CreateMedicalAppointmentPage(): React.ReactElement {
         dispatch(usersActions.getAll({
             limit: 25000,
             offset: 0,
-            where: "isActive==1"
+            where: `isActive==1;profile.id==${PublicRoles.Student},${PublicRoles.Employee},${PublicRoles.Family}`
         }, {
             toast: false
         }))

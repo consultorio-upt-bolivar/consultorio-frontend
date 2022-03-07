@@ -27,20 +27,16 @@ export function AuthorizationRequestPage(): React.ReactElement {
 
       for (let i = 0; i < data.length; i++) {
         const { id, ...rest } = data[i];
-        const pendingVerifications = data[i].pendingVerifications;
+        const relatedUser = data[i].relatedUser;
 
-        for (let i = 0; i < pendingVerifications.length; i++) {
-          const verification = pendingVerifications[i];
-          res.push({
-            userId: id,
-            ...rest,
-            id: verification.id,
-            userFamilyName: verification.name,
-            userFamilyLegalId: verification.legalId,
-            userFamilyEmail: verification.email,
-            requestVerified: verification.requestVerified,
-          })
-        }
+        res.push({
+          id,
+          ...rest,
+          userFamilyId: relatedUser.id,
+          userFamilyName: relatedUser.name,
+          userFamilyLegalId: relatedUser.legalId,
+          userFamilyEmail: relatedUser.email
+        });
       }
 
       setItems(res);
@@ -54,8 +50,8 @@ export function AuthorizationRequestPage(): React.ReactElement {
     
     try {
       await api.updateFamilyAuthorizationUsers({
-        userId: row.userId,
-        familyId: row.id,
+        userId: row.id,
+        familyId: row.userFamilyId,
         status: row.requestVerified ? false : true
       })
 

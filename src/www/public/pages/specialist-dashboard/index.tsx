@@ -41,7 +41,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
 
         dispatch(alertActions.show({
             title: `Citas médica`,
-            description: `¿Quiere ${row.cancellationDate ? 'modificar' : 'atender'} esta cita médica?`,
+            description: `¿Está seguro de ${row.cancellationDate ? 'modificar' : 'atender'} esta cita médica?`,
             callback: () => {
                 setMedicalAppointment(row.id)
                 setOpen(true);
@@ -54,7 +54,7 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
 
         dispatch(alertActions.show({
             title: `Citas médica`,
-            description: `¿Quiere cancelar esta cita médica?`,
+            description: `¿Está seguro de cancelar esta cita médica?`,
             callback: () => {
                 setCancelAppointment(row.id)
                 setOpenCancel(true);
@@ -70,47 +70,58 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                 field: 'id',
                 headerName: 'ID',
                 description: 'Id único en la BD',
-                width: 100,
+                minWidth: 150,
+                flex: 1,
                 hide: true
             },
             {
                 field: 'specialityName',
                 headerName: 'Especialidad médica',
                 description: 'Especialidad de la jornada',
-                width: 200,
+                width: 150,
+                flex: 1,
                 hide: true
             },
             {
                 field: 'date',
                 headerName: 'Fecha',
                 description: 'Fecha',
-                width: 150
+                flex: 1,
+                minWidth: 150
+
             },
             {
                 field: 'userName',
                 headerName: 'Nombre del paciente',
                 description: 'Nombre del usuario',
-                flex: 150
+                flex: 2,
+                minWidth: 250
+
             },
             {
                 field: 'userType',
                 headerName: 'Tipo de usuario',
                 description: 'Tipo de usuario',
-                width: 150,
+                flex: 1,
+                minWidth: 150,
+                
             },
             {
                 field: 'cancelled',
                 headerName: 'Cancelada',
                 description: 'Cancelada',
                 type: "boolean",
-                width: 100,
+                flex: 1,
+                minWidth: 150,
+                
             },
             {
                 field: 'attended',
                 headerName: 'Atendida',
                 description: 'Atendida por el especialista',
                 type: "boolean",
-                width: 100,
+                flex: 1,
+                minWidth: 150,
             },
             {
                 field: 'actions',
@@ -145,7 +156,9 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
                     )
                 },
                 sortable: false,
-                width: 100,
+                flex: 1,
+                minWidth: 150,
+                
                 headerAlign: 'center',
                 filterable: false,
                 align: 'center',
@@ -169,9 +182,14 @@ export const SpecialistDashboardPage = (): React.ReactElement => {
         <PublicLayout>
             <Container
                 maxWidth="xl"
-                sx={{ overflow: 'hidden', width: "100%", height: "100%" }}
+                sx={{ overflow: 'hidden', width: "100%", height: "100%", mt: 5 }}
             >
-                <Grid container spacing={2} justifyContent="center" style={{ marginTop: '10px', marginBottom: '50px' }}>
+                <Grid container columnSpacing={2} justifyContent="center" sx={{
+                    mt: {
+                        sm: 0,
+                        md: 5
+                    }
+                }}>
                     <Grid item xs={12} sm={3} md={4}>
                         <Typography noWrap fontWeight={500} my={2} textAlign="center">JORNADAS</Typography>
                         <Alert style={{marginTop: '40px'}} severity="info">Selecciona una jornada para visualizar las citas médicas.</Alert>

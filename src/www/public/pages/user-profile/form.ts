@@ -28,11 +28,7 @@ export const formFields = {
         label: 'Cédula',
         readonly: true
     },
-    phone: {
-        type: 'number',
-        label: 'Teléfono',
-        required: true
-    },
+    phone: 'Teléfono',
     email: {
         type: 'text',
         label: 'Correo electrónico',

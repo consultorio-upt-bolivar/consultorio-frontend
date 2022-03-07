@@ -35,7 +35,7 @@ export const UserDashboardPage = (): React.ReactElement => {
                 <Grid container spacing={2} justifyContent="center" style={{ marginTop: '10px' }}>
                     <Grid item xs={12} sm={6} md={6}>
                         <Typography noWrap fontWeight={500} my={2} textAlign="center">CITAS MÉDICAS PROGRAMADAS</Typography>
-                        <MedicalAppointmentsListItem />
+                        <MedicalAppointmentsListItem showButton={true} />
                     </Grid>
 
                     <Grid item xs={12} sm={6} md={6}>

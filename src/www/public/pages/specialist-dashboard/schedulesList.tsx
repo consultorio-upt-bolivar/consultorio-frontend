@@ -71,8 +71,17 @@ export default function SpecialistScheduleList({ selectedSchedule, setSelectedSc
     }))
   }, [])
 
+  useEffect(() => {
+    if (items.length > 0) {
+      setSelectedSchedule(items[0].id)
+    }
+  }, [items])
+
   return (
-    <Grid container alignContent="start" alignItems="start" overflow="auto" spacing={2} style={{ marginTop: '20px', height: '700px', paddingBottom: '10px', paddingRight: '10px' }}>
+    <Grid container alignContent="start" alignItems="start" overflow="auto" spacing={2} sx={{ marginTop: '20px', height: {
+      sm: 'auto',
+      md: '700px'
+    }, paddingBottom: '10px', paddingRight: '10px' }}>
       {!items.length ? renderAlert("Aun no te han asignado jornadas laborales!") : items.map((el: any) => {
         return <Grid item width="100%" padding={0} key={'schedule-' + el.id} onClick={() => setSelectedSchedule(el.id)}>
           <Item style={el.id == selectedSchedule ? { background: "rgb(158 158 158 / 10%)" } : {}}>

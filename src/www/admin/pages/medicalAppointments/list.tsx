@@ -45,7 +45,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
 
     dispatch(alertActions.show({
       title: `Citas médica`,
-      description: reported ? `¿Quiere visualizar el historial médico del paciente?` : `¿Está seguro que quiere modificar esta cita médica?`,
+      description: reported ? `¿Está seguro de visualizar el historial médico del paciente?` : `¿Está seguro de modificar esta cita médica?`,
       callback: () => {
         setMedicalAppointment(row.id)
         setOpen(true);
@@ -58,7 +58,7 @@ export function ListMedicalAppointmentsPage(): React.ReactElement {
 
     dispatch(alertActions.show({
       title: `Citas médica`,
-      description: `¿Está seguro que quiere cancelar esta cita médica?`,
+      description: `¿Está seguro de cancelar esta cita médica?`,
       callback: () => {
         setCancelAppointment(row.id)
         setOpenCancel(true);

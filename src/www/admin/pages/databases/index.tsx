@@ -132,7 +132,7 @@ export const DatabasesPage = (): React.ReactElement => {
 
     dispatch(alertActions.show({
       title: `Descargar`,
-      description: `¿Quiere descargar este respaldo de Base de Datos?`,
+      description: `¿Está seguro de descargar este respaldo de Base de Datos?`,
       callback: async () => {
         downloadBackup(row.fileName)
       }
